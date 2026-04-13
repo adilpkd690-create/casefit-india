@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CaseFit India</title>
+  <title>Case Fit</title>
   <style>
     body{margin:0;font-family:Arial,sans-serif;background:#020617;color:#fff}
     .page{min-height:100vh;padding:24px;display:none}
@@ -12,20 +12,23 @@
     .btn{font-size:32px;font-weight:700;text-align:center;color:#000}
     .green{background:#22c55e}.cyan{background:#22d3ee}
     .glow{border:2px solid #fbbf24;color:#fbbf24;text-align:center;font-size:34px;animation:pulse 1s infinite}
-    .contact{border:1px solid #334155;border-radius:24px;padding:20px}
+    .contact{border:1px solid #334155;border-radius:24px;padding:20px;margin-top:40px;position:fixed;left:24px;right:24px;bottom:24px;background:#020617}
     .mail{background:#38bdf8;color:#000;padding:16px;border-radius:18px;text-align:center;font-weight:700}
     input{width:100%;padding:18px;border-radius:18px;background:#0f172a;color:#fff;border:1px solid #334155;font-size:24px;box-sizing:border-box}
     .result{background:#1e293b;border:1px solid #334155;border-radius:24px;padding:18px;font-size:22px;margin:14px 0}
     .back{display:inline-block;background:#22c55e;color:#000;padding:14px 20px;border-radius:18px;text-decoration:none;font-weight:700;margin-bottom:20px}
+    .yellow{color:#facc15;font-weight:700}
+    .warn{color:#fb923c;font-weight:700}
     @keyframes pulse{50%{opacity:.5}}
   </style>
 </head>
 <body>
   <div id="home" class="page active">
-    <h1>Suitable Case</h1>
+    <h1>Case Fit</h1>
     <a class="btn green" href="#" onclick="showPage('search')">🔎 Find Suitable Case</a>
     <a class="btn cyan" href="#" onclick="showPage('glass')">🛡️ Screen Glass</a>
     <div class="card glow">⚡ More Models Soon ⚡</div>
+    <div style="height:140px"></div>
     <div class="contact">
       <div>📞 Contact</div>
       <div class="mail">adilpkd690@gmail.com</div>
@@ -56,7 +59,7 @@ const models = [
  'Redmi Note 11 Pro 4G/5G - Note 11 Pro Plus 5G - Note 12 Pro 4G',
  'Redmi Note 11s - Note 11 4G',
  'Redmi Note 11 5G - Poco M4 Pro 5G - Note 11T 5G',
- 'Redmi 13C 4G - Redmi 13C 5G ⚠ OPEN TYPE - Poco C65',
+ 'Redmi 13C 4G - Redmi 13C 5G OPEN TYPE - Poco C65',
  'Redmi 10C - Redmi 10 4G - Redmi 10 Power - Poco C40',
  'Redmi Note 14 Pro - 14 Pro Plus',
  'Redmi 6 - 6A',
@@ -74,8 +77,8 @@ const models = [
  'Vivo T4x - Y29 4G - Y31 Pro 5G - iQOO Z10x',
  'Moto G85 - G96 - 50 Fusion',
  'Moto G31 - G41',
- 'Pixel 9 - Pixel 9 Pro ⚠ OPEN TYPE',
- 'Pixel 10 - Pixel 10 Pro ⚠ OPEN TYPE',
+ 'Pixel 9 - Pixel 9 Pro OPEN TYPE',
+ 'Pixel 10 - Pixel 10 Pro OPEN TYPE',
  'Realme C2 - Oppo A3s - Oppo A1K',
  'Realme C55 4G - Realme Narzo N55 4G',
  'Oppo F27 - Oppo Reno 12F 4G/5G - Reno 12 FS 5G',
@@ -92,8 +95,8 @@ const models = [
  'Samsung A10 - M10',
  'Samsung A10s - M01s',
  'Samsung A11 - M11',
- 'Samsung A12 4G/5G ⚠ OPEN TYPE - M12 - F12',
- 'Samsung A13 4G/5G ⚠ OPEN TYPE - A32 5G - M32 5G ⚠ OPEN TYPE',
+ 'Samsung A12 4G/5G OPEN TYPE - M12 - F12',
+ 'Samsung A13 4G/5G OPEN TYPE - A32 5G - M32 5G OPEN TYPE',
  'Samsung M23 - F23',
  'Samsung A13 5G - A04s',
  'Samsung A14 4G/5G',
@@ -105,18 +108,32 @@ const models = [
  'Samsung A32 4G - M32',
  'Samsung A52 4G - A52 5G - A52s 5G'
 ];
+
 function showPage(id){
  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
  document.getElementById(id).classList.add('active');
  if(id==='search') renderModels(models);
 }
-function renderModels(list){
- document.getElementById('results').innerHTML = list.map(m=>`<div class="result">• ${m}</div>`).join('');
+
+function renderModels(list, query=''){
+ const q = query.toLowerCase();
+ document.getElementById('results').innerHTML = list.map(m=>{
+   let text = m;
+   if(q){
+     const safe = q.replace(/[.*+?^${}()|[\]\]/g,'\$&');
+     text = text.replace(new RegExp(safe,'ig'), match => `<span class="yellow">${match}</span>`);
+   }
+   text = text.replace(/OPEN TYPE/gi,'<span class="yellow">OPEN TYPE</span>');
+   text = text.replace(/⚠ CHECK BEFORE BUY/gi,'<span class="warn">⚠ CHECK BEFORE BUY</span>');
+   return `<div class="result">• ${text}</div>`;
+ }).join('');
 }
+
 function filterModels(){
  const q=document.getElementById('searchBox').value.toLowerCase();
- renderModels(models.filter(m=>m.toLowerCase().includes(q)));
+ renderModels(models.filter(m=>m.toLowerCase().includes(q)), q);
 }
+
 renderModels(models);
 </script></body>
 </html>

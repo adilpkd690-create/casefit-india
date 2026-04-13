@@ -62,97 +62,63 @@
 </head>
 <body>
   <div class="hero">
-    <h1>📱 CaseFit India</h1>
-    <p>Find exact same-fit mobile cases with a premium brand-wise compatibility explorer</p>
-  </div>  <div class="search-wrap">
-    <select id="brand" onchange="searchPhones()">
-      <option value="">All Brands</option>
-      <option value="Redmi">Redmi</option>
-      <option value="Vivo">Vivo</option>
-      <option value="Samsung">Samsung</option>
-      <option value="Moto">Moto</option>
-      <option value="Pixel">Pixel</option>
-      <option value="Realme">Realme</option>
-    </select><input id="search" placeholder="Search your phone model..." oninput="searchPhones()"/>
-
-  </div>  <div id="results"></div>  <div class="info-box">
-    🚀 More phone models and same-fit groups are being added regularly.<br><br>
+    <h1>📱 CaseFit</h1>
+    <p>Select your phone brand to explore same-fit compatible models</p>
+  </div>  <div id="brandList" class="search-wrap"></div>
+  <div id="modelSection" style="display:none;">
+    <input id="search" placeholder="Search selected brand model..." oninput="searchPhones()"/>
+    <div id="results"></div>
+  </div>  <div class="info-box">
+    🚀 More phone models and same-fit groups are added regularly.<br><br>
     📩 Contact: adilpkd690@gmail.com
   </div>  <script>
     const phones = [
+      { brand:"Redmi", model:"Redmi 7", fit:"Also fits Redmi Y3" },
       { brand:"Redmi", model:"Redmi 12 5G", fit:"Also fits Poco M6 Pro" },
-      { brand:"Redmi", model:"Redmi Note 7", fit:"Also fits Redmi Note 7 Pro" },
-      { brand:"Redmi", model:"Redmi 8", fit:"Also fits Redmi 8A / 8A Dual" },
-      { brand:"Redmi", model:"Redmi 9A", fit:"Also fits Redmi 9i" },
-      { brand:"Redmi", model:"Redmi 9C", fit:"Also fits Redmi 10A / Poco C3 / Poco C31" },
-      { brand:"Redmi", model:"Redmi 9", fit:"Also fits Redmi 9 Prime / Poco M2" },
-      { brand:"Redmi", model:"Redmi Note 10 Pro", fit:"Also fits Redmi Note 10 Pro Max" },
-      { brand:"Redmi", model:"Redmi Note 10 4G", fit:"Also fits Note 10S / Note 11SE / Poco M5S" },
-      { brand:"Redmi", model:"Redmi 11 Prime 5G", fit:"Also fits Note 11E / Redmi 10 Prime Plus 5G" },
-      { brand:"Redmi", model:"POCO M4 5G", fit:"Also fits POCO M5 4G" },
-      { brand:"Redmi", model:"Redmi 11X", fit:"Also fits 11X Pro / K40 / K40 Pro / K40 Pro Plus / 11i / Poco F3" },
-      { brand:"Redmi", model:"Redmi Note 11 Pro", fit:"Also fits 4G / 5G / Pro Plus / Note 12 Pro 4G" },
-      { brand:"Redmi", model:"Redmi Note 11S", fit:"Also fits Note 11 4G" },
-      { brand:"Redmi", model:"Redmi Note 11 5G", fit:"Also fits Poco M4 Pro 5G / Note 11T 5G" },
       { brand:"Redmi", model:"Redmi 13C", fit:"Also fits Poco C65 / 5G open type" },
-      { brand:"Redmi", model:"Redmi 10C", fit:"Also fits Redmi 10 4G / 10 Power / Poco C40" },
-      { brand:"Redmi", model:"Redmi Note 14 Pro", fit:"Also fits 14 Pro Plus" },
-
-      { brand:"Vivo", model:"iQOO Z6", fit:"Also fits Vivo T1 5G / Y55 / Y75 5G" },
-      { brand:"Vivo", model:"iQOO Z3", fit:"Also fits Vivo Y72 5G" },
-      { brand:"Vivo", model:"iQOO Neo 7", fit:"Also fits Neo 7 Pro" },
-      { brand:"Vivo", model:"Vivo Y04", fit:"Also fits Y19e / Y29s 5G / T4 Lite 5G / Y19 5G / iQOO Z10 Lite" },
-      { brand:"Vivo", model:"Vivo Y16", fit:"Also fits Y56 5G / Y02s / Y35 / T2x / iQOO Z7i" },
-      { brand:"Vivo", model:"Vivo V40", fit:"Also fits V40 Pro / T3 Ultra / S19 Pro" },
-      { brand:"Vivo", model:"Vivo T1 4G", fit:"Also fits Y55 4G / iQOO Z6 44W" },
-      { brand:"Vivo", model:"Vivo T2 Pro", fit:"Also fits iQOO Z7 Pro / Vivo S17e" },
-
-      { brand:"Moto", model:"Moto G85", fit:"Also fits G96 / 50 Fusion" },
-      { brand:"Moto", model:"Moto G31", fit:"Also fits G41" },
-
-      { brand:"Pixel", model:"Pixel 9", fit:"Also fits Pixel 9 Pro (open type)" },
-      { brand:"Pixel", model:"Pixel 10", fit:"Also fits Pixel 10 Pro (open type)" },
-
-      { brand:"Realme", model:"Realme C2", fit:"Also fits Oppo A3s / Oppo A1k" },
-      { brand:"Realme", model:"Realme C55 4G", fit:"Also fits Realme Narzo N55 4G" },
-
-      { brand:"Samsung", model:"Samsung A02", fit:"Also fits M02 / A022" },
-      { brand:"Samsung", model:"Samsung A02s", fit:"Also fits M02s / A02s" },
-      { brand:"Samsung", model:"Samsung M13", fit:"Also fits A04e" },
-      { brand:"Samsung", model:"Samsung A05 4G", fit:"Also fits M05 4G / F05 4G" },
-      { brand:"Samsung", model:"Samsung F06 5G", fit:"Also fits M06 5G" },
-      { brand:"Samsung", model:"Samsung F14 5G", fit:"Also fits M14" },
-      { brand:"Samsung", model:"Samsung A10", fit:"Also fits M10" },
-      { brand:"Samsung", model:"Samsung A10s", fit:"Also fits M01s" },
-      { brand:"Samsung", model:"Samsung A11", fit:"Also fits M11" },
+      { brand:"Vivo", model:"iQOO Z6", fit:"Also fits Vivo T1 5G / Y55 / Y75" },
+      { brand:"Vivo", model:"Vivo V40", fit:"Also fits V40 Pro / T3 Ultra" },
       { brand:"Samsung", model:"Samsung A12", fit:"Also fits M12 / F12 / 5G open type" },
-      { brand:"Samsung", model:"Samsung A13", fit:"Also fits A32 5G / M32 5G / A04s / 4G-5G open variants" },
-      { brand:"Samsung", model:"Samsung M23", fit:"Also fits F23" },
       { brand:"Samsung", model:"Samsung A14", fit:"4G / 5G shared shell" },
-      { brand:"Samsung", model:"Samsung M16 5G", fit:"Also fits F16 5G" },
-      { brand:"Samsung", model:"Samsung A20", fit:"Also fits A30 / M10s" }
+      { brand:"Realme", model:"Realme C55", fit:"Also fits Narzo N55" },
+      { brand:"Pixel", model:"Pixel 9", fit:"Also fits Pixel 9 Pro open type" },
+      { brand:"Moto", model:"Moto G85", fit:"Also fits G96 / 50 Fusion" }
     ];
 
+    let selectedBrand = "";
+    const brands = [...new Set(phones.map(p => p.brand))];
+
+    function renderBrands(){
+      const box = document.getElementById('brandList');
+      box.innerHTML = brands.map(b => `
+        <div class="card model-${b.toLowerCase()}" onclick="selectBrand('${b}')" style="cursor:pointer;text-align:center;font-weight:bold;">
+          ${b}
+        </div>
+      `).join('');
+    }
+
+    function selectBrand(brand){
+      selectedBrand = brand;
+      document.getElementById('modelSection').style.display = 'block';
+      document.getElementById('search').value = '';
+      searchPhones();
+      window.scrollTo({top: document.getElementById('modelSection').offsetTop - 20, behavior:'smooth'});
+    }
+
     function searchPhones(){
-      const q=document.getElementById("search").value.toLowerCase();
-      const b=document.getElementById("brand").value;
-      const results=document.getElementById("results");
-      results.innerHTML="";
+      const q = document.getElementById('search').value.toLowerCase();
+      const results = document.getElementById('results');
+      results.innerHTML = '';
 
       phones
-        .filter(p =>
-          (b==="" || p.brand===b) &&
-          (p.model.toLowerCase().includes(q) || p.fit.toLowerCase().includes(q))
-        )
-        .forEach(phone=>{
+        .filter(p => p.brand === selectedBrand && (p.model.toLowerCase().includes(q) || p.fit.toLowerCase().includes(q)))
+        .forEach(phone => {
           const isOpen = phone.fit.toLowerCase().includes('open type');
-          const badge = isOpen
-            ? '<div class="badge badge-open">OPEN TYPE</div>'
-            : '';
-          const cls = `model-${phone.brand.toLowerCase()}`;
+          const badge = isOpen ? '<div class="badge">OPEN TYPE</div>' : '';
+          const cls = 'model-' + phone.brand.toLowerCase();
           results.innerHTML += `
             <div class="card ${cls}">
-              <h3>${phone.brand} • ${phone.model}</h3>
+              <h3>${phone.model}</h3>
               <p>${phone.fit}</p>
               ${badge}
             </div>
@@ -160,6 +126,6 @@
         });
     }
 
-    searchPhones();
+    renderBrands();
   </script></body>
 </html>

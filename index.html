@@ -37,6 +37,8 @@
     }
     .badge{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:bold;margin-top:10px;}
     .badge-open{background:rgba(245,158,11,0.18);border:1px solid rgba(245,158,11,0.35);color:#fcd34d;}
+    .badge-confusion{background:rgba(239,68,68,0.16);border:1px solid rgba(239,68,68,0.35);color:#fca5a5;}
+    .note{margin-top:8px;font-size:12px;color:#fca5a5;}background:rgba(245,158,11,0.18);border:1px solid rgba(245,158,11,0.35);color:#fcd34d;}
     .model-redmi{border-left:4px solid #f97316;}
     .model-vivo{border-left:4px solid #3b82f6;}
     .model-samsung{border-left:4px solid #22c55e;}
@@ -101,6 +103,7 @@
       { brand:"Redmi", model:"Redmi 6", fit:"Also fits 6A" },
       { brand:"Redmi", model:"Poco X6 Pro", fit:"Also fits Redmi K70E 5G" },
       { brand:"Redmi", model:"Redmi Y1", fit:"Also fits Note 5A" },
+      { brand:"Redmi", model:"Redmi K20", fit:"Also fits K20 Pro / Redmi 9T / 9T Pro" },
 
       { brand:"Vivo", model:"iQOO Z6", fit:"Also fits Vivo T1 5G / Vivo Y55 / Vivo Y75 5G" },
       { brand:"Vivo", model:"iQOO Z3", fit:"Also fits Vivo Y72 5G" },
@@ -138,7 +141,10 @@
       { brand:"Samsung", model:"Samsung A13 5G", fit:"Also fits A04s" },
       { brand:"Samsung", model:"Samsung A14", fit:"Also fits 4G / 5G" },
       { brand:"Samsung", model:"Samsung M16 5G", fit:"Also fits F16 5G" },
-      { brand:"Samsung", model:"Samsung A20", fit:"Also fits A30 / M10s" }
+      { brand:"Samsung", model:"Samsung A20", fit:"Also fits A30 / M10s" },
+      { brand:"Samsung", model:"Samsung A22 4G", fit:"Also fits M32 4G" },
+      { brand:"Samsung", model:"Samsung A22 5G", fit:"Also fits A22s 5G / F42 5G" },
+      { brand:"Samsung", model:"Samsung A24 4G", fit:"Also fits A25 5G" }
     ];
 
     let selectedBrand = "";
@@ -170,7 +176,9 @@
         .filter(p => p.brand === selectedBrand && (p.model.toLowerCase().includes(q) || p.fit.toLowerCase().includes(q)))
         .forEach(phone => {
           const isOpen = phone.fit.toLowerCase().includes('open type');
+          const risky = isOpen || /4g.*5g|5g.*4g|shared/i.test(phone.fit);
           const badge = isOpen ? '<div class="badge badge-open">OPEN TYPE</div>' : '';
+          const confusion = risky ? '<div class="badge badge-confusion">CHECK BEFORE BUY</div><div class="note">Verify camera cutout, fingerprint slot, and speaker holes before final use.</div>' : '';
           const cls = 'model-' + phone.brand.toLowerCase();
           const modelText = q ? phone.model.replace(new RegExp(q, 'ig'), m => `<span class="highlight">${m}</span>`) : phone.model;
           const fitText = q ? phone.fit.replace(new RegExp(q, 'ig'), m => `<span class="highlight">${m}</span>`) : phone.fit;
@@ -179,6 +187,7 @@
               <h3>${modelText}</h3>
               <p>${fitText}</p>
               ${badge}
+              ${confusion}
             </div>
           `;
         });

@@ -24,7 +24,9 @@ body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#0f
   <div class="hero">
     <h1>Suitable Case</h1>
     <button class="main-btn" onclick="goCases()">🔍 Find Suitable Case</button>
-  </div>  <div class="soon-card">⚡ Backup Cases Coming Soon ⚡</div>  <div class="contact-box">
+    <button class="main-btn" style="background:#60a5fa;color:#0b1020" onclick="showGlassSoon()">🛡️ Screen Glass</button>
+  </div>  <div class="soon-card" id="glassSoonBox" style="display:none">🛡️ Screen Glass Coming Soon 🛡️</div>
+  <div class="soon-card">⚡ Backup Cases Coming Soon ⚡</div>  <div class="contact-box">
     <div class="contact-title">📞 Contact</div>
     <button class="contact-btn" onclick="window.location.href='mailto:adilpkd690@gmail.com'">adilpkd690@gmail.com</button>
     <div class="small" id="previewNote"></div>
@@ -106,9 +108,13 @@ const compatibilityData = `• Redmi M3 / M2 ⚠ CHECK BEFORE BUY
 
 function goCases(){
   localStorage.setItem('caseCompatibilityData', compatibilityData);
-  alert('Full latest compatibility list is ready for search page.');
+  window.location.href = 'search.html';
 }
 
-document.getElementById('previewNote').textContent = compatibilityData.split('\n').slice(0,6).join('\n') + '\n... and more';
-</script></body>
-</html>
+function showGlassSoon(){
+  const box = document.getElementById('glassSoonBox');
+  box.style.display = 'block';
+  box.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+</script>

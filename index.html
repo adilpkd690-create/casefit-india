@@ -25,6 +25,24 @@
       border-radius:15px;
       margin-top:15px;
     }
+    .info-box{
+      margin-top:20px;
+      padding:14px;
+      background:#1c1c1c;
+      border-radius:12px;
+      color:#bbb;
+    }
+    .btn{
+      display:block;
+      text-align:center;
+      padding:14px;
+      background:#4da6ff;
+      color:white;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:bold;
+      margin-top:20px;
+    }
   </style>
 </head>
 <body>
@@ -45,6 +63,18 @@
 
   <div id="results"></div>
 
+  <div class="info-box">
+    📢 More phone models and same-fit groups will be added soon.<br><br>
+    📩 Contact:
+    <a href="mailto:adilpkd690@gmail.com" style="color:#4da6ff;">
+      adilpkd690@gmail.com
+    </a>
+  </div>
+
+  <a href="https://forms.gle/yourformlink" target="_blank" class="btn">
+    📱 Request Your Model
+  </a>
+
   <script>
     const phones = [
       { brand:"Redmi", model:"Redmi 12 5G", fit:"Also fits Poco M6 Pro" },
@@ -54,31 +84,21 @@
       { brand:"Redmi", model:"Redmi 9C", fit:"Also fits Redmi 10A / Poco C3 / Poco C31" },
       { brand:"Redmi", model:"Redmi 9", fit:"Also fits Redmi 9 Prime / Poco M2" },
       { brand:"Redmi", model:"Redmi Note 10 Pro", fit:"Also fits Note 10 Pro Max" },
-      { brand:"Redmi", model:"Redmi Note 10 4G", fit:"Also fits Note 10S / Note 11SE / Poco M5S" },
-      { brand:"Redmi", model:"Redmi 11 Prime 5G", fit:"Also fits Note 11E / 10 Prime Plus 5G" },
       { brand:"Redmi", model:"Redmi Note 14 Pro", fit:"Also fits 14 Pro Plus" },
 
       { brand:"Vivo", model:"iQOO Z6", fit:"Also fits Vivo T1 5G / Y55 / Y75 5G" },
       { brand:"Vivo", model:"iQOO Z3", fit:"Also fits Vivo Y72 5G" },
-      { brand:"Vivo", model:"iQOO Neo 7", fit:"Also fits Neo 7 Pro" },
-      { brand:"Vivo", model:"Vivo Y16", fit:"Also fits Y56 / Y02s / Y35 / T2x / Z7i" },
+      { brand:"Vivo", model:"Vivo V40", fit:"Also fits V40 Pro / T3 Ultra" },
 
       { brand:"Moto", model:"Moto G85", fit:"Also fits G96 / 50 Fusion" },
-      { brand:"Moto", model:"Moto G31", fit:"Also fits G41" },
-
-      { brand:"Pixel", model:"Pixel 9", fit:"Also fits Pixel 9 Pro (open type)" },
-      { brand:"Pixel", model:"Pixel 10", fit:"Also fits Pixel 10 Pro (open type)" },
+      { brand:"Pixel", model:"Pixel 9", fit:"Also fits Pixel 9 Pro" },
 
       { brand:"Realme", model:"Realme C2", fit:"Also fits Oppo A3s / A1k" },
       { brand:"Realme", model:"Realme C55", fit:"Also fits Narzo N55" },
 
       { brand:"Samsung", model:"Samsung A02", fit:"Also fits M02 / A022" },
-      { brand:"Samsung", model:"Samsung A02s", fit:"Also fits M02s" },
       { brand:"Samsung", model:"Samsung A05", fit:"Also fits M05 / F05" },
-      { brand:"Samsung", model:"Samsung A10", fit:"Also fits M10" },
-      { brand:"Samsung", model:"Samsung A11", fit:"Also fits M11" },
-      { brand:"Samsung", model:"Samsung A12", fit:"Also fits M12 / F12 (open type 5G)" },
-      { brand:"Samsung", model:"Samsung A13", fit:"Also fits A32 5G / M32 5G" }
+      { brand:"Samsung", model:"Samsung A12", fit:"Also fits M12 / F12" }
     ];
 
     function searchPhones(){

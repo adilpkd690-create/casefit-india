@@ -40,9 +40,16 @@
     .model-redmi{border-left:4px solid #f97316;}
     .model-vivo{border-left:4px solid #3b82f6;}
     .model-samsung{border-left:4px solid #22c55e;}
-    .model-realmе{border-left:4px solid #a855f7;}
+    .model-realme{border-left:4px solid #a855f7;}
+    .model-redmi h3{color:#fb923c;}
+    .model-vivo h3{color:#60a5fa;}
+    .model-samsung h3{color:#4ade80;}
+    .model-realme h3{color:#c084fc;}
+    .model-moto h3{color:#fde047;}
+    .model-pixel h3{color:#f9a8d4;}
     .model-moto{border-left:4px solid #eab308;}
     .model-pixel{border-left:4px solid #ec4899;}
+    .highlight{color:#facc15;font-weight:bold;}
     .card{
       backdrop-filter:blur(10px);
       background:rgba(255,255,255,0.07);
@@ -114,12 +121,14 @@
         .filter(p => p.brand === selectedBrand && (p.model.toLowerCase().includes(q) || p.fit.toLowerCase().includes(q)))
         .forEach(phone => {
           const isOpen = phone.fit.toLowerCase().includes('open type');
-          const badge = isOpen ? '<div class="badge">OPEN TYPE</div>' : '';
+          const badge = isOpen ? '<div class="badge badge-open">OPEN TYPE</div>' : '';
           const cls = 'model-' + phone.brand.toLowerCase();
+          const modelText = q ? phone.model.replace(new RegExp(q, 'ig'), m => `<span class="highlight">${m}</span>`) : phone.model;
+          const fitText = q ? phone.fit.replace(new RegExp(q, 'ig'), m => `<span class="highlight">${m}</span>`) : phone.fit;
           results.innerHTML += `
             <div class="card ${cls}">
-              <h3>${phone.model}</h3>
-              <p>${phone.fit}</p>
+              <h3>${modelText}</h3>
+              <p>${fitText}</p>
               ${badge}
             </div>
           `;

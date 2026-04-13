@@ -73,7 +73,13 @@
   <div class="hero">
     <h1>📱 Case Compatibility Checker</h1>
     <p>Choose your phone brand and quickly find same-fit compatible case models.</p>
-  </div>  <div id="brandList" class="search-wrap"></div>
+  </div>  <div id="homeMenu" class="search-wrap">
+    <div class="card" onclick="openCasePage()" style="cursor:pointer;text-align:center;font-weight:bold;font-size:22px;">
+      📱 Suitable Case
+    </div>
+  </div>
+  <input id="globalSearch" style="display:none;" placeholder="Search any model before selecting brand..." oninput="renderBrands(this.value)"/>
+  <div id="brandList" class="search-wrap" style="display:none;"></div>
   <div id="modelSection" style="display:none;">
     <input id="search" placeholder="Search selected brand model..." oninput="searchPhones()"/>
     <div id="results"></div>
@@ -150,9 +156,19 @@
     let selectedBrand = "";
     const brands = [...new Set(phones.map(p => p.brand))];
 
-    function renderBrands(){
+    function openCasePage(){
+      document.getElementById('homeMenu').style.display='none';
+      document.getElementById('globalSearch').style.display='block';
+      document.getElementById('brandList').style.display='grid';
+      renderBrands();
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function renderBrands(query=''){
       const box = document.getElementById('brandList');
-      box.innerHTML = brands.map(b => `
+      const q = query.toLowerCase();
+      const filteredBrands = !q ? brands : brands.filter(b => phones.some(p => p.brand === b && (p.model.toLowerCase().includes(q) || p.fit.toLowerCase().includes(q))));
+      box.innerHTML = filteredBrands.map(b => `
         <div class="card model-${b.toLowerCase()}" onclick="selectBrand('${b}')" style="cursor:pointer;text-align:center;font-weight:bold;">
           ${b}
         </div>

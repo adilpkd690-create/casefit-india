@@ -181,7 +181,8 @@
           const confusion = risky ? '<div class="badge badge-confusion">CHECK BEFORE BUY</div><div class="note">Verify camera cutout, fingerprint slot, and speaker holes before final use.</div>' : '';
           const cls = 'model-' + phone.brand.toLowerCase();
           const modelText = q ? phone.model.replace(new RegExp(q, 'ig'), m => `<span class="highlight">${m}</span>`) : phone.model;
-          const fitText = q ? phone.fit.replace(new RegExp(q, 'ig'), m => `<span class="highlight">${m}</span>`) : phone.fit;
+          const cleanFit = phone.fit.replace(/\s*open type/ig, '');
+          const fitText = q ? cleanFit.replace(new RegExp(q, 'ig'), m => `<span class="highlight">${m}</span>`) : cleanFit;
           results.innerHTML += `
             <div class="card ${cls}">
               <h3>${modelText}</h3>

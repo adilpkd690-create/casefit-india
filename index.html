@@ -8,15 +8,15 @@
     .page{min-height:100vh;padding:24px;display:none}
     .active{display:block}
     h1{font-size:56px;text-align:center;margin:30px 0}
-    .btn,.card{display:block;width:100%;box-sizing:border-box;padding:20px;border-radius:24px;text-decoration:none;margin:16px 0}
-    .btn{font-size:32px;font-weight:700;text-align:center;color:#000}
+    .btn,.card,.back{display:block;width:100%;box-sizing:border-box;padding:20px;border-radius:24px;text-decoration:none;margin:16px 0;border:none}
+    .btn{font-size:32px;font-weight:700;text-align:center;color:#000;cursor:pointer}
     .green{background:#22c55e}.cyan{background:#22d3ee}
     .glow{border:2px solid #fbbf24;color:#fbbf24;text-align:center;font-size:34px;animation:pulse 1s infinite}
     .contact{border:1px solid #334155;border-radius:24px;padding:20px;margin-top:40px;position:fixed;left:24px;right:24px;bottom:24px;background:#020617}
     .mail{background:#38bdf8;color:#000;padding:16px;border-radius:18px;text-align:center;font-weight:700}
     input{width:100%;padding:18px;border-radius:18px;background:#0f172a;color:#fff;border:1px solid #334155;font-size:24px;box-sizing:border-box}
     .result{background:#1e293b;border:1px solid #334155;border-radius:24px;padding:18px;font-size:22px;margin:14px 0}
-    .back{display:inline-block;background:#22c55e;color:#000;padding:14px 20px;border-radius:18px;text-decoration:none;font-weight:700;margin-bottom:20px}
+    .back{background:#22c55e;color:#000;font-weight:700;cursor:pointer;max-width:220px}
     .yellow{color:#facc15;font-weight:700}
     .warn{color:#fb923c;font-weight:700}
     @keyframes pulse{50%{opacity:.5}}
@@ -25,8 +25,8 @@
 <body>
   <div id="home" class="page active">
     <h1>Case Fit</h1>
-    <a class="btn green" href="javascript:void(0)" onclick="showPage('search'); return false;">🔎 Find Suitable Case</a>
-    <a class="btn cyan" href="javascript:void(0)" onclick="showPage('glass'); return false;">🛡️ Screen Glass</a>
+    <button class="btn green" type="button" onclick="showPage('search')">🔎 Find Suitable Case</button>
+    <button class="btn cyan" type="button" onclick="showPage('glass')">🛡️ Screen Glass</button>
     <div class="card glow">⚡ More Models Soon ⚡</div>
     <div style="height:140px"></div>
     <div class="contact">
@@ -34,106 +34,25 @@
       <div class="mail">adilpkd690@gmail.com</div>
     </div>
   </div>  <div id="search" class="page">
-    <a class="back" href="javascript:void(0)" onclick="showPage('home'); return false;">← Back</a>
+    <button class="back" type="button" onclick="showPage('home')">← Back</button>
     <input id="searchBox" placeholder="Search any model directly..." oninput="filterModels()" />
     <div id="results"></div>
   </div>  <div id="glass" class="page">
-    <a class="back" href="javascript:void(0)" onclick="showPage('home'); return false;">← Back</a>
+    <button class="back" type="button" onclick="showPage('home')">← Back</button>
     <h1 style="font-size:44px">🛡️ Screen Glass</h1>
     <div class="card glow">Coming Soon</div>
   </div><script>
 const models = [
- 'Redmi M3 / M2 ⚠ CHECK BEFORE BUY',
- 'Redmi 7 - Redmi Y3',
- 'Redmi 12 5G - Poco M6 Pro',
- 'Redmi Note 7 - Redmi Note 7 Pro',
- 'Redmi 8 - Redmi 8A - Redmi 8A Dual',
- 'Redmi 9A - Redmi 9i',
- 'Redmi 9C - Redmi 10A - Poco C3 - Poco C31',
- 'Redmi 9 - Redmi 9 Prime',
- 'Redmi Note 10 Pro - Redmi Note 10 Pro Max',
- 'Redmi Note 10 4G - Note 10s 4G - Note 11SE - Poco M5s 4G',
- 'Redmi 11 Prime 5G - Redmi Note 11e 5G - Redmi 10 Prime Plus 5G',
- 'Poco M4 5G - Poco M5 4G',
- 'Redmi 11X / 11X Pro - Redmi K40 / K40 Pro / K40 Pro Plus - Redmi 11i - Poco F3',
- 'Redmi Note 11 Pro 4G/5G - Note 11 Pro Plus 5G - Note 12 Pro 4G',
- 'Redmi Note 11s - Note 11 4G',
- 'Redmi Note 11 5G - Poco M4 Pro 5G - Note 11T 5G',
- 'Redmi 13C 4G - Redmi 13C 5G OPEN TYPE - Poco C65',
- 'Redmi 10C - Redmi 10 4G - Redmi 10 Power - Poco C40',
- 'Redmi Note 14 Pro - 14 Pro Plus',
- 'Redmi 6 - 6A',
- 'Poco X6 Pro - Redmi K70e 5G',
- 'Redmi Y1 - Note 5A',
- 'Redmi K20 - K20 Pro - Redmi 9T - 9T Pro',
- 'iQOO Z6 - Vivo T1 5G - Vivo Y55 - Vivo Y75 5G',
- 'iQOO Z3 - Vivo Y72 5G',
- 'iQOO Neo 7 - Neo 7 Pro',
- 'Vivo Y04 - Y19e - Y29s 5G - T4 Lite 5G - Y19 5G - iQOO Z10 Lite 5G',
- 'Vivo Y16 - Vivo Y56 5G - Vivo Y02s 4G - Vivo Y35 5G - Vivo T2x - iQOO Z7i',
- 'Vivo V40 5G - V40 Pro 5G - T3 Ultra - S19 Pro 5G',
- 'Vivo T1 4G - Vivo Y55 4G - iQOO Z6 44W',
- 'Vivo T2 Pro 5G - iQOO Z7 Pro 5G - Vivo S17e',
- 'Vivo T4x - Y29 4G - Y31 Pro 5G - iQOO Z10x',
- 'Moto G85 - G96 - 50 Fusion',
- 'Moto G31 - G41',
- 'Pixel 9 - Pixel 9 Pro OPEN TYPE',
- 'Pixel 10 - Pixel 10 Pro OPEN TYPE',
- 'Realme C2 - Oppo A3s - Oppo A1K',
- 'Realme C55 4G - Realme Narzo N55 4G',
- 'Oppo F27 - Oppo Reno 12F 4G/5G - Reno 12 FS 5G',
- 'Oppo F23 - Oppo A1 5G - A98',
- 'Oppo A57 4G/5G - A77 4G/5G - A77s 4G - A57e 4G - A57s 4G - Narzo 50 5G - Realme V23 - OnePlus N20 SE - Nord N300',
- 'Realme C53 4G / C53e - C51 4G - Narzo N53 - Note 50 4G',
- 'Realme C30 / C30s - Narzo 50i Prime',
- 'Samsung A02 - M02 - A022',
- 'Samsung A02s - M02s - A02s',
- 'Samsung M13 - A04e',
- 'Samsung A05 4G - M05 4G - F05 4G',
- 'Samsung F06 5G - M06 5G',
- 'Samsung F14 5G - M14',
- 'Samsung A10 - M10',
- 'Samsung A10s - M01s',
- 'Samsung A11 - M11',
- 'Samsung A12 4G/5G OPEN TYPE - M12 - F12',
- 'Samsung A13 4G/5G OPEN TYPE - A32 5G - M32 5G OPEN TYPE',
- 'Samsung M23 - F23',
- 'Samsung A13 5G - A04s',
- 'Samsung A14 4G/5G',
- 'Samsung M16 5G - F16 5G',
- 'Samsung A20 - A30 - M10s',
- 'Samsung A22 4G - M32 4G',
- 'Samsung A22 5G - A22s 5G - F42 5G',
- 'Samsung A24 4G - A25 5G ⚠ CHECK BEFORE BUY',
- 'Samsung A32 4G - M32',
- 'Samsung A52 4G - A52 5G - A52s 5G'
+ 'Redmi M3 / M2 ⚠ CHECK BEFORE BUY','Redmi 7 - Redmi Y3','Redmi 12 5G - Poco M6 Pro','Redmi Note 7 - Redmi Note 7 Pro','Redmi 8 - Redmi 8A - Redmi 8A Dual','Redmi 9A - Redmi 9i','Redmi 9C - Redmi 10A - Poco C3 - Poco C31','Redmi 9 - Redmi 9 Prime','Redmi Note 10 Pro - Redmi Note 10 Pro Max','Redmi Note 10 4G - Note 10S 4G - Note 11SE - Poco M5S 4G','Redmi 11 Prime 5G - Redmi Note 11E 5G - Redmi 10 Prime Plus 5G','POCO M4 5G - POCO M5 4G','Redmi 11X / 11X Pro - Redmi K40 / K40 Pro / K40 Pro Plus - Redmi 11i - Poco F3','Redmi Note 11 Pro 4G/5G - Note 11 Pro Plus 5G - Note 12 Pro 4G','Redmi Note 11S - Note 11 4G','Redmi Note 11 5G - Poco M4 Pro 5G - Note 11T 5G','Redmi 13C 4G - Redmi 13C 5G OPEN TYPE - Poco C65','Redmi 10C - Redmi 10 4G - Redmi 10 Power - Poco C40','Redmi Note 14 Pro - 14 Pro Plus','Redmi 6 - 6A','Poco X6 Pro - Redmi K70E 5G','Redmi Y1 - Note 5A','Redmi K20 - K20 Pro - Redmi 9T - 9T Pro',
+ 'iQOO Z6 - Vivo T1 5G - Vivo Y55 - Vivo Y75 5G','iQOO Z3 - Vivo Y72 5G','iQOO Neo 7 - Neo 7 Pro','Vivo Y04 - Y19e - Y29s 5G - T4 Lite 5G - Y19 5G - iQOO Z10 Lite 5G','Vivo Y16 - Vivo Y56 5G - Vivo Y02s 4G - Vivo Y35 5G - Vivo T2x - iQOO Z7i','Vivo V40 5G - V40 Pro 5G - T3 Ultra - S19 Pro 5G','Vivo T1 4G - Vivo Y55 4G - iQOO Z6 44W','Vivo T2 Pro 5G - iQOO Z7 Pro 5G - Vivo S17e','Vivo T4x - Y29 4G - Y31 Pro 5G - iQOO Z10x',
+ 'Moto G85 - G96 - 50 Fusion','Moto G31 - G41',
+ 'Pixel 9 - Pixel 9 Pro OPEN TYPE','Pixel 10 - Pixel 10 Pro OPEN TYPE',
+ 'Realme C2 - Oppo A3s - Oppo A1K','Realme C55 4G - Realme Narzo N55 4G','Oppo F27 - Oppo Reno 12F 4G/5G - Reno 12 FS 5G','Oppo F23 - Oppo A1 5G - A98','Oppo A57 4G / 5G - A77 4G/5G - A77s 4G - A57e 4G - A57s 4G - Realme Narzo 50 5G - Realme V23 - OnePlus N20 SE - OnePlus Nord N300','Realme C53 4G / C53e - C51 4G - Realme Narzo N53 - Realme Note 50 4G','Realme C30 / C30s - Narzo 50i Prime',
+ 'Samsung A02 - M02 - A022','Samsung A02s - M02s - A02s','Samsung M13 - A04e','Samsung A05 4G - M05 4G - F05 4G','Samsung F06 5G - M06 5G','Samsung F14 5G - M14','Samsung A10 - M10','Samsung A10s - M01s','Samsung A11 - M11','Samsung A12 4G/5G OPEN TYPE - M12 - F12','Samsung A13 4G/5G OPEN TYPE - A32 5G - M32 5G OPEN TYPE','Samsung M23 - F23','Samsung A13 5G - A04s','Samsung A14 4G/5G','Samsung M16 5G - F16 5G','Samsung A20 - A30 - M10s','Samsung A22 4G - M32 4G','Samsung A22 5G - A22s 5G - F42 5G','Samsung A24 4G - A25 5G ⚠ CHECK BEFORE BUY','Samsung A32 4G - M32','Samsung A52 4G - A52 5G - A52s 5G'
 ];
-
-function showPage(id){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- if(id==='search') renderModels(models);
-}
-
-function renderModels(list, query=''){
- const q = query.toLowerCase();
- document.getElementById('results').innerHTML = list.map(m=>{
-   let text = m;
-   if(q){
-     const safe = q.replace(/[.*+?^${}()|[\]\]/g,'\$&');
-     text = text.replace(new RegExp(safe,'ig'), match => `<span class="yellow">${match}</span>`);
-   }
-   text = text.replace(/OPEN TYPE/gi,'<span class="yellow">OPEN TYPE</span>');
-   text = text.replace(/⚠ CHECK BEFORE BUY/gi,'<span class="warn">⚠ CHECK BEFORE BUY</span>');
-   return `<div class="result">• ${text}</div>`;
- }).join('');
-}
-
-function filterModels(){
- const q=document.getElementById('searchBox').value.toLowerCase();
- renderModels(models.filter(m=>m.toLowerCase().includes(q)), q);
-}
-
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='search')renderModels(models);}
+function renderModels(list,query=''){const q=query.toLowerCase();document.getElementById('results').innerHTML=list.map(m=>{let text=m;if(q){const safe=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');text=text.replace(new RegExp(safe,'ig'),match=>`<span class="yellow">${match}</span>`);}text=text.replace(/OPEN TYPE/gi,'<span class="yellow">OPEN TYPE</span>');text=text.replace(/⚠ CHECK BEFORE BUY/gi,'<span class="warn">⚠ CHECK BEFORE BUY</span>');return `<div class="result">• ${text}</div>`;}).join('');}
+function filterModels(){const q=document.getElementById('searchBox').value.toLowerCase();renderModels(models.filter(m=>m.toLowerCase().includes(q)),q);}
 renderModels(models);
 </script></body>
 </html>

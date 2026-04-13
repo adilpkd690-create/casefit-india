@@ -1,12 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CaseFit India</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/main.jsx"></script>
-  </body>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CaseFit India</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      padding: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 20px;
+    }
+    .card {
+      background: #222;
+      padding: 15px;
+      border-radius: 15px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>CaseFit India</h1>
+  <p>Premium mobile case compatibility checker</p>
+
+  <input id="search" placeholder="Search model..." oninput="searchPhones()" />
+
+  <div id="results"></div>
+
+  <script>
+    const phones = [
+      { model: "Redmi 13C", fit: "Also fits Poco C65" },
+      { model: "Redmi 12 5G", fit: "Also fits Poco M6 Pro" },
+      { model: "Vivo T1 5G", fit: "Also fits iQOO Z6" },
+      { model: "iPhone 12", fit: "Also fits iPhone 12 Pro" },
+      { model: "Samsung A50", fit: "Also fits A50s / A30s" }
+    ];
+
+    function searchPhones() {
+      const q = document.getElementById("search").value.toLowerCase();
+      const results = document.getElementById("results");
+      results.innerHTML = "";
+
+      phones
+        .filter(p => p.model.toLowerCase().includes(q) || p.fit.toLowerCase().includes(q))
+        .forEach(phone => {
+          results.innerHTML += `
+            <div class="card">
+              <h3>${phone.model}</h3>
+              <p>${phone.fit}</p>
+            </div>
+          `;
+        });
+    }
+
+    searchPhones();
+  </script>
+</body>
 </html>

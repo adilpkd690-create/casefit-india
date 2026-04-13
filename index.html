@@ -1,123 +1,32 @@
-<!DOCTYPE html><html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Search Suitable Case</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#0f172a,#1e293b);color:#fff;min-height:100vh}
-.top-nav{position:sticky;top:0;z-index:100;background:#0f172a;padding:14px;border-bottom:1px solid #334155}
-.top-nav button{background:#22c55e;color:#08120c;border:none;padding:12px 18px;border-radius:12px;font-size:16px;font-weight:700}
-.wrap{max-width:900px;margin:auto;padding:18px}
-.search{width:100%;padding:16px;border-radius:14px;border:1px solid #475569;font-size:18px;margin:16px 0;background:#111827;color:#fff}
-.card{background:#1e293b;border:1px solid #334155;border-radius:18px;padding:18px;margin-bottom:14px}
-.mark{color:#facc15;font-weight:700}
-.warn{color:#f59e0b;font-weight:700}
-.empty{text-align:center;padding:30px;color:#94a3b8}
-</style>
-</head>
-<body>
-<div class="top-nav">
-  <button onclick="goBack()">⬅ Back</button>
-</div>
-<div class="wrap">
-  <input id="searchBox" class="search" placeholder="Search any model directly..." oninput="renderResults(this.value)" />
-  <div id="results"></div>
-</div><script>
-const raw = localStorage.getItem('caseCompatibilityData') || `• Redmi M3 / M2 ⚠ CHECK BEFORE BUY
-• Redmi 7 - Redmi Y3
-• Redmi 12 5G - Poco M6 Pro
-• Redmi Note 7 - Redmi Note 7 Pro
-• Redmi 8 - Redmi 8A - Redmi 8A Dual
-• Redmi 9A - Redmi 9i
-• Redmi 9C - Redmi 10A - Poco C3 - Poco C31
-• Redmi 9 - Redmi 9 Prime
-• Redmi Note 10 Pro - Redmi Note 10 Pro Max
-• Redmi Note 10 4G - Note 10S 4G - Note 11SE - Poco M5S 4G
-• Redmi 11 Prime 5G - Redmi Note 11E 5G - Redmi 10 Prime Plus 5G
-• POCO M4 5G - POCO M5 4G
-• Redmi 11X / 11X Pro - Redmi K40 / K40 Pro / K40 Pro Plus - Redmi 11i - Poco F3
-• Redmi Note 11 Pro 4G/5G - Note 11 Pro Plus 5G - Note 12 Pro 4G
-• Redmi Note 11S - Note 11 4G
-• Redmi Note 11 5G - Poco M4 Pro 5G - Note 11T 5G
-• Redmi 13C 4G - Redmi 13C 5G (OPEN TYPE) - Poco C65
-• Redmi 10C - Redmi 10 4G - Redmi 10 Power - Poco C40
-• Redmi Note 14 Pro - 14 Pro Plus
-• Redmi 6 - 6A
-• Poco X6 Pro - Redmi K70E 5G
-• Redmi Y1 - Note 5A
-• Redmi K20 - K20 Pro - Redmi 9T - 9T Pro
-• iQOO Z6 - Vivo T1 5G - Vivo Y55 - Vivo Y75 5G
-• iQOO Z3 - Vivo Y72 5G
-• iQOO Neo 7 - Neo 7 Pro
-• Vivo Y04 - Y19e - Y29s 5G - T4 Lite 5G - Y19 5G - iQOO Z10 Lite 5G
-• Vivo Y16 - Vivo Y56 5G - Vivo Y02s 4G - Vivo Y35 5G - Vivo T2x - iQOO Z7i
-• Vivo V40 5G - V40 Pro 5G - Vivo T3 Ultra - Vivo S19 Pro 5G
-• Vivo T1 4G - Vivo Y55 4G - iQOO Z6 44W
-• Vivo T2 Pro 5G - iQOO Z7 Pro 5G - Vivo S17e
-• Vivo T4x - Y29 4G - Y31 Pro 5G - iQOO Z10x
-• Moto G85 - G96 - 50 Fusion
-• Moto G31 - G41
-• Pixel 9 - Pixel 9 Pro (OPEN TYPE)
-• Pixel 10 - Pixel 10 Pro (OPEN TYPE)
-• Realme C2 - Oppo A3s - Oppo A1k
-• Realme C55 4G - Realme Narzo N55 4G
-• Oppo F27 - Oppo Reno 12F 4G/5G - Reno 12 FS 5G
-• Oppo F23 - Oppo A1 5G - A98
-• Oppo A57 4G / 5G - A77 4G/5G - A77s 4G - A57e 4G - A57s 4G - Realme Narzo 50 5G - Realme V23 - OnePlus N20 SE - OnePlus Nord N300
-• Realme C53 4G / C53e - C51 4G - Realme Narzo N53 - Realme Note 50 4G
-• Realme C30 / C30s - Narzo 50i Prime
-• Sam A02 - M02 - A022
-• Sam A02s - M02s - A02s
-• Sam M13 - A04e
-• Sam A05 4G - M05 4G - F05 4G
-• Sam F06 5G - M06 5G
-• Sam F14 5G - M14
-• Sam A10 - M10
-• Sam A10s - M01s
-• Sam A11 - M11
-• Sam A12 4G / 5G (OPEN TYPE) - M12 - F12
-• Sam A13 4G / 5G (OPEN TYPE) - A32 5G - M32 5G (OPEN TYPE)
-• Sam M23 - F23
-• Sam A13 5G - A04s
-• Sam A14 4G/5G
-• Sam M16 5G - F16 5G
-• Sam A20 - A30 - M10s
-• Sam A22 4G - M32 4G
-• Sam A22 5G - A22s 5G - F42 5G
-• Sam A24 4G - A25 5G ⚠ CHECK BEFORE BUY
-• Sam A32 4G - M32
-• Sam A52 4G - A52 5G - A52s 5G`;
-const models = raw.split('\n').filter(Boolean);
+export default function HomePage() { return ( <main className="min-h-screen bg-slate-950 text-white p-6 flex flex-col gap-6"> <h1 className="text-5xl font-bold text-center pt-8">Suitable Case</h1>
 
-function goBack(){
-  window.location.href = '/';
-}
+<a href="/search" className="block bg-green-500 text-black text-2xl font-semibold rounded-3xl p-6 text-center shadow-lg">
+    🔎 Find Suitable Case
+  </a>
 
-function highlight(text, query){
-  if(!query) return text;
-  const safe = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return text.replace(new RegExp(safe, 'ig'), m => `<span class="mark">${m}</span>`);
-}
+  <a href="/screen-glass" className="block bg-cyan-500 text-black text-2xl font-semibold rounded-3xl p-6 text-center shadow-lg">
+    🛡️ Screen Glass
+  </a>
 
-function renderResults(query=''){
-  const q = query.trim().toLowerCase();
-  const list = q ? models.filter(m => m.toLowerCase().includes(q)) : models;
-  const box = document.getElementById('results');
+  <div className="rounded-3xl border border-amber-400 text-amber-300 text-center text-3xl p-6 animate-pulse shadow-[0_0_25px_rgba(251,191,36,0.5)]">
+    ⚡ More Models Soon ⚡
+  </div>
 
-  if(!list.length){
-    box.innerHTML = '<div class="empty">No matching models found</div>';
-    return;
-  }
+  <div className="rounded-3xl border border-slate-700 p-5 text-lg text-slate-300">
+    <div className="font-semibold text-white mb-2">📞 Contact</div>
+    <div className="bg-sky-400 text-black rounded-2xl p-4 text-center font-semibold">
+      adilpkd690@gmail.com
+    </div>
+  </div>
+</main>
 
-  box.innerHTML = list.map(item => {
-    let line = highlight(item, query);
-    line = line.replace(/⚠ CHECK BEFORE BUY/gi,'<span class="warn">⚠ CHECK BEFORE BUY</span>');
-    line = line.replace(/OPEN TYPE/gi,'<span class="mark">OPEN TYPE</span>');
-    return `<div class="card">${line}</div>`;
-  }).join('');
-}
+) }
 
-renderResults();
-</script></body>
-</html>
+export function SearchPage() { const models = [ 'Redmi M3 / M2 ⚠ CHECK BEFORE BUY', 'Redmi 7 - Redmi Y3', 'Redmi 12 5G - Poco M6 Pro', 'Redmi Note 7 - Redmi Note 7 Pro', 'Redmi 8 - Redmi 8A - Redmi 8A Dual', 'Redmi 9A - Redmi 9i', 'Redmi 9C - Redmi 10A - Poco C3 - Poco C31', 'Redmi 9 - Redmi 9 Prime', 'Redmi Note 10 Pro - Redmi Note 10 Pro Max', 'Redmi Note 10 4G - Note 10s 4G - Note 11SE - Poco M5s 4G', 'Redmi 11 Prime 5G - Note 11e 5G - 10 Prime Plus 5G', 'Poco M4 5G - Poco M5 4G', 'Redmi 11X / 11X Pro - K40 / K40 Pro / Poco F3', 'Redmi Note 11 Pro 4G/5G - Note 12 Pro 4G', 'Redmi Note 11s - Note 11 4G', 'Redmi Note 11 5G - Poco M4 Pro 5G - Note 11T 5G', 'Redmi 13C 4G - Redmi 13C 5G ⚠ OPEN TYPE - Poco C65', 'Redmi 10C - Redmi 10 4G - Redmi 10 Power - Poco C40', 'Redmi Note 14 Pro - 14 Pro Plus', 'Redmi 6 - 6A', 'Poco X6 Pro - Redmi K70e 5G', 'Redmi Y1 - Note 5A', 'Redmi K20 - K20 Pro - Redmi 9T - 9T Pro', 'Vivo Y38 5G - Vivo T3x - Vivo V30e', 'Vivo Y51 2020 - Y51A - Y33s 4G', 'iQOO Z7 Pro 5G - Vivo T2 Pro - Vivo S17e', 'Vivo V40e 5G - iQOO Z9s 5G', 'iQOO Z6 - Vivo T1 5G - Vivo Y55 - Vivo Y75 5G', 'iQOO Z3 - Vivo Y72 5G', 'iQOO Neo 7 - Neo 7 Pro', 'Vivo Y16 - Vivo Y56 5G - Vivo T2x - iQOO Z7i', 'Vivo V40 5G - V40 Pro 5G - T3 Ultra', 'Vivo T4x - Y29 4G - iQOO Z10x', 'Moto G85 - G96 - 50 Fusion', 'Moto G30 - Moto G20 - Moto G10 - G10 Power', 'Moto G31 - Moto G41', 'Moto G04 4G - G04s 4G - E14', 'Pixel 9 - Pixel 9 Pro ⚠ OPEN TYPE', 'Pixel 10 - Pixel 10 Pro ⚠ OPEN TYPE', 'Realme C2 - Oppo A3s - Oppo A1K', 'Realme C55 4G - Narzo N55 4G', 'Oppo F27 - Reno 12F 4G/5G', 'Oppo F23 - Oppo A1 5G - A98', 'Oppo A57 4G/5G - A77 - A77s - Narzo 50 5G - Nord N300', 'Realme C53 / C51 - Narzo N53 - Note 50 4G', 'Realme C30 / C30s - Narzo 50i Prime', 'Samsung A02 - M02', 'Samsung A02s - M02s', 'Samsung M13 - A04e', 'Samsung A05 4G - M05 - F05', 'Samsung F06 5G - M06 5G', 'Samsung F14 5G - M14', 'Samsung A10 - M10', 'Samsung A10s - M01s', 'Samsung A11 - M11', 'Samsung A12 4G/5G ⚠ OPEN TYPE - M12 - F12', 'Samsung A13 4G/5G ⚠ OPEN TYPE - A32 5G - M32 5G', 'Samsung M23 - F23', 'Samsung A13 5G - A04s', 'Samsung A14 4G/5G', 'Samsung M16 5G - F16 5G', 'Samsung A20 - A30 - M10s', 'Samsung A22 4G - M32 4G', 'Samsung A22 5G - A22s 5G - F42 5G', 'Samsung A24 4G - A25 5G ⚠ CHECK BEFORE BUY', 'Samsung A32 4G - M32', 'Samsung A52 4G - A52 5G - A52s 5G' ]
+
+return ( <main className="min-h-screen bg-slate-950 text-white p-6"> <a href="/" className="inline-block bg-green-500 text-black px-5 py-3 rounded-2xl font-semibold mb-6">← Back</a> <input
+placeholder="Search any model directly..."
+className="w-full rounded-2xl bg-slate-900 border border-slate-700 p-4 text-xl mb-6"
+/> <div className="space-y-4"> {models.map((item, i) => ( <div key={i} className="rounded-3xl bg-slate-800 p-5 text-xl border border-slate-700"> • {item} </div> ))} </div> </main> ) }
+
+export function ScreenGlassPage() { return ( <main className="min-h-screen bg-slate-950 text-white p-6 flex flex-col gap-6 items-center justify-center"> <a href="/" className="absolute top-6 left-6 bg-green-500 text-black px-5 py-3 rounded-2xl font-semibold">← Back</a> <div className="text-4xl font-bold animate-pulse text-cyan-400">🛡️ Screen Glass</div> <div className="text-3xl animate-bounce text-amber-300">Coming Soon</div> </main> ) }

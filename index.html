@@ -1,137 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Case Fit</title>
 <style>
-body{
-  margin:0;
-  background:#020b3a;
-  color:#fff;
-  font-family:Arial,sans-serif;
-}
-h1{
-  font-size:68px;
-  text-align:center;
-  margin:30px 0;
-  font-family:Georgia,'Times New Roman',serif;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  font-weight:900;
-}
-#list{
-  padding:8px 12px 40px;
-}
-.card{
-  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
-  margin:18px 10px;
-  border-radius:28px;
-  padding:28px;
-  border:1px solid rgba(255,255,255,.1);
-  box-shadow:0 8px 20px rgba(0,0,0,.18);
-}
-.card h3{
-  margin:0;
-  color:#35e06f;
-  font-size:28px;
-}
-.card p{
-  font-size:20px;
-  color:#eee;
-  margin:16px 0 8px;
-}
-.badges{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin:14px 0;
-}
-.badge{
-  padding:10px 18px;
-  border-radius:999px;
-  font-size:14px;
-  font-weight:700;
-}
-.open{
-  color:#f6c54a;
-  border:1px solid rgba(246,197,74,.4);
-  background:rgba(246,197,74,.12);
-}
-.check{
-  color:#ff8d8d;
-  border:1px solid rgba(255,141,141,.4);
-  background:rgba(255,141,141,.12);
-}
-small{
-  display:block;
-  color:#ffb1b1;
-  font-size:14px;
-  line-height:1.4;
-}
+body{margin:0;background:#020b3a;color:#fff;font-family:Arial,sans-serif}
+h1{font-size:68px;text-align:center;margin:30px 0;font-family:Georgia,'Times New Roman',serif;letter-spacing:4px;text-transform:uppercase;font-weight:900}
+.page{display:none;padding:20px}
+.page.active{display:block}
+.btn{display:block;width:100%;padding:24px;border-radius:28px;text-decoration:none;font-size:28px;font-weight:700;text-align:center;margin:18px 0;color:#000}
+.green{background:#28d463}.blue{background:#42cfff}
+.card{background:rgba(255,255,255,.06);margin:20px 0;border-radius:28px;padding:28px;border:1px solid rgba(255,255,255,.1)}
+.card h3{margin:0;color:#35e06f;font-size:28px}
+.card p{font-size:20px;color:#eee}
+.badges{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+.badge{padding:10px 18px;border-radius:999px;font-size:14px;font-weight:700}
+.open{color:#f6c54a;border:1px solid rgba(246,197,74,.4);background:rgba(246,197,74,.12)}
+.check{color:#ff8d8d;border:1px solid rgba(255,141,141,.4);background:rgba(255,141,141,.12)}
+small{display:block;color:#ffb1b1;font-size:14px;line-height:1.4}
 </style>
 </head>
 <body>
-
-<h1>CASE FIT</h1>
-<div id="list"></div>
-
-<script>
-const models = [
-  "Redmi M3 / M2 (check)",
-  "Redmi 7 - Redmi Y3",
-  "Redmi 12 5G - Poco M6 Pro",
-  "Redmi Note 7 - Redmi Note 7 Pro",
-  "Redmi 8 - Redmi 8A - Redmi 8A Dual",
-  "Redmi 9A - Redmi 9i",
-  "Redmi 9C - Redmi 10A - Poco C3 - Poco C31",
-  "Redmi 9 - Redmi 9 Prime",
-  "Redmi Note 10 Pro - Redmi Note 10 Pro Max",
-  "Redmi 13C 4G - Redmi 13C 5G (open type) - Poco C65",
-  "Poco X6 Pro - Redmi K70e 5G",
-  "Samsung A12 4G/5G (open type) - M12 - F12",
-  "Samsung A13 4G/5G (open type) - A32 5G - M32 5G",
-  "Samsung A24 4G - A25 5G (check)",
-  "Samsung A52 4G - A52 5G - A52s 5G"
+<div id="home" class="page active">
+  <h1>CASE FIT</h1>
+  <a href="#search" class="btn green">🔎 Find Suitable Case</a>
+  <a href="#glass" class="btn blue">🛡️ Screen Glass</a>
+</div><div id="search" class="page">
+  <h1 style="font-size:42px">CASE FIT</h1>
+  <a href="#home" class="btn green" style="width:auto;display:inline-block;padding:16px 24px">← Back</a>
+  <div id="list"></div>
+</div><div id="glass" class="page">
+  <h1 style="font-size:42px">SCREEN GLASS</h1>
+  <a href="#home" class="btn blue" style="width:auto;display:inline-block;padding:16px 24px">← Back</a>
+  <div class="card"><h3>Coming Soon</h3></div>
+</div><script>
+const models=[
+ 'Redmi M3 / M2 (check)',
+ 'Redmi 7 - Redmi Y3',
+ 'Redmi 12 5G - Poco M6 Pro',
+ 'Redmi Note 7 - Redmi Note 7 Pro',
+ 'Redmi 8 - Redmi 8A - Redmi 8A Dual',
+ 'Redmi 9A - Redmi 9i',
+ 'Redmi 9C - Redmi 10A - Poco C3 - Poco C31',
+ 'Redmi 9 - Redmi 9 Prime',
+ 'Redmi Note 10 Pro - Redmi Note 10 Pro Max',
+ 'Redmi Note 10 4G - Note 10s 4G - Note 11SE - Poco M5s 4G',
+ 'Redmi 11 Prime 5G - Redmi Note 11e 5G - Redmi 10 Prime Plus 5G',
+ 'POCO M4 5G - POCO M5 4G',
+ 'Redmi 11X - Redmi 11X Pro - Redmi K40 - Redmi K40 Pro - Redmi 11i - Poco F3',
+ 'Redmi Note 11 Pro 4G/5G - Note 11 Pro+ 5G - Note 12 Pro 4G',
+ 'Redmi Note 11s - Note 11 4G',
+ 'Redmi Note 11 5G - Poco M4 Pro 5G - Note 11T 5G',
+ 'Redmi 13C 4G - Redmi 13C 5G (open type) - Poco C65',
+ 'Redmi 10C - Redmi 10 4G - Redmi 10 Power - Poco C40',
+ 'Redmi Note 14 Pro - 14 Pro Plus',
+ 'Redmi 6 - 6A',
+ 'Poco X6 Pro - Redmi K70e 5G',
+ 'Redmi Y1 - Note 5A',
+ 'Redmi K20 - K20 Pro - Redmi 9T - 9T Pro',
+ 'iQOO Z6 - Vivo T1 5G - Vivo Y55 - Vivo Y75 5G',
+ 'iQOO Z3 - Vivo Y72 5G',
+ 'iQOO Neo 7 - Neo 7 Pro',
+ 'Vivo Y04 - Y19e - Y29s 5G - T4 Lite 5G - Y19 5G - iQOO Z10 Lite 5G',
+ 'Vivo Y16 - Vivo Y56 5G - Vivo Y02s 4G - Vivo Y35 5G - Vivo T2x - iQOO Z7i',
+ 'Vivo V40 5G - V40 Pro 5G - Vivo T3 Ultra - Vivo S19 Pro 5G',
+ 'Vivo T1 4G - Vivo Y55 4G - iQOO Z6 44W',
+ 'Vivo T2 Pro 5G - iQOO Z7 Pro 5G - Vivo S17e',
+ 'Vivo T4x - Y29 4G - Y31 Pro 5G - iQOO Z10x',
+ 'Moto G85 - G96 - 50 Fusion',
+ 'Moto G31 - G41',
+ 'Pixel 9 - Pixel 9 Pro (open type)',
+ 'Pixel 10 - Pixel 10 Pro (open type)',
+ 'Realme C2 - Oppo A3s - Oppo A1K',
+ 'Realme C55 4G - Realme Narzo N55 4G',
+ 'Oppo F27 - Oppo Reno 12F 4G/5G - Reno 12 FS 5G',
+ 'Oppo F23 - Oppo A1 5G - A98',
+ 'Oppo A57 4G/5G - A77 4G/5G - A77s 4G - A57e 4G - A57s 4G - Realme Narzo 50 5G - Realme V23 - OnePlus N20 SE - OnePlus Nord N300',
+ 'Realme C53 4G - C53e - C51 4G - Realme Narzo N53 - Realme Note 50 4G',
+ 'Realme C30 - C30s - Narzo 50i Prime',
+ 'Samsung A02 - M02 - A022',
+ 'Samsung A02s - M02s',
+ 'Samsung M13 - A04e',
+ 'Samsung A05 4G - M05 4G - F05 4G',
+ 'Samsung F06 5G - M06 5G',
+ 'Samsung F14 5G - M14',
+ 'Samsung A10 - M10',
+ 'Samsung A10s - M01s',
+ 'Samsung A11 - M11',
+ 'Samsung A12 4G/5G (open type) - M12 - F12',
+ 'Samsung A13 4G/5G (open type) - A32 5G - M32 5G (open type)',
+ 'Samsung M23 - F23',
+ 'Samsung A13 5G - A04s',
+ 'Samsung A14 4G/5G',
+ 'Samsung M16 5G - F16 5G',
+ 'Samsung A20 - A30 - M10s',
+ 'Samsung A22 4G - M32 4G',
+ 'Samsung A22 5G - A22s 5G - F42 5G',
+ 'Samsung A24 4G - A25 5G (check)',
+ 'Samsung A32 4G - M32',
+ 'Samsung A52 4G - A52 5G - A52s 5G'
 ];
-
-function renderModel(mainName, subName, isOpen, isCheck) {
-  return `
-    <div class="card">
-      <h3>${mainName}</h3>
-      ${subName ? `<p>Also fits ${subName}</p>` : ""}
-      ${(isOpen || isCheck) ? `
-        <div class="badges">
-          ${isOpen ? `<span class="badge open">OPEN TYPE</span>` : ""}
-          ${isCheck ? `<span class="badge check">CHECK BEFORE BUY</span>` : ""}
-        </div>
-        <small>Verify camera cutout, fingerprint slot, and speaker holes before final use.</small>
-      ` : ""}
-    </div>
-  `;
+function renderModel(mainName, subName, isOpen, isCheck){
+ return `<div class="card"><h3>${mainName}</h3>${subName?`<p>Also fits ${subName}</p>`:''}${(isOpen||isCheck)?`<div class="badges">${isOpen?'<span class="badge open">OPEN TYPE</span>':''}${isCheck?'<span class="badge check">CHECK BEFORE BUY</span>':''}</div><small>Verify camera cutout, fingerprint slot, and speaker holes before final use.</small>`:''}</div>`;
 }
-
-const list = document.getElementById("list");
-
-models.forEach(item => {
-  let txt = item;
-  const lower = txt.toLowerCase();
-
-  const isOpen = lower.includes("(open type)");
-  const isCheck = lower.includes("(check)");
-
-  txt = txt
-    .replace(/\(open type\)/ig, "")
-    .replace(/\(check\)/ig, "")
-    .trim();
-
-  const parts = txt.split(" - ");
-  const main = parts.shift();
-  const sub = parts.join(" / ");
-
-  list.innerHTML += renderModel(main, sub, isOpen, isCheck);
-});
-</script>
-
-</body>
+function loadModels(){
+ const list=document.getElementById('list');
+ list.innerHTML='';
+ models.forEach(item=>{
+   let txt=item;
+   const isOpen=/open type/i.test(txt);
+   const isCheck=/check/i.test(txt);
+   txt=txt.replace(/open type/ig,'').replace(/check/ig,'').trim();
+   const parts=txt.split(' - ');
+   const main=parts.shift();
+   const sub=parts.join(' / ');
+   list.innerHTML+=renderModel(main,sub,isOpen,isCheck);
+ });
+}
+function route(){
+ const hash=location.hash.replace('#','')||'home';
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ const page=document.getElementById(hash)||document.getElementById('home');
+ page.classList.add('active');
+ if(hash==='search') loadModels();
+}
+window.addEventListener('hashchange',route);
+route();
+</script></body>
 </html>

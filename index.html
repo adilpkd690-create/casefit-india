@@ -3,163 +3,124 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#0f172a" />
 <title>CASE FIT | Smart Finder</title>
+
+<link rel="manifest" id="manifest-link" />
+
 <style>
 :root {
-  --primary: #00f2fe;
-  --secondary: #4facfe;
-  --bg-dark: #0f172a;
-  --glass: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --warning: #ff7675;
-  --model-green: #2ecc71;
-  --text-dim: #94a3b8;
+  --primary: #00f2fe; --secondary: #4facfe; --bg-dark: #0f172a;
+  --glass: rgba(255, 255, 255, 0.05); --glass-active: rgba(0, 242, 254, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.1); --warning: #ff7675;
+  --model-green: #2ecc71; --text-dim: #94a3b8;
 }
 
 body {
-  margin: 0;
-  background: radial-gradient(circle at top, #1e293b, #0f172a);
-  background-attachment: fixed;
-  color: #f8fafc;
-  font-family: 'Inter', -apple-system, sans-serif;
-  min-height: 100vh;
+  margin: 0; background: radial-gradient(circle at top, #1e293b, #0f172a);
+  background-attachment: fixed; color: #f8fafc;
+  font-family: 'Inter', -apple-system, sans-serif; min-height: 100vh;
 }
 
-.wrap { 
-  max-width: 430px; 
-  margin: 0 auto; 
-  padding: 40px 20px;
-}
+.wrap { max-width: 430px; margin: 0 auto; padding: 40px 20px; }
 
 h1 {
-  text-align: center;
-  font-size: 45px;
-  font-weight: 900;
-  letter-spacing: -2px;
+  text-align: center; font-size: 45px; font-weight: 900; letter-spacing: -2px;
   background: linear-gradient(to right, #00f2fe, #4facfe);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-top: 20px;
-  margin-bottom: 40px;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-top: 20px; margin-bottom: 30px;
 }
 
 .btn {
   display: flex; align-items: center; justify-content: center; gap: 12px;
   color: #fff; text-decoration: none; padding: 20px; border-radius: 22px;
-  font-size: 18px; font-weight: 700; margin-bottom: 18px;
+  font-size: 18px; font-weight: 700; margin-bottom: 15px;
   background: var(--glass); border: 1px solid var(--glass-border);
   backdrop-filter: blur(15px); transition: 0.3s;
 }
 
 .btn:active { transform: scale(0.97); }
 
-.casebtn { 
-  background: linear-gradient(135deg, #05d5ff, #007bff); 
-  border: none;
-  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
-}
-
+.casebtn { background: linear-gradient(135deg, #05d5ff, #007bff); border: none; box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3); }
 .glassbtn { border-color: rgba(72, 199, 245, 0.5); color: #48c7f5; }
 
-/* Scrolling Marquee Animation */
-.marquee-container {
-  margin-top: 25px;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
+/* Install App Button */
+#installBtn {
+  display: none; /* Hidden by default, shown only if installable */
+  background: rgba(46, 204, 113, 0.15); border-color: rgba(46, 204, 113, 0.4);
+  color: #2ecc71; font-size: 16px; padding: 16px; margin-top: 5px;
 }
 
-.marquee-text {
-  display: inline-block;
-  padding-left: 100%;
-  animation: scrollText 12s linear infinite;
-  font-size: 11px;
-  letter-spacing: 2px;
-  font-weight: 600;
-  color: var(--secondary);
-  opacity: 0.6;
+/* Premium Pulse Glow */
+@keyframes softPulse {
+  0% { opacity: 0.5; text-shadow: 0 0 0px transparent; }
+  50% { opacity: 1; text-shadow: 0 0 12px rgba(79, 172, 254, 0.6); }
+  100% { opacity: 0.5; text-shadow: 0 0 0px transparent; }
+}
+.pulse-text {
+  margin-top: 25px; text-align: center; font-size: 11px; letter-spacing: 2px;
+  font-weight: 700; color: var(--secondary); animation: softPulse 3s infinite ease-in-out;
 }
 
-@keyframes scrollText {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(-100%, 0); }
-}
-
-.search-container { position: sticky; top: 10px; z-index: 100; margin-bottom: 25px; }
+/* Sticky Search & Chips */
+.sticky-header { position: sticky; top: 10px; z-index: 100; margin-bottom: 20px; }
 .search {
   width: 100%; padding: 18px 24px; border-radius: 20px;
   border: 1px solid var(--glass-border); background: rgba(15, 23, 42, 0.95);
   color: #fff; font-size: 16px; box-sizing: border-box; outline: none;
   box-shadow: 0 10px 25px rgba(0,0,0,0.4); transition: border-color 0.3s;
 }
-
 .search:focus { border-color: var(--primary); }
 
-.card {
-  background: var(--glass); border: 1px solid var(--glass-border);
-  border-radius: 24px; padding: 22px; margin-bottom: 16px;
+.filter-scroll {
+  display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; scrollbar-width: none;
 }
+.filter-scroll::-webkit-scrollbar { display: none; }
+.chip {
+  padding: 8px 16px; background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--text-dim);
+  white-space: nowrap; cursor: pointer; transition: 0.2s; backdrop-filter: blur(10px);
+}
+.chip.active { background: var(--glass-active); color: var(--primary); border-color: var(--primary); }
 
+/* Card Styles */
+.card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px; padding: 22px; margin-bottom: 16px; }
 .title { font-size: 20px; color: var(--model-green); font-weight: 800; margin-bottom: 6px; }
 .fit { font-size: 15px; color: #fff; line-height: 1.5; opacity: 0.95; }
-
-/* Search Highlight Feature */
-mark {
-  background-color: rgba(0, 242, 254, 0.25);
-  color: #fff;
-  border-radius: 4px;
-  padding: 0 2px;
-}
+mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4px; padding: 0 2px; }
 
 .badges { margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap; }
 .badge { padding: 6px 12px; border-radius: 12px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; }
 .badge-open { background: rgba(243, 202, 84, 0.12); color: #f3ca54; border: 1px solid rgba(243, 202, 84, 0.3); }
 .badge-check { background: rgba(255, 118, 117, 0.12); color: #ff7675; border: 1px solid rgba(255, 118, 117, 0.3); }
 
-.warning-text { 
-  font-size: 12px; color: var(--warning); margin-top: 12px; 
-  line-height: 1.4; font-weight: 500; border-top: 1px solid rgba(255,118,117,0.1); padding-top: 10px;
-}
+.warning-text { font-size: 12px; color: var(--warning); margin-top: 12px; line-height: 1.4; font-weight: 500; border-top: 1px solid rgba(255,118,117,0.1); padding-top: 10px; }
 
+/* Empty State */
+.no-result { text-align: center; padding: 30px 15px; background: var(--glass); border-radius: 24px; border: 1px dashed var(--glass-border); }
+.no-result h3 { color: #fff; margin: 10px 0; }
+.no-result p { color: var(--text-dim); font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
+.req-btn { background: rgba(0, 242, 254, 0.1); color: var(--primary); text-decoration: none; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 700; display: inline-block; border: 1px solid rgba(0,242,254,0.3); }
+
+/* Layouts */
 .page { display: none; }
 .page.active { display: block; animation: fadeIn 0.3s ease-out; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 .back {
   display: flex; align-items: center; justify-content: center; color: #fff;
   background: var(--glass); text-decoration: none; width: 48px; height: 48px;
-  border-radius: 18px; margin-bottom: 25px; border: 1px solid var(--glass-border);
+  border-radius: 18px; margin-bottom: 15px; border: 1px solid var(--glass-border);
 }
 
-/* Simple Contact Footer */
-.footer {
-  text-align: center;
-  padding-top: 40px;
-  margin-top: 20px;
-  border-top: 1px solid var(--glass-border);
-}
-
-.contact-box {
-  background: var(--glass);
-  padding: 18px 25px;
-  border-radius: 20px;
-  display: inline-block;
-  border: 1px solid var(--glass-border);
-}
-
+.footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--glass-border); }
+.contact-box { background: var(--glass); padding: 18px 25px; border-radius: 20px; display: inline-block; border: 1px solid var(--glass-border); }
 .contact-box span { display: block; font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-weight: 500;}
 .contact-box a { color: var(--primary); text-decoration: none; font-weight: 700; font-size: 15px; letter-spacing: 0.5px; }
-
 .copyright { font-size: 10px; color: #475569; margin-top: 25px; letter-spacing: 1px; }
 
-/* Glass Page Improvements */
 .glass-list { list-style: none; padding: 0; margin: 20px 0 0 0; text-align: left; font-size: 14px; color: var(--text-dim); line-height: 1.8; }
 .glass-list li::before { content: "✓"; color: var(--primary); margin-right: 8px; font-weight: bold; }
-
 </style>
 </head>
 <body>
@@ -170,24 +131,35 @@ mark {
     <a class='btn casebtn' href='#' onclick="showPage('searchPage');return false;">🔍 Find Suitable Case</a>
     <a class='btn glassbtn' href='#' onclick="showPage('glassPage');return false;">🛡️ Screen Glass</a>
     
-    <div class="marquee-container">
-      <div class="marquee-text">— MORE MODELS COMING SOON —</div>
-    </div>
+    <a id='installBtn' class='btn' href='#'>⬇️ Install App</a>
+    
+    <div class="pulse-text">— VERIFIED STOCK UPDATED —</div>
     
     <div class="footer">
       <div class="contact-box">
         <span>Need Help / Request Models?</span>
         <a href="mailto:adilpkd690@gmail.com">adilpkd690@gmail.com</a>
       </div>
-      <div class="copyright">© 2026 CASE FIT INDIA</div>
+      <div class="copyright">© 2026 CASE FIT INDIA • Staff Portal</div>
     </div>
   </div>
 
   <div id='searchPage' class='page'>
     <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
-    <div class="search-container">
-        <input id='searchBox' class='search' placeholder='Search model...' oninput='filterModels()'>
+    
+    <div class="sticky-header">
+        <input id='searchBox' class='search' placeholder='Search model (e.g. A24, iPhone)...' oninput='filterModels()'>
+        <div class="filter-scroll" id="chipContainer">
+            <div class="chip active" onclick="setBrand('All', this)">All</div>
+            <div class="chip" onclick="setBrand('Redmi', this)">Redmi/Poco</div>
+            <div class="chip" onclick="setBrand('Samsung', this)">Samsung</div>
+            <div class="chip" onclick="setBrand('Vivo', this)">Vivo/iQOO</div>
+            <div class="chip" onclick="setBrand('Oppo', this)">Oppo/Realme</div>
+            <div class="chip" onclick="setBrand('iPhone', this)">Apple</div>
+            <div class="chip" onclick="setBrand('Moto', this)">Moto</div>
+        </div>
     </div>
+    
     <div id='list'></div>
   </div>
 
@@ -195,128 +167,108 @@ mark {
     <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
     <div class='card' style="text-align: center; border-color: var(--secondary);">
       <div class='title' style="color: var(--secondary)">🛡️ SCREEN GLASS</div>
-      <p class='fit' style="color: #fff; margin-top: 15px;">Database Updating</p>
+      <p class='fit' style="color: #fff; margin-top: 15px;">Database Expansion in Progress</p>
       <ul class="glass-list">
-        <li>Major brands coming soon</li>
-        <li>New models added regularly</li>
-        <li>100% verified compatibility</li>
+        <li>All major brands coming soon</li>
+        <li>Tempered / Privacy / UV Glass</li>
+        <li>100% verified cross-compatibility</li>
       </ul>
     </div>
   </div>
 </div>
 
 <script>
-// FULL DATABASE
-const models = [
+// ==========================================
+// 📦 DATABASE SECTION (EASY TO UPDATE)
+// ==========================================
+const databaseModels = [
     // REDMI / POCO
-    {n:'Redmi M3 / M2', check:true},
-    {n:'Redmi 7', f:'Redmi Y3'},
-    {n:'Redmi 12 5G', f:'Poco M6 Pro'},
-    {n:'Redmi Note 7', f:'Redmi Note 7 Pro'},
-    {n:'Redmi 8', f:'Redmi 8A / 8A Dual'},
-    {n:'Redmi 9A', f:'Redmi 9i'},
-    {n:'Redmi 9C', f:'Redmi 10A / Poco C3 / Poco C31'},
-    {n:'Redmi 9', f:'Redmi 9 Prime'},
-    {n:'Redmi Note 10 Pro', f:'Note 10 Pro Max'},
+    {n:'Redmi M3 / M2', check:true}, {n:'Redmi 7', f:'Redmi Y3'}, {n:'Redmi 12 5G', f:'Poco M6 Pro'},
+    {n:'Redmi Note 7', f:'Redmi Note 7 Pro'}, {n:'Redmi 8', f:'Redmi 8A / 8A Dual'},
+    {n:'Redmi 9A', f:'Redmi 9i'}, {n:'Redmi 9C', f:'Redmi 10A / Poco C3 / Poco C31'},
+    {n:'Redmi 9', f:'Redmi 9 Prime'}, {n:'Redmi Note 10 Pro', f:'Note 10 Pro Max'},
     {n:'Redmi Note 10 4G', f:'Note 10s 4G / Note 11se / Poco M5s 4G'},
     {n:'Redmi 11 Prime 5G', f:'Redmi Note 11e 5G / Redmi 10 Prime Plus 5G'},
-    {n:'POCO M4 5G', f:'POCO M5 4G'},
-    {n:'Redmi 11X / 11X Pro', f:'Redmi K40 / K40 Pro / K40 Pro+ / Redmi 11i / Poco F3'},
+    {n:'POCO M4 5G', f:'POCO M5 4G'}, {n:'Redmi 11X / 11X Pro', f:'Redmi K40 / K40 Pro / K40 Pro+ / Redmi 11i / Poco F3'},
     {n:'Redmi Note 11 Pro 4G/5G', f:'Note 11 Pro+ 5G / Note 12 Pro 4G'},
-    {n:'Redmi Note 11s', f:'Note 11 4G'},
-    {n:'Redmi Note 11 5G', f:'Poco M4 Pro 5G / Note 11t 5G'},
+    {n:'Redmi Note 11s', f:'Note 11 4G'}, {n:'Redmi Note 11 5G', f:'Poco M4 Pro 5G / Note 11t 5G'},
     {n:'Redmi 13C 4G', f:'Redmi 13C 5G / Poco C65', open:true},
     {n:'Redmi 10C', f:'Redmi 10 4G / Redmi 10 Power / Poco C40'},
-    {n:'Redmi Note 14 Pro', f:'14 Pro Plus'},
-    {n:'Redmi 6 / 6A', f:'Common fit for 6 and 6A'},
-    {n:'Poco X6 Pro', f:'Redmi K70e 5G'},
-    {n:'Redmi Y1', f:'Note 5A'},
-    {n:'Redmi K20 / K20 Pro', f:'Redmi 9T / 9T Pro'},
+    {n:'Redmi Note 14 Pro', f:'14 Pro Plus'}, {n:'Redmi 6 / 6A', f:'Common fit for 6 and 6A'},
+    {n:'Poco X6 Pro', f:'Redmi K70e 5G'}, {n:'Redmi Y1', f:'Note 5A'}, {n:'Redmi K20 / K20 Pro', f:'Redmi 9T / 9T Pro'},
 
     // VIVO / IQOO
-    {n:'iQOO Z6', f:'Vivo T1 5G / Vivo Y55 / Vivo Y75 5G'},
-    {n:'iQOO Z3', f:'Vivo Y72 5G'},
-    {n:'iQOO Neo 7', f:'Neo 7 Pro'},
-    {n:'Vivo Y04 / Y19e', f:'Y29s 5G / T4 Lite 5G / Y19 5G / iQOO Z10 Lite 5G'},
+    {n:'iQOO Z6', f:'Vivo T1 5G / Vivo Y55 / Vivo Y75 5G'}, {n:'iQOO Z3', f:'Vivo Y72 5G'},
+    {n:'iQOO Neo 7', f:'Neo 7 Pro'}, {n:'Vivo Y04 / Y19e', f:'Y29s 5G / T4 Lite 5G / Y19 5G / iQOO Z10 Lite 5G'},
     {n:'Vivo Y16', f:'Vi Y56 5G / Y02s 4G / Y35 5G / T2x / iQOO Z7i'},
     {n:'Vivo V40 5G', f:'V40 Pro 5G / Vi T3 Ultra / Vi S19 Pro 5G'},
-    {n:'Vivo T1 4G', f:'Vivo Y55 4G / iQOO Z6 44W'},
-    {n:'Vivo T2 Pro 5G', f:'iQOO Z7 Pro 5G / Vivo S17e'},
+    {n:'Vivo T1 4G', f:'Vivo Y55 4G / iQOO Z6 44W'}, {n:'Vivo T2 Pro 5G', f:'iQOO Z7 Pro 5G / Vivo S17e'},
     {n:'Vivo T4x', f:'Y29 4G / Y31 Pro 5G / iQOO Z10x'},
 
-    // MOTO
-    {n:'Moto G85', f:'G96 / 50 Fusion'},
-    {n:'Moto G31 / G41', f:'Common fit for G31 and G41'},
-
-    // PIXEL
-    {n:'Pixel 9 / 9 Pro', open:true},
-    {n:'Pixel 10 / 10 Pro', open:true},
+    // MOTO / OTHERS
+    {n:'Moto G85', f:'G96 / 50 Fusion'}, {n:'Moto G31 / G41', f:'Common fit'},
+    {n:'Pixel 9 / 9 Pro', open:true}, {n:'Pixel 10 / 10 Pro', open:true},
+    {n:'Nothing Phone 1', f:'Nothing Phone 2a (Check alignment)', check:true},
+    {n:'OnePlus Nord CE 3 Lite', f:'OnePlus Nord CE 4 Lite', check:true},
 
     // REALME / OPPO
-    {n:'Realme C2', f:'Oppo A3s / Oppo A1K'},
-    {n:'Realme C55 4G', f:'Realme Narzo N55 4G'},
-    {n:'Oppo F27', f:'Oppo Reno 12f 4G/5G / Reno 12 Fs 5G'},
-    {n:'Oppo F23', f:'Oppo A1 5G / A98'},
+    {n:'Realme C2', f:'Oppo A3s / Oppo A1K'}, {n:'Realme C55 4G', f:'Realme Narzo N55 4G'},
+    {n:'Oppo F27', f:'Oppo Reno 12f 4G/5G / Reno 12 Fs 5G'}, {n:'Oppo F23', f:'Oppo A1 5G / A98'},
     {n:'Oppo A57 4G / 5G', f:'A77 / A77s / A57e / A57s / Narzo 50 5G / V23 / Oneplus N20 se / Nord N300'},
     {n:'Realme C53 / C53e', f:'C51 4G / Narzo N53 / Realme Note 50 4G'},
     {n:'Realme C30 / C30s', f:'Narzo 50i Prime'},
 
     // SAMSUNG
-    {n:'Samsung A02 / M02', f:'A022'},
-    {n:'Samsung A02s / M02s', f:'Common fit'},
-    {n:'Samsung M13 / A04e', f:'Common fit'},
-    {n:'Samsung M13 5G', f:'A04'},
-    {n:'Samsung A05 4G', f:'M05 4G / F05 4G'},
-    {n:'Samsung F06 5G', f:'M06 5G'},
-    {n:'Samsung F14 5G', f:'M14'},
-    {n:'Samsung A10 / M10', f:'Common fit'},
-    {n:'Samsung A10s / M01s', f:'Common fit'},
-    {n:'Samsung A11 / M11', f:'Common fit'},
+    {n:'Samsung A02 / M02', f:'A022'}, {n:'Samsung A02s / M02s', f:'Common fit'},
+    {n:'Samsung M13 / A04e', f:'Common fit'}, {n:'Samsung M13 5G', f:'A04'},
+    {n:'Samsung A05 4G', f:'M05 4G / F05 4G'}, {n:'Samsung F06 5G', f:'M06 5G'}, {n:'Samsung F14 5G', f:'M14'},
+    {n:'Samsung A10 / M10', f:'Common fit'}, {n:'Samsung A10s / M01s', f:'Common fit'}, {n:'Samsung A11 / M11', f:'Common fit'},
     {n:'Samsung A12', f:'M12 / F12 / 4G-5G open type', open:true, check:true},
     {n:'Samsung A13', f:'A32 5G / M32 5G / 4G-5G open type', open:true, check:true},
-    {n:'Samsung M23', f:'F23'},
-    {n:'Samsung A13 5G', f:'A04s'},
-    {n:'Samsung A14 4G/5G', f:'Common fit'},
-    {n:'Samsung M16 5G', f:'F16 5G'},
-    {n:'Samsung A20 / A30', f:'M10s'},
-    {n:'Samsung A22 4G', f:'M32 4G'},
-    {n:'Samsung A22 5G', f:'A22s 5G / F42 5G'},
-    {n:'Samsung A24 4G', f:'A25 5G', check:true},
-    {n:'Samsung A32 4G', f:'M32'},
-    {n:'Samsung A52 4G / 5G', f:'A52s 5G'},
-    {n:'Samsung A54 4G / 5G', f:'Common fit'},
-    {n:'Samsung M21 / M30s', f:'M31 / M21s / M31 Prime / F41'},
-    {n:'Samsung F15', f:'M15 5G'},
-    {n:'Samsung A70 / A70s', f:'Common fit'},
-    {n:'Samsung A01 / M01', check:true},
-    {n:'Samsung M54 / F54', f:'Common fit'},
-    {n:'Samsung M56 / F56', f:'Common fit'},
-    {n:'Samsung M34 5G / F34 5G', f:'Common fit'},
-    {n:'Samsung M22 / F22', f:'M32'},
-    {n:'Samsung A50 / A30s / A50s', f:'Common fit'},
-    {n:'Samsung A42 / M42', f:'Common fit'},
+    {n:'Samsung M23', f:'F23'}, {n:'Samsung A13 5G', f:'A04s'}, {n:'Samsung A14 4G/5G', f:'Common fit'},
+    {n:'Samsung M16 5G', f:'F16 5G'}, {n:'Samsung A20 / A30', f:'M10s'}, {n:'Samsung A22 4G', f:'M32 4G'},
+    {n:'Samsung A22 5G', f:'A22s 5G / F42 5G'}, {n:'Samsung A24 4G', f:'A25 5G', check:true},
+    {n:'Samsung A32 4G', f:'M32'}, {n:'Samsung A52 4G / 5G', f:'A52s 5G'}, {n:'Samsung A54 4G / 5G', f:'Common fit'},
+    {n:'Samsung M21 / M30s', f:'M31 / M21s / M31 Prime / F41'}, {n:'Samsung F15', f:'M15 5G'},
+    {n:'Samsung A70 / A70s', f:'Common fit'}, {n:'Samsung A01 / M01', check:true},
+    {n:'Samsung M54 / F54', f:'Common fit'}, {n:'Samsung M56 / F56', f:'Common fit'}, {n:'Samsung M34 5G / F34 5G', f:'Common fit'},
+    {n:'Samsung M22 / F22', f:'M32'}, {n:'Samsung A50 / A30s / A50s', f:'Common fit'}, {n:'Samsung A42 / M42', f:'Common fit'},
 
     // APPLE / IPHONE
-    {n:'iPhone 13', f:'iPhone 14', check:true},
-    {n:'iPhone 11', f:'iPhone XR', open:true},
-    {n:'iPhone 12', f:'iPhone 12 Pro', check:true}
+    {n:'iPhone 11', f:'iPhone XR', open:true}, {n:'iPhone 12 / 12 Pro', f:'Same frame'},
+    {n:'iPhone 13 / 14', f:'14 has thicker camera, open type fits both', check:true},
+    {n:'iPhone 15', f:'New type-C cutout', check:true}, {n:'iPhone 16 / 16 Plus', f:'Vertical camera bump', check:true}
 ];
+// ==========================================
 
-// Highlight Match Logic
+// --- APP LOGIC ---
+let currentBrand = 'All';
+
+function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 function highlight(text, q) {
     if (!q) return text;
-    const regex = new RegExp(`(${q})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
+    return text.replace(new RegExp(`(${escapeRegExp(q)})`, 'gi'), '<mark>$1</mark>');
+}
+
+function setBrand(brand, element) {
+    currentBrand = brand;
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    element.classList.add('active');
+    filterModels();
 }
 
 function render(items, q = '') {
     const list = document.getElementById('list');
-    
     if (items.length === 0) {
-        list.innerHTML = `<div style="text-align:center; color:#94a3b8; padding:40px;">No models found for "${q}".<br><br>Check spelling or request this model!</div>`;
+        list.innerHTML = `
+        <div class="no-result">
+            <div style="font-size:35px; margin-bottom:10px;">📦</div>
+            <h3>Model Not Found</h3>
+            <p>We couldn't find <b>"${q}"</b>.</p>
+            <a href="mailto:adilpkd690@gmail.com?subject=Model Request: ${q}" class="req-btn">📧 Request Model</a>
+        </div>`;
         return;
     }
-
     list.innerHTML = items.map(m => `
     <div class='card'>
         <div class='title'>${highlight(m.n, q)}</div>
@@ -331,9 +283,25 @@ function render(items, q = '') {
 
 function filterModels() {
     const q = document.getElementById('searchBox').value.toLowerCase().trim();
-    const filtered = models.filter(m => 
-        m.n.toLowerCase().includes(q) || (m.f && m.f.toLowerCase().includes(q))
-    );
+    let filtered = databaseModels.filter(m => {
+        if (currentBrand !== 'All') {
+            const nL = m.n.toLowerCase();
+            if (currentBrand === 'Redmi' && !(nL.includes('redmi') || nL.includes('poco'))) return false;
+            if (currentBrand === 'Samsung' && !nL.includes('samsung')) return false;
+            if (currentBrand === 'Vivo' && !(nL.includes('vivo') || nL.includes('iqoo'))) return false;
+            if (currentBrand === 'Oppo' && !(nL.includes('oppo') || nL.includes('realme'))) return false;
+            if (currentBrand === 'iPhone' && !nL.includes('iphone')) return false;
+            if (currentBrand === 'Moto' && !nL.includes('moto')) return false;
+        }
+        return !q || m.n.toLowerCase().includes(q) || (m.f && m.f.toLowerCase().includes(q));
+    });
+
+    if (q) {
+        filtered.sort((a, b) => {
+            const aN = a.n.toLowerCase(), bN = b.n.toLowerCase();
+            return (bN === q ? 3 : (bN.startsWith(q) ? 2 : 1)) - (aN === q ? 3 : (aN.startsWith(q) ? 2 : 1));
+        });
+    }
     render(filtered, q);
 }
 
@@ -343,10 +311,47 @@ function showPage(id) {
     window.scrollTo(0, 0);
     if(id === 'searchPage') { 
         document.getElementById('searchBox').value = '';
-        render(models); 
+        currentBrand = 'All';
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        document.querySelector('.chip').classList.add('active');
+        filterModels(); 
         setTimeout(() => document.getElementById('searchBox').focus(), 150); 
     }
 }
+
+// --- PWA / APP INSTALL LOGIC ---
+const manifestData = {
+    "name": "CASE FIT INDIA",
+    "short_name": "Case Fit",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0f172a",
+    "theme_color": "#00f2fe",
+    "icons": [{
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%2300f2fe'><rect width='192' height='192' fill='%230f172a'/><text x='50%' y='55%' font-size='80' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%2300f2fe'>CF</text></svg>",
+        "sizes": "192x192", "type": "image/svg+xml"
+    }]
+};
+const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+document.getElementById('manifest-link').href = URL.createObjectURL(manifestBlob);
+
+// Handle Install Prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('installBtn').style.display = 'flex'; // Show button
+});
+
+document.getElementById('installBtn').addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') document.getElementById('installBtn').style.display = 'none';
+        deferredPrompt = null;
+    }
+});
 </script>
 </body>
 </html>

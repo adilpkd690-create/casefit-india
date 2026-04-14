@@ -4,7 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="theme-color" content="#0f172a" />
-<title>CASE FIT | Smart Finder</title>
+<title>CoverMatch | Smart Finder</title>
+<meta name="description" content="CoverMatch India - Find the perfect smartphone cover, case, and screen glass compatibility in seconds. Smart finder for shop staff and customers." />
 
 <link rel="manifest" id="manifest-link" />
 
@@ -13,7 +14,7 @@
   --primary: #00f2fe; --secondary: #4facfe; --bg-dark: #0f172a;
   --glass: rgba(255, 255, 255, 0.05); --glass-active: rgba(0, 242, 254, 0.15);
   --glass-border: rgba(255, 255, 255, 0.1); --warning: #ff7675;
-  --model-green: #2ecc71; --text-dim: #94a3b8;
+  --model-green: #2ecc71; --text-dim: #94a3b8; --share-btn: rgba(37, 211, 102, 0.15);
 }
 
 body {
@@ -22,9 +23,9 @@ body {
   font-family: 'Inter', -apple-system, sans-serif; min-height: 100vh;
 }
 
-.wrap { max-width: 430px; margin: 0 auto; padding: 40px 20px; }
+.wrap { max-width: 430px; margin: 0 auto; padding: 30px 20px 40px; }
 
-/* SVG Logo Styles */
+/* SVG Logo */
 .logo-container { text-align: center; margin: 20px 0 35px; }
 
 .btn {
@@ -40,14 +41,12 @@ body {
 .casebtn { background: linear-gradient(135deg, #05d5ff, #007bff); border: none; box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3); }
 .glassbtn { border-color: rgba(72, 199, 245, 0.5); color: #48c7f5; }
 
-/* Install App Button */
 #installBtn {
   display: none; 
   background: rgba(46, 204, 113, 0.15); border-color: rgba(46, 204, 113, 0.4);
   color: #2ecc71; font-size: 16px; padding: 16px; margin-top: 5px;
 }
 
-/* Premium Pulse Glow */
 @keyframes softPulse {
   0% { opacity: 0.5; text-shadow: 0 0 0px transparent; }
   50% { opacity: 1; text-shadow: 0 0 12px rgba(79, 172, 254, 0.6); }
@@ -58,19 +57,29 @@ body {
   font-weight: 700; color: var(--secondary); animation: softPulse 3s infinite ease-in-out;
 }
 
-/* Sticky Search & Chips */
-.sticky-header { position: sticky; top: 10px; z-index: 100; margin-bottom: 20px; }
+/* Sticky Header, Voice Search & Chips */
+.sticky-header { position: sticky; top: 10px; z-index: 100; margin-bottom: 15px; }
+.search-wrapper { position: relative; width: 100%; }
 .search {
-  width: 100%; padding: 18px 24px; border-radius: 20px;
+  width: 100%; padding: 18px 50px 18px 24px; border-radius: 20px;
   border: 1px solid var(--glass-border); background: rgba(15, 23, 42, 0.95);
   color: #fff; font-size: 16px; box-sizing: border-box; outline: none;
   box-shadow: 0 10px 25px rgba(0,0,0,0.4); transition: border-color 0.3s;
 }
 .search:focus { border-color: var(--primary); }
-
-.filter-scroll {
-  display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; scrollbar-width: none;
+.mic-btn {
+  position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; font-size: 20px; color: var(--primary);
+  cursor: pointer; padding: 5px; opacity: 0.8;
 }
+.mic-btn:active { opacity: 1; transform: translateY(-50%) scale(1.1); }
+
+/* Result Count & Shortcuts */
+.result-count { font-size: 12px; color: var(--secondary); margin: 10px 0 5px 5px; font-weight: 600; }
+.quick-shortcuts { margin-top: 20px; }
+.section-title { font-size: 11px; color: var(--text-dim); margin-bottom: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+
+.filter-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 5px 0 10px; scrollbar-width: none; }
 .filter-scroll::-webkit-scrollbar { display: none; }
 .chip {
   padding: 8px 16px; background: var(--glass); border: 1px solid var(--glass-border);
@@ -80,10 +89,13 @@ body {
 .chip.active { background: var(--glass-active); color: var(--primary); border-color: var(--primary); }
 
 /* Card Styles */
-.card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px; padding: 22px; margin-bottom: 16px; }
-.title { font-size: 20px; color: var(--model-green); font-weight: 800; margin-bottom: 6px; }
+.card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px; padding: 22px; margin-bottom: 16px; position: relative; }
+.title { font-size: 20px; color: var(--model-green); font-weight: 800; margin-bottom: 6px; padding-right: 35px; }
 .fit { font-size: 15px; color: #fff; line-height: 1.5; opacity: 0.95; }
 mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4px; padding: 0 2px; }
+
+/* New Badge Logic */
+.badge-new { background: linear-gradient(135deg, #ff9a9e, #fecfef); color: #000; padding: 4px 8px; border-radius: 8px; font-size: 9px; font-weight: 900; position: absolute; top: 22px; right: 22px; text-transform: uppercase;}
 
 .badges { margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap; }
 .badge { padding: 6px 12px; border-radius: 12px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; }
@@ -92,22 +104,20 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 
 .warning-text { font-size: 12px; color: var(--warning); margin-top: 12px; line-height: 1.4; font-weight: 500; border-top: 1px solid rgba(255,118,117,0.1); padding-top: 10px; }
 
+/* Share Button */
+.share-action { margin-top: 15px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #2ecc71; background: var(--share-btn); padding: 8px 14px; border-radius: 12px; font-weight: 700; cursor: pointer; border: 1px solid rgba(46, 204, 113, 0.2); }
+
 /* Empty State */
 .no-result { text-align: center; padding: 30px 15px; background: var(--glass); border-radius: 24px; border: 1px dashed var(--glass-border); }
 .no-result h3 { color: #fff; margin: 10px 0; }
 .no-result p { color: var(--text-dim); font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
 .req-btn { background: rgba(0, 242, 254, 0.1); color: var(--primary); text-decoration: none; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 700; display: inline-block; border: 1px solid rgba(0,242,254,0.3); }
 
-/* Layouts */
 .page { display: none; }
 .page.active { display: block; animation: fadeIn 0.3s ease-out; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-.back {
-  display: flex; align-items: center; justify-content: center; color: #fff;
-  background: var(--glass); text-decoration: none; width: 48px; height: 48px;
-  border-radius: 18px; margin-bottom: 15px; border: 1px solid var(--glass-border);
-}
+.back { display: flex; align-items: center; justify-content: center; color: #fff; background: var(--glass); text-decoration: none; width: 48px; height: 48px; border-radius: 18px; margin-bottom: 15px; border: 1px solid var(--glass-border); }
 
 .footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--glass-border); }
 .contact-box { background: var(--glass); padding: 18px 25px; border-radius: 20px; display: inline-block; border: 1px solid var(--glass-border); }
@@ -123,17 +133,14 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 
 <div class='wrap'>
   <div id='homePage' class='page active'>
-    
     <div class="logo-container">
       <svg width="250" height="60" viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#00f2fe" />
-            <stop offset="100%" stop-color="#4facfe" />
+            <stop offset="0%" stop-color="#00f2fe" /><stop offset="100%" stop-color="#4facfe" />
           </linearGradient>
           <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="2" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            <feGaussianBlur stdDeviation="2" result="blur" /><feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
         <g transform="translate(10, 8)">
@@ -141,23 +148,22 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
           <rect x="5" y="5" width="16" height="32" rx="3" fill="url(#logoGrad)" opacity="0.8"/>
           <path d="M 8 20 L 14 26 L 30 10" fill="none" stroke="#2ecc71" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
         </g>
-        <text x="55" y="42" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="34" fill="url(#logoGrad)" letter-spacing="-1.5">CASE FIT</text>
+        <text x="45" y="42" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="30" fill="url(#logoGrad)" letter-spacing="-1">CoverMatch</text>
       </svg>
     </div>
 
     <a class='btn casebtn' href='#' onclick="showPage('searchPage');return false;">🔍 Find Suitable Case</a>
     <a class='btn glassbtn' href='#' onclick="showPage('glassPage');return false;">🛡️ Screen Glass</a>
-    
     <a id='installBtn' class='btn' href='#'>⬇️ Install App</a>
     
-    <div class="pulse-text">— MORE MODELS COMING SOON —</div>
+    <div class="pulse-text">— DATABASE UPDATED TODAY —</div>
     
     <div class="footer">
       <div class="contact-box">
         <span>Need Help / Request Models?</span>
-        <a href="mailto:adilpkd690@gmail.com">adilpkd690@gmail.com</a>
+        <a href="mailto:adilpkd690@gmail.com?subject=Model Request - CoverMatch">adilpkd690@gmail.com</a>
       </div>
-      <div class="copyright">© 2026 CASE FIT INDIA</div>
+      <div class="copyright">© 2026 CoverMatch India</div>
     </div>
   </div>
 
@@ -165,15 +171,32 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
     <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
     
     <div class="sticky-header">
-        <input id='searchBox' class='search' placeholder='Search model (e.g. A24, iPhone)...' oninput='filterModels()'>
-        <div class="filter-scroll" id="chipContainer">
+        <div class="search-wrapper">
+            <input id='searchBox' class='search' placeholder='Search model (e.g. A24, iPhone)...' oninput='filterModels()'>
+            <button class="mic-btn" onclick="startVoiceSearch()" title="Voice Search">🎤</button>
+        </div>
+        
+        <div class="filter-scroll" id="chipContainer" style="margin-top: 15px;">
             <div class="chip active" onclick="setBrand('All', this)">All</div>
-            <div class="chip" onclick="setBrand('Redmi', this)">Redmi/Poco</div>
             <div class="chip" onclick="setBrand('Samsung', this)">Samsung</div>
+            <div class="chip" onclick="setBrand('Redmi', this)">Redmi/Poco</div>
+            <div class="chip" onclick="setBrand('iPhone', this)">Apple</div>
             <div class="chip" onclick="setBrand('Vivo', this)">Vivo/iQOO</div>
             <div class="chip" onclick="setBrand('Oppo', this)">Oppo/Realme</div>
-            <div class="chip" onclick="setBrand('iPhone', this)">Apple</div>
             <div class="chip" onclick="setBrand('Moto', this)">Moto</div>
+        </div>
+        
+        <div id="resultCount" class="result-count"></div>
+    </div>
+
+    <div id="quickShortcuts" class="quick-shortcuts">
+        <div class="section-title">🔥 Popular Models Shortcuts</div>
+        <div class="filter-scroll">
+            <div class="chip" onclick="quickSearch('A24')">Samsung A24</div>
+            <div class="chip" onclick="quickSearch('A14')">Samsung A14</div>
+            <div class="chip" onclick="quickSearch('iPhone 13')">iPhone 13</div>
+            <div class="chip" onclick="quickSearch('Redmi 13C')">Redmi 13C</div>
+            <div class="chip" onclick="quickSearch('Pixel 9')">Pixel 9</div>
         </div>
     </div>
     
@@ -182,20 +205,25 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 
   <div id='glassPage' class='page'>
     <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
-    <div class='card' style="text-align: center; border-color: var(--secondary);">
-      <div class='title' style="color: var(--secondary)">🛡️ SCREEN GLASS</div>
-      <p class='fit' style="color: #fff; margin-top: 15px;">Database Expansion in Progress</p>
+    
+    <div class="sticky-header">
+        <input class='search' placeholder='Search Screen Glass (Coming Soon)...' disabled style="opacity: 0.5;">
+    </div>
+
+    <div class='card' style="border-color: var(--secondary);">
+      <div class='title' style="color: var(--secondary)">🛡️ SCREEN GLASS DATABASE</div>
+      <p class='fit' style="color: #fff; margin-top: 10px;">We are building the smartest screen glass compatibility engine.</p>
       <ul class="glass-list">
-        <li>All major brands coming soon</li>
         <li>Tempered / Privacy / UV Glass</li>
-        <li>100% verified cross-compatibility</li>
+        <li>Curved screen compatibility</li>
+        <li>Major brands mapping ongoing</li>
       </ul>
+      <div class="pulse-text" style="margin-top: 20px;">— LAUNCHING SOON —</div>
     </div>
   </div>
 </div>
 
 <script>
-// --- APP LOGIC WITH JSON FETCH ---
 let databaseModels = [];
 let currentBrand = 'All';
 
@@ -204,14 +232,9 @@ fetch('models.json')
     .then(response => response.json())
     .then(data => {
         databaseModels = data;
-        // If search page is active, render list
-        if(document.getElementById('searchPage').classList.contains('active')) {
-            filterModels();
-        }
+        if(document.getElementById('searchPage').classList.contains('active')) { filterModels(); }
     })
-    .catch(error => {
-        console.error("Error fetching JSON:", error);
-    });
+    .catch(error => { console.error("Error fetching JSON:", error); });
 
 function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 function highlight(text, q) {
@@ -223,30 +246,101 @@ function setBrand(brand, element) {
     currentBrand = brand;
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
     element.classList.add('active');
+    document.getElementById('searchBox').value = ''; 
     filterModels();
+}
+
+function quickSearch(query) {
+    document.getElementById('searchBox').value = query;
+    filterModels();
+}
+
+// Voice Search API
+function startVoiceSearch() {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        
+        document.getElementById('searchBox').placeholder = "Listening...";
+        
+        recognition.onresult = function(event) {
+            const speechResult = event.results[0][0].transcript;
+            document.getElementById('searchBox').value = speechResult;
+            document.getElementById('searchBox').placeholder = "Search model (e.g. A24, iPhone)...";
+            filterModels();
+        };
+        
+        recognition.onerror = function(event) {
+            document.getElementById('searchBox').placeholder = "Search model (e.g. A24, iPhone)...";
+            console.error("Speech error", event.error);
+        };
+        
+        recognition.start();
+    } else {
+        alert("Voice search is not supported in this browser.");
+    }
+}
+
+// Share API
+function shareResult(modelName, fitsText) {
+    const shareText = `Check case compatibility for ${modelName}!\nIt also fits: ${fitsText || 'Exact fit only'}.\nVerified on CoverMatch.`;
+    if (navigator.share) {
+        navigator.share({ title: 'CoverMatch Update', text: shareText })
+        .catch(console.error);
+    } else {
+        alert("Sharing not supported on this browser.");
+    }
 }
 
 function render(items, q = '') {
     const list = document.getElementById('list');
+    const resultCount = document.getElementById('resultCount');
+    const quickShortcuts = document.getElementById('quickShortcuts');
+
+    if (q === '' && currentBrand === 'All') {
+        quickShortcuts.style.display = 'block';
+        resultCount.innerHTML = '';
+        list.innerHTML = '';
+        return;
+    } else {
+        quickShortcuts.style.display = 'none';
+        resultCount.innerHTML = `Found ${items.length} compatible model(s)`;
+    }
+
     if (items.length === 0) {
         list.innerHTML = `
         <div class="no-result">
             <div style="font-size:35px; margin-bottom:10px;">📦</div>
             <h3>Model Not Found</h3>
-            <p>We couldn't find <b>"${q}"</b>.</p>
-            <a href="mailto:adilpkd690@gmail.com?subject=Model Request: ${q}" class="req-btn">📧 Request Model</a>
+            <p>We couldn't find <b>"${q}"</b>. Did you mean:</p>
+            <div class="filter-scroll" style="justify-content: center; margin-bottom:15px;">
+                <div class="chip" onclick="quickSearch('A24')">Try A24</div>
+                <div class="chip" onclick="quickSearch('Redmi 13C')">Try Redmi 13C</div>
+            </div>
+            <a href="mailto:adilpkd690@gmail.com?subject=Model Request - CoverMatch: ${q}" class="req-btn">📧 Request Model</a>
         </div>`;
         return;
     }
+
     list.innerHTML = items.map(m => `
     <div class='card'>
+        ${m.new ? `<div class='badge-new'>NEW</div>` : ''}
         <div class='title'>${highlight(m.n, q)}</div>
         ${m.f ? `<div class='fit'>Also fits ${highlight(m.f, q)}</div>` : ''}
+        
         ${m.open || m.check ? `<div class='badges'>
             ${m.open ? `<span class='badge badge-open'>OPEN TYPE</span>` : ''}
             ${m.check ? `<span class='badge badge-check'>CHECK BEFORE BUY</span>` : ''}
         </div>` : ''}
+        
         ${m.open || m.check ? `<div class='warning-text'>Verify camera cutout, fingerprint slot, and speaker holes before final use.</div>` : ''}
+        
+        <div class="share-action" onclick="shareResult('${m.n}', '${m.f || ''}')">
+            <span>🔗 Share Result</span>
+        </div>
     </div>`).join('');
 }
 
@@ -288,26 +382,17 @@ function showPage(id) {
     }
 }
 
-// --- PWA / APP INSTALL LOGIC ---
+// PWA Setup (Updated to CoverMatch)
 const manifestData = {
-    "name": "CASE FIT INDIA",
-    "short_name": "Case Fit",
-    "start_url": ".",
-    "display": "standalone",
-    "background_color": "#0f172a",
-    "theme_color": "#00f2fe",
-    "icons": [{
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%2300f2fe'><rect width='192' height='192' fill='%230f172a'/><text x='50%' y='55%' font-size='80' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%2300f2fe'>CF</text></svg>",
-        "sizes": "192x192", "type": "image/svg+xml"
-    }]
+    "name": "CoverMatch", "short_name": "CoverMatch", "start_url": ".",
+    "display": "standalone", "background_color": "#0f172a", "theme_color": "#00f2fe",
+    "icons": [{"src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%2300f2fe'><rect width='192' height='192' fill='%230f172a'/><text x='50%' y='55%' font-size='80' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%2300f2fe'>CM</text></svg>", "sizes": "192x192", "type": "image/svg+xml"}]
 };
-const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
-document.getElementById('manifest-link').href = URL.createObjectURL(manifestBlob);
+document.getElementById('manifest-link').href = URL.createObjectURL(new Blob([JSON.stringify(manifestData)], {type: 'application/json'}));
 
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
+    e.preventDefault(); deferredPrompt = e;
     document.getElementById('installBtn').style.display = 'flex';
 });
 

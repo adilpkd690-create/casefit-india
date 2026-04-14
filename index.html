@@ -61,7 +61,7 @@ h1 {
 
 .glassbtn { border-color: rgba(72, 199, 245, 0.5); color: #48c7f5; }
 
-/* Pulse Glow Animation for "More models soon" */
+/* Pulse Glow Animation */
 @keyframes softPulse {
   0% { opacity: 0.4; text-shadow: 0 0 0px transparent; }
   50% { opacity: 0.9; text-shadow: 0 0 10px rgba(79, 172, 254, 0.6); }
@@ -128,7 +128,7 @@ mark {
   border-radius: 18px; margin-bottom: 25px; border: 1px solid var(--glass-border);
 }
 
-/* Contact CTA Footer Section */
+/* Simple Contact Footer */
 .footer {
   text-align: center;
   padding-top: 40px;
@@ -138,29 +138,14 @@ mark {
 
 .contact-box {
   background: var(--glass);
-  padding: 20px;
+  padding: 18px 25px;
   border-radius: 20px;
+  display: inline-block;
   border: 1px solid var(--glass-border);
 }
 
-.contact-title { font-size: 15px; color: #fff; font-weight: 700; margin-bottom: 6px; }
-.contact-desc { font-size: 12px; color: var(--text-dim); margin-bottom: 15px; line-height: 1.4; }
-
-.cta-buttons { display: flex; gap: 10px; justify-content: center; }
-.cta-link {
-  background: rgba(0, 242, 254, 0.1);
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 13px;
-  padding: 10px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 242, 254, 0.3);
-  transition: 0.3s;
-}
-.cta-link:hover { background: rgba(0, 242, 254, 0.2); }
-/* Optional: WhatsApp CTA Style */
-/* .wa-link { color: #2ecc71; border-color: rgba(46,204,113,0.3); background: rgba(46,204,113,0.1); } */
+.contact-box span { display: block; font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-weight: 500;}
+.contact-box a { color: var(--primary); text-decoration: none; font-weight: 700; font-size: 15px; letter-spacing: 0.5px; }
 
 .copyright { font-size: 10px; color: #475569; margin-top: 25px; letter-spacing: 1px; }
 
@@ -181,11 +166,8 @@ mark {
     
     <div class="footer">
       <div class="contact-box">
-        <div class="contact-title">Missing Your Model?</div>
-        <div class="contact-desc">Request a new model and we'll check the compatibility. Fast response guaranteed!</div>
-        <div class="cta-buttons">
-          <a href="mailto:adilpkd690@gmail.com?subject=Model%20Request%20-%20Case%20Fit" class="cta-link">📧 Email Request</a>
-          </div>
+        <span>Need Help / Request Models?</span>
+        <a href="mailto:adilpkd690@gmail.com">adilpkd690@gmail.com</a>
       </div>
       <div class="copyright">© 2026 CASE FIT INDIA</div>
     </div>
@@ -194,7 +176,7 @@ mark {
   <div id='searchPage' class='page'>
     <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
     <div class="search-container">
-        <input id='searchBox' class='search' placeholder='Search model (e.g. A24, iPhone)...' oninput='filterModels()'>
+        <input id='searchBox' class='search' placeholder='Search model...' oninput='filterModels()'>
     </div>
     <div id='list'></div>
   </div>
@@ -214,8 +196,9 @@ mark {
 </div>
 
 <script>
-// JSON Scale Future-ready Data Array
+// FULL DATABASE
 const models = [
+    // REDMI / POCO
     {n:'Redmi M3 / M2', check:true},
     {n:'Redmi 7', f:'Redmi Y3'},
     {n:'Redmi 12 5G', f:'Poco M6 Pro'},
@@ -223,43 +206,85 @@ const models = [
     {n:'Redmi 8', f:'Redmi 8A / 8A Dual'},
     {n:'Redmi 9A', f:'Redmi 9i'},
     {n:'Redmi 9C', f:'Redmi 10A / Poco C3 / Poco C31'},
+    {n:'Redmi 9', f:'Redmi 9 Prime'},
     {n:'Redmi Note 10 Pro', f:'Note 10 Pro Max'},
     {n:'Redmi Note 10 4G', f:'Note 10s 4G / Note 11se / Poco M5s 4G'},
-    {n:'Redmi 11 Prime 5G', f:'Note 11e 5G / 10 Prime Plus 5G'},
+    {n:'Redmi 11 Prime 5G', f:'Redmi Note 11e 5G / Redmi 10 Prime Plus 5G'},
     {n:'POCO M4 5G', f:'POCO M5 4G'},
     {n:'Redmi 11X / 11X Pro', f:'Redmi K40 / K40 Pro / K40 Pro+ / Redmi 11i / Poco F3'},
     {n:'Redmi Note 11 Pro 4G/5G', f:'Note 11 Pro+ 5G / Note 12 Pro 4G'},
     {n:'Redmi Note 11s', f:'Note 11 4G'},
     {n:'Redmi Note 11 5G', f:'Poco M4 Pro 5G / Note 11t 5G'},
     {n:'Redmi 13C 4G', f:'Redmi 13C 5G / Poco C65', open:true},
+    {n:'Redmi 10C', f:'Redmi 10 4G / Redmi 10 Power / Poco C40'},
+    {n:'Redmi Note 14 Pro', f:'14 Pro Plus'},
+    {n:'Redmi 6 / 6A', f:'Common fit for 6 and 6A'},
     {n:'Poco X6 Pro', f:'Redmi K70e 5G'},
+    {n:'Redmi Y1', f:'Note 5A'},
     {n:'Redmi K20 / K20 Pro', f:'Redmi 9T / 9T Pro'},
-    
+
+    // VIVO / IQOO
     {n:'iQOO Z6', f:'Vivo T1 5G / Vivo Y55 / Vivo Y75 5G'},
+    {n:'iQOO Z3', f:'Vivo Y72 5G'},
+    {n:'iQOO Neo 7', f:'Neo 7 Pro'},
+    {n:'Vivo Y04 / Y19e', f:'Y29s 5G / T4 Lite 5G / Y19 5G / iQOO Z10 Lite 5G'},
     {n:'Vivo Y16', f:'Vi Y56 5G / Y02s 4G / Y35 5G / T2x / iQOO Z7i'},
     {n:'Vivo V40 5G', f:'V40 Pro 5G / Vi T3 Ultra / Vi S19 Pro 5G'},
-    {n:'Vivo T1 4G', f:'Vivo Y55 4G / iQOO z6 44w'},
-    {n:'Vivo T2 Pro 5G', f:'iQOO z7 pro 5g / vivo S17e'},
-    
+    {n:'Vivo T1 4G', f:'Vivo Y55 4G / iQOO Z6 44W'},
+    {n:'Vivo T2 Pro 5G', f:'iQOO Z7 Pro 5G / Vivo S17e'},
+    {n:'Vivo T4x', f:'Y29 4G / Y31 Pro 5G / iQOO Z10x'},
+
+    // MOTO
     {n:'Moto G85', f:'G96 / 50 Fusion'},
+    {n:'Moto G31 / G41', f:'Common fit for G31 and G41'},
+
+    // PIXEL
     {n:'Pixel 9 / 9 Pro', open:true},
     {n:'Pixel 10 / 10 Pro', open:true},
-    
+
+    // REALME / OPPO
     {n:'Realme C2', f:'Oppo A3s / Oppo A1K'},
+    {n:'Realme C55 4G', f:'Realme Narzo N55 4G'},
+    {n:'Oppo F27', f:'Oppo Reno 12f 4G/5G / Reno 12 Fs 5G'},
+    {n:'Oppo F23', f:'Oppo A1 5G / A98'},
     {n:'Oppo A57 4G / 5G', f:'A77 / A77s / A57e / A57s / Narzo 50 5G / V23 / Oneplus N20 se / Nord N300'},
-    {n:'Realme C53 / C53e', f:'C51 4G / Narzo N53 / Note 50 4G'},
-    
+    {n:'Realme C53 / C53e', f:'C51 4G / Narzo N53 / Realme Note 50 4G'},
+    {n:'Realme C30 / C30s', f:'Narzo 50i Prime'},
+
+    // SAMSUNG
+    {n:'Samsung A02 / M02', f:'A022'},
+    {n:'Samsung A02s / M02s', f:'Common fit'},
+    {n:'Samsung M13 / A04e', f:'Common fit'},
+    {n:'Samsung M13 5G', f:'A04'},
     {n:'Samsung A05 4G', f:'M05 4G / F05 4G'},
+    {n:'Samsung F06 5G', f:'M06 5G'},
+    {n:'Samsung F14 5G', f:'M14'},
+    {n:'Samsung A10 / M10', f:'Common fit'},
+    {n:'Samsung A10s / M01s', f:'Common fit'},
+    {n:'Samsung A11 / M11', f:'Common fit'},
     {n:'Samsung A12', f:'M12 / F12 / 4G-5G open type', open:true, check:true},
     {n:'Samsung A13', f:'A32 5G / M32 5G / 4G-5G open type', open:true, check:true},
+    {n:'Samsung M23', f:'F23'},
+    {n:'Samsung A13 5G', f:'A04s'},
+    {n:'Samsung A14 4G/5G', f:'Common fit'},
+    {n:'Samsung M16 5G', f:'F16 5G'},
+    {n:'Samsung A20 / A30', f:'M10s'},
+    {n:'Samsung A22 4G', f:'M32 4G'},
+    {n:'Samsung A22 5G', f:'A22s 5G / F42 5G'},
     {n:'Samsung A24 4G', f:'A25 5G', check:true},
-    {n:'Samsung M21 / M30s', f:'M31 / M21s / M31 Prime / F41'},
+    {n:'Samsung A32 4G', f:'M32'},
     {n:'Samsung A52 4G / 5G', f:'A52s 5G'},
+    {n:'Samsung A54 4G / 5G', f:'Common fit'},
+    {n:'Samsung M21 / M30s', f:'M31 / M21s / M31 Prime / F41'},
+    {n:'Samsung F15', f:'M15 5G'},
+    {n:'Samsung A70 / A70s', f:'Common fit'},
+    {n:'Samsung A01 / M01', check:true},
+    {n:'Samsung M54 / F54', f:'Common fit'},
+    {n:'Samsung M56 / F56', f:'Common fit'},
+    {n:'Samsung M34 5G / F34 5G', f:'Common fit'},
+    {n:'Samsung M22 / F22', f:'M32'},
     {n:'Samsung A50 / A30s / A50s', f:'Common fit'},
-
-    // Future Apple Section Drafts
-    {n:'iPhone 13', f:'iPhone 14 (Check camera size)', check:true},
-    {n:'iPhone 11', f:'iPhone XR (Camera cutout open type)', open:true}
+    {n:'Samsung A42 / M42', f:'Common fit'}
 ];
 
 // Highlight Match Logic

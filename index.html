@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>CASE FIT | Smart Finder</title>
 <style>
 :root {
@@ -18,19 +18,17 @@
 
 body {
   margin: 0;
-  background: radial-gradient(circle at top right, #1e293b, #0f172a);
+  background: radial-gradient(circle at top, #1e293b, #0f172a);
+  background-attachment: fixed;
   color: #f8fafc;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 .wrap { 
   max-width: 430px; 
-  margin: auto; 
-  padding: 30px 20px 100px; /* Space for footer */
-  flex: 1;
+  margin: 0 auto; 
+  padding: 40px 20px;
 }
 
 h1 {
@@ -41,7 +39,7 @@ h1 {
   background: linear-gradient(to right, #00f2fe, #4facfe);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 40px;
 }
 
@@ -50,7 +48,7 @@ h1 {
   color: #fff; text-decoration: none; padding: 20px; border-radius: 22px;
   font-size: 18px; font-weight: 700; margin-bottom: 18px;
   background: var(--glass); border: 1px solid var(--glass-border);
-  backdrop-filter: blur(15px); transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(15px); transition: 0.3s;
 }
 
 .btn:active { transform: scale(0.97); }
@@ -63,88 +61,71 @@ h1 {
 
 .glassbtn { border-color: #48c7f5; color: #48c7f5; }
 
-/* Moving "More Models Soon" Text */
-.marquee {
-  margin-top: 30px;
-  overflow: hidden;
-  white-space: nowrap;
+.soon-text {
+  margin-top: 25px;
+  text-align: center;
   opacity: 0.6;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 2px;
   font-weight: 600;
   color: var(--secondary);
 }
 
-.marquee span {
-  display: inline-block;
-  animation: scroll 10s linear infinite;
-}
-
-@keyframes scroll {
-  from { transform: translateX(100%); }
-  to { transform: translateX(-100%); }
-}
-
-.search-container { position: sticky; top: 15px; z-index: 100; margin-bottom: 25px; }
+.search-container { position: sticky; top: 10px; z-index: 100; margin-bottom: 25px; }
 .search {
   width: 100%; padding: 18px 24px; border-radius: 20px;
-  border: 1px solid var(--glass-border); background: rgba(15, 23, 42, 0.9);
+  border: 1px solid var(--glass-border); background: rgba(15, 23, 42, 0.95);
   color: #fff; font-size: 16px; box-sizing: border-box; outline: none;
-  backdrop-filter: blur(10px); box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
 .card {
   background: var(--glass); border: 1px solid var(--glass-border);
   border-radius: 24px; padding: 22px; margin-bottom: 16px;
-  animation: fadeIn 0.4s ease-out;
 }
+
+.title { font-size: 20px; color: var(--model-green); font-weight: 800; margin-bottom: 6px; }
+.fit { font-size: 15px; color: #fff; line-height: 1.5; }
+
+.badges { margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap; }
+.badge { padding: 6px 12px; border-radius: 12px; font-size: 10px; font-weight: 800; }
+.badge-open { background: rgba(243, 202, 84, 0.12); color: #f3ca54; border: 1px solid rgba(243, 202, 84, 0.2); }
+.badge-check { background: rgba(255, 118, 117, 0.12); color: #ff7675; border: 1px solid rgba(255, 118, 117, 0.2); }
+
+.warning-text { font-size: 12px; color: var(--warning); margin-top: 12px; line-height: 1.4; font-weight: 500; }
+
+.page { display: none; }
+.page.active { display: block; animation: fadeIn 0.3s ease-out; }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.title { font-size: 20px; color: var(--model-green); font-weight: 800; margin-bottom: 6px; }
-.fit { font-size: 15px; color: #fff; line-height: 1.5; opacity: 0.95; }
-
-.badges { margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap; }
-.badge { padding: 6px 12px; border-radius: 12px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; }
-.badge-open { background: rgba(243, 202, 84, 0.12); color: #f3ca54; border: 1px solid rgba(243, 202, 84, 0.2); }
-.badge-check { background: rgba(255, 118, 117, 0.12); color: #ff7675; border: 1px solid rgba(255, 118, 117, 0.2); }
-
-.warning-text { 
-  font-size: 12px; color: var(--warning); margin-top: 12px; 
-  line-height: 1.4; font-weight: 500; border-top: 1px solid rgba(255,118,117,0.1); padding-top: 10px;
-}
-
-.page { display: none; }
-.page.active { display: block; }
-
 .back {
   display: flex; align-items: center; justify-content: center; color: #fff;
   background: var(--glass); text-decoration: none; width: 48px; height: 48px;
-  border-radius: 18px; margin-bottom: 20px; border: 1px solid var(--glass-border);
+  border-radius: 18px; margin-bottom: 25px; border: 1px solid var(--glass-border);
 }
 
-/* Footer Contact Section */
 .footer {
   text-align: center;
-  padding: 30px 20px;
-  background: rgba(0, 0, 0, 0.2);
+  padding-top: 40px;
+  margin-top: 20px;
   border-top: 1px solid var(--glass-border);
-  margin-top: auto;
 }
 
 .contact-box {
   background: var(--glass);
-  padding: 15px;
+  padding: 15px 25px;
   border-radius: 20px;
   display: inline-block;
   border: 1px solid var(--glass-border);
 }
 
-.contact-box span { display: block; font-size: 12px; color: var(--text-dim); margin-bottom: 5px; }
-.contact-box a { color: var(--primary); text-decoration: none; font-weight: 700; font-size: 14px; }
+.contact-box span { display: block; font-size: 12px; color: var(--text-dim); margin-bottom: 6px; }
+.contact-box a { color: var(--primary); text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; }
+.copyright { font-size: 10px; color: #475569; margin-top: 20px; letter-spacing: 1px; }
 
 </style>
 </head>
@@ -155,16 +136,21 @@ h1 {
     <h1>CASE FIT</h1>
     <a class='btn casebtn' href='#' onclick="showPage('searchPage');return false;">🔍 Find Suitable Case</a>
     <a class='btn glassbtn' href='#' onclick="showPage('glassPage');return false;">🛡️ Screen Glass</a>
+    <div class="soon-text">— MORE MODELS COMING SOON —</div>
     
-    <div class="marquee">
-      <span>— NEW MODELS ADDED WEEKLY • MORE MODELS COMING SOON —</span>
+    <div class="footer">
+      <div class="contact-box">
+        <span>Need Help / Request Model?</span>
+        <a href="mailto:adilpkd690@gmail.com">adilpkd690@gmail.com</a>
+      </div>
+      <div class="copyright">© 2026 CASE FIT INDIA</div>
     </div>
   </div>
 
   <div id='searchPage' class='page'>
     <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
     <div class="search-container">
-        <input id='searchBox' class='search' placeholder='Search model (e.g. M14, Note 12)...' oninput='filterModels()'>
+        <input id='searchBox' class='search' placeholder='Search model...' oninput='filterModels()'>
     </div>
     <div id='list'></div>
   </div>
@@ -173,21 +159,12 @@ h1 {
     <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
     <div class='card' style="text-align: center; border-color: var(--secondary);">
       <div class='title' style="color: var(--secondary)">🛡️ SCREEN GLASS</div>
-      <p class='fit' style="opacity: 0.7;">Database integration in progress...</p>
+      <p class='fit' style="color: var(--text-dim);">Database updating...</p>
     </div>
   </div>
 </div>
 
-<div class="footer">
-  <div class="contact-box">
-    <span>Need Help / Request Model?</span>
-    <a href="mailto:adilpkd690@gmail.com">adilpkd690@gmail.com</a>
-  </div>
-  <p style="font-size: 10px; color: #475569; margin-top: 15px;">© 2026 CASE FIT INDIA</p>
-</div>
-
 <script>
-// Ithinullil nee mumbu thanna full models list njan include cheythittund
 const models = [
     {n:'Redmi M3 / M2', check:true},
     {n:'Redmi 7', f:'Redmi Y3'},
@@ -277,7 +254,7 @@ function filterModels() {
 function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     if(id === 'searchPage') { 
         render(models); 
         setTimeout(() => document.getElementById('searchBox').focus(), 150); 

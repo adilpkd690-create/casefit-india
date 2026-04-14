@@ -61,21 +61,28 @@ h1 {
 
 .glassbtn { border-color: rgba(72, 199, 245, 0.5); color: #48c7f5; }
 
-/* Pulse Glow Animation */
-@keyframes softPulse {
-  0% { opacity: 0.4; text-shadow: 0 0 0px transparent; }
-  50% { opacity: 0.9; text-shadow: 0 0 10px rgba(79, 172, 254, 0.6); }
-  100% { opacity: 0.4; text-shadow: 0 0 0px transparent; }
+/* Scrolling Marquee Animation */
+.marquee-container {
+  margin-top: 25px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.soon-text {
-  margin-top: 25px;
-  text-align: center;
+.marquee-text {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scrollText 12s linear infinite;
   font-size: 11px;
   letter-spacing: 2px;
   font-weight: 600;
   color: var(--secondary);
-  animation: softPulse 2.5s infinite ease-in-out;
+  opacity: 0.6;
+}
+
+@keyframes scrollText {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-100%, 0); }
 }
 
 .search-container { position: sticky; top: 10px; z-index: 100; margin-bottom: 25px; }
@@ -162,7 +169,10 @@ mark {
     <h1>CASE FIT</h1>
     <a class='btn casebtn' href='#' onclick="showPage('searchPage');return false;">🔍 Find Suitable Case</a>
     <a class='btn glassbtn' href='#' onclick="showPage('glassPage');return false;">🛡️ Screen Glass</a>
-    <div class="soon-text">— MORE MODELS COMING SOON —</div>
+    
+    <div class="marquee-container">
+      <div class="marquee-text">— MORE MODELS COMING SOON —</div>
+    </div>
     
     <div class="footer">
       <div class="contact-box">
@@ -284,7 +294,12 @@ const models = [
     {n:'Samsung M34 5G / F34 5G', f:'Common fit'},
     {n:'Samsung M22 / F22', f:'M32'},
     {n:'Samsung A50 / A30s / A50s', f:'Common fit'},
-    {n:'Samsung A42 / M42', f:'Common fit'}
+    {n:'Samsung A42 / M42', f:'Common fit'},
+
+    // APPLE / IPHONE
+    {n:'iPhone 13', f:'iPhone 14', check:true},
+    {n:'iPhone 11', f:'iPhone XR', open:true},
+    {n:'iPhone 12', f:'iPhone 12 Pro', check:true}
 ];
 
 // Highlight Match Logic

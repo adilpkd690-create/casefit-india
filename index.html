@@ -43,8 +43,9 @@ body {
 .casebtn { background: linear-gradient(135deg, #05d5ff, #007bff); border: none; box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3); }
 .glassbtn { border-color: rgba(72, 199, 245, 0.5); color: #48c7f5; }
 
+/* Fixed Install Button - Always Visible */
 #installBtn {
-  display: none; 
+  display: flex; 
   background: rgba(46, 204, 113, 0.15); border-color: rgba(46, 204, 113, 0.4);
   color: #2ecc71; font-size: 16px; padding: 16px; margin-top: 5px;
 }
@@ -78,7 +79,7 @@ body {
 
 /* Result Count & Shortcuts */
 .result-count { font-size: 12px; color: var(--secondary); margin: 10px 0 5px 5px; font-weight: 600; }
-.quick-shortcuts { margin-top: 20px; }
+.quick-shortcuts { margin-top: 10px; margin-bottom: 20px; }
 .section-title { font-size: 11px; color: var(--text-dim); margin-bottom: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
 
 .filter-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 5px 0 10px; scrollbar-width: none; }
@@ -96,7 +97,6 @@ body {
 .fit { font-size: 15px; color: #fff; line-height: 1.5; opacity: 0.95; }
 mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4px; padding: 0 2px; }
 
-/* New Badge Logic */
 .badge-new { background: linear-gradient(135deg, #ff9a9e, #fecfef); color: #000; padding: 4px 8px; border-radius: 8px; font-size: 9px; font-weight: 900; position: absolute; top: 22px; right: 22px; text-transform: uppercase;}
 
 .badges { margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap; }
@@ -193,7 +193,7 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
     </div>
 
     <div id="quickShortcuts" class="quick-shortcuts">
-        <div class="section-title">🔥 Popular Models Shortcuts</div>
+        <div class="section-title">🔥 Popular Shortcuts</div>
         <div class="filter-scroll">
             <div class="chip" onclick="quickSearch('A24')">Samsung A24</div>
             <div class="chip" onclick="quickSearch('A14')">Samsung A14</div>
@@ -230,7 +230,6 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 let databaseModels = [];
 let currentBrand = 'All';
 
-// 1. Fetching Data with Robust Error Handling
 fetch('models.json')
     .then(response => {
         if (!response.ok) throw new Error("Network response was not ok");
@@ -249,7 +248,6 @@ fetch('models.json')
             <p>Please check your internet connection or refresh the app.</p>
             <button onclick="window.location.reload()" class="req-btn">🔄 Refresh App</button>
         </div>`;
-        document.getElementById('quickShortcuts').style.display = 'none';
     });
 
 function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
@@ -271,7 +269,6 @@ function quickSearch(query) {
     filterModels();
 }
 
-// Voice Search API with proper fallback
 function startVoiceSearch() {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -279,80 +276,45 @@ function startVoiceSearch() {
         recognition.lang = 'en-US';
         recognition.interimResults = false;
         recognition.maxAlternatives = 1;
-        
         document.getElementById('searchBox').placeholder = "Listening...";
-        
         recognition.onresult = function(event) {
             const speechResult = event.results[0][0].transcript;
             document.getElementById('searchBox').value = speechResult;
             document.getElementById('searchBox').placeholder = "Search model (e.g. A24, iPhone)...";
             filterModels();
         };
-        
         recognition.onerror = function(event) {
             document.getElementById('searchBox').placeholder = "Search model (e.g. A24, iPhone)...";
-            console.error("Speech error", event.error);
         };
-        
         recognition.start();
     } else {
-        document.getElementById('resultCount').innerHTML = `<span style="color: var(--warning);">⚠️ Voice search not supported in this browser.</span>`;
+        document.getElementById('resultCount').innerHTML = `<span style="color: var(--warning);">⚠️ Voice search not supported.</span>`;
     }
 }
 
-// Share API (Dynamic window.location.href)
 function shareResult(modelName, fitsText) {
     const siteUrl = window.location.href; 
     const shareText = `📱 Model: *${modelName}*\n✅ Also fits: ${fitsText || 'Exact fit only'}\n🛡️ Verified on CoverMatch\n\n👇 Check compatibility here:\n`;
-    
     if (navigator.share) {
-        navigator.share({ 
-            title: 'CoverMatch Update', 
-            text: shareText,
-            url: siteUrl 
-        })
+        navigator.share({ title: 'CoverMatch Update', text: shareText, url: siteUrl })
         .catch(console.error);
-    } else {
-        alert("Sharing not supported on this browser.");
-    }
+    } else { alert("Sharing not supported."); }
 }
 
 function render(items, q = '') {
     const list = document.getElementById('list');
     const resultCount = document.getElementById('resultCount');
-    const quickShortcuts = document.getElementById('quickShortcuts');
 
-    if (q === '' && currentBrand === 'All') {
-        quickShortcuts.style.display = 'block';
-        resultCount.innerHTML = '';
-        list.innerHTML = '';
-        return;
-    } else {
-        quickShortcuts.style.display = 'none';
-        resultCount.innerHTML = `Found ${items.length} compatible model(s)`;
-    }
+    resultCount.innerHTML = `Showing ${items.length} models`;
 
     if (items.length === 0) {
-        // Dynamic Suggestions
-        let suggestionHTML = '';
-        if (currentBrand === 'Samsung') {
-            suggestionHTML = `<div class="chip" onclick="quickSearch('A24')">Try A24</div><div class="chip" onclick="quickSearch('A14')">Try A14</div>`;
-        } else if (currentBrand === 'Redmi') {
-            suggestionHTML = `<div class="chip" onclick="quickSearch('Redmi 13C')">Try Redmi 13C</div><div class="chip" onclick="quickSearch('Note 10')">Try Note 10</div>`;
-        } else if (currentBrand === 'iPhone') {
-            suggestionHTML = `<div class="chip" onclick="quickSearch('iPhone 13')">Try iPhone 13</div><div class="chip" onclick="quickSearch('iPhone 15')">Try iPhone 15</div>`;
-        } else {
-            suggestionHTML = `<div class="chip" onclick="quickSearch('A24')">Try A24</div><div class="chip" onclick="quickSearch('Redmi 13C')">Try Redmi 13C</div>`;
-        }
-
+        let suggestionHTML = currentBrand === 'Samsung' ? `<div class="chip" onclick="quickSearch('A24')">Try A24</div>` : `<div class="chip" onclick="quickSearch('Redmi 13C')">Try Redmi 13C</div>`;
         list.innerHTML = `
         <div class="no-result">
             <div style="font-size:35px; margin-bottom:10px;">📦</div>
             <h3>Model Not Found</h3>
-            <p>We couldn't find <b>"${q}"</b>. Did you mean:</p>
-            <div class="filter-scroll" style="justify-content: center; margin-bottom:15px;">
-                ${suggestionHTML}
-            </div>
+            <p>We couldn't find <b>"${q}"</b>.</p>
+            <div class="filter-scroll" style="justify-content: center; margin-bottom:15px;">${suggestionHTML}</div>
             <a href="mailto:adilpkd690@gmail.com?subject=Model Request - CoverMatch: ${q}" class="req-btn">📧 Request Model</a>
         </div>`;
         return;
@@ -363,25 +325,18 @@ function render(items, q = '') {
         ${m.new ? `<div class='badge-new'>NEW</div>` : ''}
         <div class='title'>${highlight(m.n, q)}</div>
         ${m.f ? `<div class='fit'>Also fits ${highlight(m.f, q)}</div>` : ''}
-        
         ${m.open || m.check ? `<div class='badges'>
             ${m.open ? `<span class='badge badge-open'>OPEN TYPE</span>` : ''}
             ${m.check ? `<span class='badge badge-check'>CHECK BEFORE BUY</span>` : ''}
         </div>` : ''}
-        
         ${m.open || m.check ? `<div class='warning-text'>Verify camera cutout, fingerprint slot, and speaker holes before final use.</div>` : ''}
-        
-        <div class="share-action" onclick="shareResult('${m.n}', '${m.f || ''}')">
-            <span>🔗 Share Result</span>
-        </div>
+        <div class="share-action" onclick="shareResult('${m.n}', '${m.f || ''}')"><span>🔗 Share Result</span></div>
     </div>`).join('');
 }
 
 function filterModels() {
-    // Advanced Search Normalization
     const searchBox = document.getElementById('searchBox');
-    if(!searchBox) return;
-    const q = searchBox.value.toLowerCase().replace(/\s+/g, ' ').trim();
+    const q = searchBox ? searchBox.value.toLowerCase().replace(/\s+/g, ' ').trim() : '';
     
     let filtered = databaseModels.filter(m => {
         if (currentBrand !== 'All') {
@@ -405,6 +360,38 @@ function filterModels() {
     render(filtered, q);
 }
 
-// Fixed & Safe showPage function
 function showPage(id) {
-    const targetPage = document.getElementBy
+    const targetPage = document.getElementById(id);
+    if (!targetPage) return; 
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    targetPage.classList.add('active');
+    window.scrollTo(0, 0);
+    
+    if(id === 'searchPage') { 
+        const searchBox = document.getElementById('searchBox');
+        if (searchBox) searchBox.value = '';
+        currentBrand = 'All';
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        const firstChip = document.querySelector('.chip');
+        if (firstChip) firstChip.classList.add('active');
+        
+        filterModels(); 
+        setTimeout(() => { if (searchBox) searchBox.focus(); }, 150); 
+    }
+}
+
+// Fixed Smart Install Logic
+const manifestData = {
+    "name": "CoverMatch", "short_name": "CoverMatch", "start_url": ".",
+    "display": "standalone", "background_color": "#0f172a", "theme_color": "#00f2fe",
+    "icons": [{"src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%2300f2fe'><rect width='192' height='192' fill='%230f172a'/><text x='50%' y='55%' font-size='80' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%2300f2fe'>CM</text></svg>", "sizes": "192x192", "type": "image/svg+xml"}]
+};
+document.getElementById('manifest-link').href = URL.createObjectURL(new Blob([JSON.stringify(manifestData)], {type: 'application/json'}));
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => { 
+    e.preventDefault(); 
+    deferredPrompt = e; 
+});
+
+document.getElementById('inst

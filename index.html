@@ -1,5 +1,4 @@
 <!DOCTYPE html><html lang="en">
-<html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,29 +14,29 @@ h1{text-align:center;font-size:64px;letter-spacing:4px;font-family:Georgia,serif
 .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:26px;margin-bottom:18px}
 .title{font-size:28px;color:#39e56a;font-weight:700}.fit{font-size:20px;color:#fff;margin-top:12px;line-height:1.35}
 .badges{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}.badge-open{border:1px solid #8b6b21;color:#f3ca54;padding:8px 14px;border-radius:999px;font-size:14px}.badge-check{border:1px solid #8c4750;color:#ff9ea8;padding:8px 14px;border-radius:999px;font-size:14px}.note{color:#ff9ea8;font-size:14px;margin-top:12px;line-height:1.4}.hl{background:#ffd84d;color:#000;padding:2px 6px;border-radius:8px}
-.page{display:none}.page.active{display:block}
-.back{display:inline-block;color:#000;background:#2bd15f;text-decoration:none;width:64px;height:64px;line-height:64px;text-align:center;border-radius:20px;font-size:36px;font-weight:700;margin-bottom:20px}
-.blink{animation:blink 1s infinite}
-@keyframes blink{50%{opacity:.35}}
+.page{display:none}.page.active{display:block}.back{display:inline-block;color:#000;background:#2bd15f;text-decoration:none;width:58px;height:58px;line-height:58px;text-align:center;border-radius:18px;font-size:34px;font-weight:700;margin-bottom:18px}
+.blink{animation:blink 1s infinite}@keyframes blink{50%{opacity:.35}}
+.contact{margin-top:28px;border:1px solid rgba(255,255,255,.12);border-radius:26px;padding:18px;text-align:center}
+.contact a{display:block;background:#48c7f5;color:#000;text-decoration:none;padding:16px;border-radius:18px;font-size:22px;font-weight:700}
 </style>
 </head>
 <body>
 <div class='wrap'>
   <div id='homePage' class='page active'>
     <h1>CASE FIT</h1>
-    <a class='btn casebtn' href='javascript:showPage("searchPage")'>🔎 Find Suitable Case</a>
-    <a class='btn glassbtn' href='javascript:showPage("glassPage")'>🛡️ Screen Glass</a>
+    <a class='btn casebtn' href='#' onclick="showPage('searchPage');return false;">🔎 Find Suitable Case</a>
+    <a class='btn glassbtn' href='#' onclick="showPage('glassPage');return false;">🛡️ Screen Glass</a>
     <div class='soon'>⚡ More Models Soon ⚡</div>
-    <div style="margin-top:28px;border:1px solid rgba(255,255,255,.12);border-radius:26px;padding:18px;text-align:center;">
-      <div style="font-size:18px;opacity:.9;margin-bottom:10px;">📞 Contact</div>
-      <a href="mailto:adilpkd690@gmail.com" style="display:block;background:#48c7f5;color:#000;text-decoration:none;padding:16px;border-radius:18px;font-size:22px;font-weight:700;">adilpkd690@gmail.com</a>
+    <div class='contact'>
+      <div style='font-size:18px;opacity:.9;margin-bottom:10px;'>📞 Contact</div>
+      <a href='mailto:adilpkd690@gmail.com'>adilpkd690@gmail.com</a>
     </div>
   </div>  <div id='searchPage' class='page'>
-    <a class='back' href='javascript:showPage("homePage")'>←</a>
+    <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
     <input id='searchBox' class='search' placeholder='Search any model directly...' oninput='filterModels()'>
     <div id='list'></div>
   </div>  <div id='glassPage' class='page'>
-    <a class='back' href='javascript:showPage("homePage")'>←</a>
+    <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
     <div class='card blink'>
       <div class='title' style='color:#48c7f5'>🛡️ SCREEN GLASS</div>
       <div class='fit'>Coming Soon</div>
@@ -45,38 +44,15 @@ h1{text-align:center;font-size:64px;letter-spacing:4px;font-family:Georgia,serif
   </div>
 </div>
 <script>
-const models=[
-{n:'Redmi M3 / M2',check:true},
-{n:'Redmi 7',f:'Also fits Redmi Y3'},
-{n:'Redmi 12 5G',f:'Also fits Poco M6 Pro'},
-{n:'Redmi Note 7',f:'Also fits Redmi Note 7 Pro'},
-{n:'Redmi 8',f:'Also fits Redmi 8A / Redmi 8A Dual'},
-{n:'Redmi 9A',f:'Also fits Redmi 9i'},
-{n:'Redmi 9C',f:'Also fits Redmi 10A / Poco C3 / Poco C31'},
-{n:'Redmi 9',f:'Also fits Redmi 9 Prime'},
-{n:'Redmi Note 10 Pro',f:'Also fits Redmi Note 10 Pro Max'},
-{n:'Redmi Note 10 4G',f:'Also fits Note 10s / Note 11SE / Poco M5s'},
-{n:'Redmi 11 Prime 5G',f:'Also fits Redmi Note 11e / Redmi 10 Prime Plus 5G'},
-{n:'POCO M4 5G',f:'Also fits POCO M5 4G'},
-{n:'Redmi 11X',f:'Also fits 11X Pro / K40 / K40 Pro / K40 Pro+ / Redmi 11i / Poco F3'},
-{n:'Redmi Note 11 Pro',f:'Also fits 4G/5G / 11 Pro+ 5G / 12 Pro 4G'},
-{n:'Redmi Note 11s',f:'Also fits Redmi Note 11 4G'},
-{n:'Redmi Note 11 5G',f:'Also fits Poco M4 Pro 5G / Note 11T 5G'},
-{n:'Redmi 13C 4G',f:'Also fits Redmi 13C 5G / Poco C65',open:true},
-{n:'Redmi 10C',f:'Also fits Redmi 10 4G / Redmi 10 Power / Poco C40'},
-{n:'Redmi Note 14 Pro',f:'Also fits 14 Pro Plus'},
-{n:'Redmi 6',f:'Also fits 6A'},
-{n:'Poco X6 Pro',f:'Also fits Redmi K70e 5G'},
-{n:'Redmi Y1',f:'Also fits Note 5A'},
-{n:'Redmi K20',f:'Also fits K20 Pro / Redmi 9T / 9T Pro'},{n:'iQOO Z6',f:'Also fits Vivo T1 5G / Vivo Y55 / Vivo Y75 5G'}, {n:'iQOO Z3',f:'Also fits Vivo Y72 5G'}, {n:'iQOO Neo 7',f:'Also fits Neo 7 Pro'}, {n:'Vivo Y04',f:'Also fits Y19e / Y29s 5G / T4 Lite 5G / Y19 5G / iQOO Z10 Lite'}, {n:'Vivo Y16',f:'Also fits Y56 5G / Y02s 4G / Y35 5G / T2x / iQOO Z7i'}, {n:'Vivo V40 5G',f:'Also fits V40 Pro / T3 Ultra / S19 Pro'}, {n:'Vivo T1 4G',f:'Also fits Vivo Y55 4G / iQOO Z6 44W'}, {n:'Vivo T2 Pro',f:'Also fits iQOO Z7 Pro / Vivo S17e'}, {n:'Vivo T4x',f:'Also fits Y29 4G / Y31 Pro 5G / iQOO Z10x'},
-
-{n:'Moto G85',f:'Also fits G96 / 50 Fusion'}, {n:'Moto G31',f:'Also fits G41'},
-
-{n:'Pixel 9',f:'Also fits Pixel 9 Pro',open:true}, {n:'Pixel 10',f:'Also fits Pixel 10 Pro',open:true},
-
-{n:'Realme C2',f:'Also fits Oppo A3s / Oppo A1K'}, {n:'Realme C55 4G',f:'Also fits Realme Narzo N55 4G'}, {n:'Oppo F27',f:'Also fits Reno 12F 4G/5G / Reno 12FS 5G'}, {n:'Oppo F23',f:'Also fits Oppo A1 5G / A98'}, {n:'Oppo A57',f:'Also fits A77 / A77s / A57e / A57s / Narzo 50 5G / Realme V23 / N20 SE / Nord N300'}, {n:'Realme C53',f:'Also fits C53e / C51 / Narzo N53 / Note 50'}, {n:'Realme C30',f:'Also fits C30s / Narzo 50i Prime'},
-
-{n:'Samsung A02',f:'Also fits M02 / A022'}, {n:'Samsung A02s',f:'Also fits M02s'}, {n:'Samsung M13',f:'Also fits A04e'}, {n:'Samsung A05 4G',f:'Also fits M05 / F05'}, {n:'Samsung F06 5G',f:'Also fits M06 5G'}, {n:'Samsung F14 5G',f:'Also fits M14'}, {n:'Samsung A10',f:'Also fits M10'}, {n:'Samsung A10s',f:'Also fits M01s'}, {n:'Samsung A11',f:'Also fits M11'}, {n:'Samsung A12',f:'Also fits M12 / F12 / 4G-5G open type',open:true}, {n:'Samsung A13',f:'Also fits A32 5G / M32 5G / 4G-5G open type',open:true}, {n:'Samsung M23',f:'Also fits F23'}, {n:'Samsung A13 5G',f:'Also fits A04s'}, {n:'Samsung A14',f:'Also fits 4G/5G'}, {n:'Samsung M16 5G',f:'Also fits F16 5G'}, {n:'Samsung A20',f:'Also fits A30 / M10s'}, {n:'Samsung A22 4G',f:'Also fits M32 4G'}, {n:'Samsung A22 5G',f:'Also fits A22s 5G / F42 5G'}, {n:'Samsung A24 4G',f:'Also fits A25 5G',check:true}, {n:'Samsung A32 4G',f:'Also fits M32'}, {n:'Samsung A52 4G',f:'Also fits A52 5G / A52s 5G'} ]; function escapeRegExp(s){return s.replace(/[.*+?^${}()|[]\]/g,'\$&')} function highlight(t,q){if(!q||!t)return t||'';const safe=escapeRegExp(q);return t.replace(new RegExp(safe,'ig'),m=><span class="hl">${m}</span>)} function render(items,q=''){document.getElementById('list').innerHTML=items.map(m=><div class='card'><div class='title'>${highlight(m.n,q)}</div>${m.f?<div class='fit'>${highlight(m.f,q)}</div>:''}${m.open||m.check?<div class='badges'>${m.open?<span class='badge-open'>OPEN TYPE</span>:''}${m.check?<span class='badge-check'>CHECK BEFORE BUY</span>:''}</div><div class='note'>Verify camera cutout, fingerprint slot, and speaker holes before final use.</div>:''}</div>).join('')} function filterModels(){const q=document.getElementById('searchBox').value.trim().toLowerCase();render(models.filter(m=>(${m.n} ${m.f||''}).toLowerCase().includes(q)),q)} function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='searchPage'){document.getElementById('searchBox').focus();}} render(models) </script>
-
+const models = [
+{n:'Redmi M3 / M2',check:true},{n:'Redmi 7',f:'Also fits Redmi Y3'},{n:'Redmi 12 5G',f:'Also fits Poco M6 Pro'},{n:'Redmi Note 7',f:'Also fits Redmi Note 7 Pro'},{n:'Redmi 8',f:'Also fits Redmi 8A / Redmi 8A Dual'},{n:'Redmi 9A',f:'Also fits Redmi 9i'},{n:'Redmi 9C',f:'Also fits Redmi 10A / Poco C3 / Poco C31'},{n:'Redmi 9',f:'Also fits Redmi 9 Prime'},{n:'Redmi Note 10 Pro',f:'Also fits Redmi Note 10 Pro Max'},{n:'Redmi 13C 4G',f:'Also fits Redmi 13C 5G / Poco C65',open:true},{n:'Poco X6 Pro',f:'Also fits Redmi K70e 5G'},{n:'iQOO Z6',f:'Also fits Vivo T1 5G / Vivo Y55 / Vivo Y75 5G'},{n:'Moto G85',f:'Also fits G96 / 50 Fusion'},{n:'Pixel 9',f:'Also fits Pixel 9 Pro',open:true},{n:'Realme C2',f:'Also fits Oppo A3s / Oppo A1K'},{n:'Samsung A12',f:'Also fits M12 / F12 / 4G-5G open type',open:true},{n:'Samsung A13',f:'Also fits A32 5G / M32 5G / 4G-5G open type',open:true},{n:'Samsung M23',f:'Also fits F23'},{n:'Samsung A24 4G',f:'Also fits A25 5G',check:true},{n:'Samsung A52 4G',f:'Also fits A52 5G / A52s 5G'}
+];
+function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\\]\\]/g,'\\$&')}
+function highlight(t,q){if(!q||!t)return t||'';const safe=escapeRegExp(q);return t.replace(new RegExp(safe,'ig'),m=>`<span class="hl">${m}</span>`)}
+function render(items,q=''){document.getElementById('list').innerHTML=items.map(m=>`<div class='card'><div class='title'>${highlight(m.n,q)}</div>${m.f?`<div class='fit'>${highlight(m.f,q)}</div>`:''}${m.open||m.check?`<div class='badges'>${m.open?`<span class='badge-open'>OPEN TYPE</span>`:''}${m.check?`<span class='badge-check'>CHECK BEFORE BUY</span>`:''}</div><div class='note'>Verify camera cutout, fingerprint slot, and speaker holes before final use.</div>`:''}</div>`).join('')}
+function filterModels(){const q=document.getElementById('searchBox').value.trim().toLowerCase();render(models.filter(m=>(`${m.n} ${m.f||''}`).toLowerCase().includes(q)),q)}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='searchPage'){render(models);setTimeout(()=>document.getElementById('searchBox').focus(),100);}}
+render(models);
+</script>
 </body>
 </html>

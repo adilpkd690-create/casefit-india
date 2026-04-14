@@ -1,4 +1,4 @@
-<!DOCTYPE html><html>
+ <!DOCTYPE html><html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -6,11 +6,11 @@
 <style>
 body{margin:0;background:#020b3a;color:#fff;font-family:Arial,sans-serif}
 h1{font-size:68px;text-align:center;margin:30px 0;font-family:Georgia,'Times New Roman',serif;letter-spacing:4px;text-transform:uppercase;font-weight:900}
-.page{display:none;padding:20px;max-width:480px;margin:0 auto}
+.page{display:none;padding:20px;max-width:680px;margin:0 auto}
 .page.active{display:block}
-.btn{display:block;width:auto;padding:24px;border-radius:28px;text-decoration:none;font-size:28px;font-weight:700;text-align:center;margin:18px 0;color:#000}
+.btn{display:block;width:100%;padding:24px;box-sizing:border-box;border-radius:28px;text-decoration:none;font-size:28px;font-weight:700;text-align:center;margin:18px 0;color:#000}
 .green{background:#28d463}.blue{background:#42cfff}
-.card{background:rgba(255,255,255,.06);margin:20px 0;border-radius:28px;padding:28px;border:1px solid rgba(255,255,255,.1)}
+.card{background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.05));margin:20px 0;border-radius:28px;padding:28px;border:1px solid rgba(255,255,255,.12);box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .card h3{margin:0;color:#35e06f;font-size:28px}
 .card p{font-size:20px;color:#eee}
 .badges{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
@@ -25,7 +25,7 @@ small{display:block;color:#ffb1b1;font-size:14px;line-height:1.4}
   <h1>CASE FIT</h1>
   <a href="#search" class="btn green">🔎 Find Suitable Case</a>
   <a href="#glass" class="btn blue">🛡️ Screen Glass</a>
-  <div class="card" style="margin-top:40px;text-align:center">
+  <div class="card" style="margin-top:24px;text-align:center;border:1px solid rgba(246,197,74,.5)"><h3 style="color:#f6c54a">⚡ More Models Soon ⚡</h3></div>  <div class="card" style="margin-top:40px;text-align:center">
     <h3 style="color:#fff">📞 Contact</h3>
     <p><a href="mailto:adilpkd690@gmail.com" style="color:#42cfff;text-decoration:none;font-weight:700">adilpkd690@gmail.com</a></p>
   </div>
@@ -39,7 +39,7 @@ small{display:block;color:#ffb1b1;font-size:14px;line-height:1.4}
   <div class="card"><h3>Coming Soon</h3></div>
 </div><script>
 const models=[
- 'Redmi M3 / M2 (check)',
+ 'Redmi M3 / M2 ',
  'Redmi 7 - Redmi Y3',
  'Redmi 12 5G - Poco M6 Pro',
  'Redmi Note 7 - Redmi Note 7 Pro',
@@ -100,7 +100,7 @@ const models=[
  'Samsung A20 - A30 - M10s',
  'Samsung A22 4G - M32 4G',
  'Samsung A22 5G - A22s 5G - F42 5G',
- 'Samsung A24 4G - A25 5G (check)',
+ 'Samsung A24 4G - A25 5G ',
  'Samsung A32 4G - M32',
  'Samsung A52 4G - A52 5G - A52s 5G'
 ];
@@ -131,4 +131,4 @@ function route(){
 window.addEventListener('hashchange',route);
 route();
 </script></body>
-</html>
+ </html>

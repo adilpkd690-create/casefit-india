@@ -1,44 +1,137 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CASE FIT</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Case Fit</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#020b2a;color:#fff}
-.page{max-width:720px;margin:auto;padding:24px 20px 40px}.hidden{display:none}
-h1{font-size:68px;text-align:center;margin:30px 0;font-family:Georgia, 'Times New Roman', serif;letter-spacing:4px;text-transform:uppercase;font-weight:900}.btn{display:block;width:100%;padding:28px 20px;margin:18px 0;border-radius:28px;border:none;font-size:32px;font-weight:700;text-align:center;color:#000}.green{background:#22c55e}.blue{background:#22d3ee}
-.back{font-size:24px;padding:14px 18px;border-radius:16px;background:#22c55e;color:#000;text-decoration:none;display:inline-block;margin-bottom:20px}
-.soon{margin:22px 0;padding:28px;border:3px solid #f59e0b;border-radius:28px;text-align:center;font-size:34px;color:#f59e0b;animation:blink 1.2s infinite}@keyframes blink{50%{opacity:.45}}
-.contact-card{margin:80px 0 20px;padding:20px;border:1px solid rgba(255,255,255,.15);border-radius:24px;background:rgba(255,255,255,.03)} .mail{display:block;background:#38bdf8;color:#000;text-decoration:none;text-align:center;padding:18px;border-radius:20px;font-size:22px;font-weight:700}
-input{width:100%;padding:18px;border-radius:18px;border:1px solid #334155;background:#0f172a;color:#fff;font-size:24px;margin:10px 0 20px}
-.card{background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.1);padding:24px;border-radius:24px;margin:16px 0;box-shadow:0 8px 30px rgba(0,0,0,.25)}
-.model-title{font-size:22px;font-weight:700;color:#22c55e;margin-bottom:10px}.model-sub{font-size:18px;color:#e5e7eb;line-height:1.4}
-.badges{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 10px}.badge-open{display:inline-block;padding:8px 14px;border-radius:999px;font-size:14px;font-weight:700;color:#fbbf24;border:1px solid rgba(251,191,36,.5);background:rgba(251,191,36,.12)}.badge-check{display:inline-block;padding:8px 14px;border-radius:999px;font-size:14px;font-weight:700;color:#fda4af;border:1px solid rgba(244,114,182,.45);background:rgba(244,114,182,.12)}
-.warn-note{font-size:14px;color:#fca5a5;line-height:1.35}
+body{
+  margin:0;
+  background:#020b3a;
+  color:#fff;
+  font-family:Arial,sans-serif;
+}
+h1{
+  font-size:68px;
+  text-align:center;
+  margin:30px 0;
+  font-family:Georgia,'Times New Roman',serif;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-weight:900;
+}
+#list{
+  padding:8px 12px 40px;
+}
+.card{
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
+  margin:18px 10px;
+  border-radius:28px;
+  padding:28px;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 8px 20px rgba(0,0,0,.18);
+}
+.card h3{
+  margin:0;
+  color:#35e06f;
+  font-size:28px;
+}
+.card p{
+  font-size:20px;
+  color:#eee;
+  margin:16px 0 8px;
+}
+.badges{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:14px 0;
+}
+.badge{
+  padding:10px 18px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:700;
+}
+.open{
+  color:#f6c54a;
+  border:1px solid rgba(246,197,74,.4);
+  background:rgba(246,197,74,.12);
+}
+.check{
+  color:#ff8d8d;
+  border:1px solid rgba(255,141,141,.4);
+  background:rgba(255,141,141,.12);
+}
+small{
+  display:block;
+  color:#ffb1b1;
+  font-size:14px;
+  line-height:1.4;
+}
 </style>
 </head>
 <body>
-<div id="home" class="page">
+
 <h1>CASE FIT</h1>
-<button class="btn green" onclick="showPage('search')">🔍 Find Suitable Case</button>
-<button class="btn blue" onclick="showPage('glass')">🛡️ Screen Glass</button>
-<div class="soon">⚡ More Models Soon ⚡</div>
-<div class="contact-card"><div style="font-size:22px;margin-bottom:14px">📞 Contact</div><a class="mail" href="mailto:adilpkd690@gmail.com">adilpkd690@gmail.com</a></div>
-</div>
-<div id="search" class="page hidden"><a href="#" class="back" onclick="showPage('home')">← Back</a><input id="searchBox" placeholder="Search any model directly..." oninput="renderModels()"><div id="modelList"></div></div>
-<div id="glass" class="page hidden"><a href="#" class="back" onclick="showPage('home')">← Back</a><div class="soon">🛡️ Screen Glass Coming Soon 🛡️</div></div>
+<div id="list"></div>
+
 <script>
-const models=[
-'• Redmi M3 / M2 (check)','• Redmi 7 - Redmi Y3','• Redmi 12 5G - Poco M6 Pro','• Redmi Note 7 - Redmi Note 7 Pro','• Redmi 8 - Redmi 8A - Redmi 8A Dual','• Redmi 9A - Redmi 9i','• Redmi 9C - Redmi 10A - Poco C3 - Poco C31','• Redmi 9 - Redmi 9 Prime','• Redmi Note 10 Pro - Redmi Note 10 Pro Max','• Redmi Note 10 4G - Note 10S 4G - Note 11SE - Poco M5S 4G','• Redmi 11 Prime 5G - Redmi Note 11e 5G - Redmi 10 Prime Plus 5G','• POCO M4 5G - POCO M5 4G','• Redmi 11X / 11X Pro - Redmi K40 / K40 Pro / K40 Pro Plus - Redmi 11i - Poco F3','• Redmi Note 11 Pro 4G/5G - Note 11 Pro Plus 5G - Note 12 Pro 4G','• Redmi Note 11S - Note 11 4G','• Redmi Note 11 5G - Poco M4 Pro 5G - Note 11T 5G','• Redmi 13C 4G - Redmi 13C 5G (open type) - Poco C65','• Redmi 10C - Redmi 10 4G - Redmi 10 Power - Poco C40','• Redmi Note 14 Pro - 14 Pro Plus','• Redmi 6 - 6A','• Poco X6 Pro - Redmi K70e 5G','• Redmi Y1 - Note 5A','• Redmi K20 - K20 Pro - Redmi 9T - 9T Pro',
-'• iQOO Z6 - Vivo T1 5G - Vivo Y55 - Vivo Y75 5G','• iQOO Z3 - Vivo Y72 5G','• iQOO Neo 7 - Neo 7 Pro','• Vivo Y04 - Y19e - Y29s 5G - T4 Lite 5G - Y19 5G - iQOO Z10 Lite 5G','• Vivo Y16 - Vivo Y56 5G - Vivo Y02s 4G - Vivo Y35 5G - Vivo T2x - iQOO Z7i','• Vivo V40 5G - V40 Pro 5G - T3 Ultra - S19 Pro 5G','• Vivo T1 4G - Vivo Y55 4G - iQOO Z6 44W','• Vivo T2 Pro 5G - iQOO Z7 Pro 5G - Vivo S17e','• Vivo T4x - Y29 4G - Y31 Pro 5G - iQOO Z10x',
-'• Moto G85 - G96 - 50 Fusion','• Moto G31 - G41',
-'• Pixel 9 - Pixel 9 Pro (open type)','• Pixel 10 - Pixel 10 Pro (open type)',
-'• Realme C2 - Oppo A3s - Oppo A1K','• Realme C55 4G - Realme Narzo N55 4G','• Oppo F27 - Oppo Reno 12F 4G/5G - Reno 12 FS 5G','• Oppo F23 - Oppo A1 5G - A98','• Oppo A57 4G/5G - A77 4G/5G - A77s 4G - A57e 4G - A57s 4G - Realme Narzo 50 5G - Realme V23 - OnePlus N20 SE - OnePlus Nord N300','• Realme C53 4G / C53e - C51 4G - Realme Narzo N53 - Realme Note 50 4G','• Realme C30 / C30s - Narzo 50i Prime',
-'• Samsung A02 - M02 - A022','• Samsung A02s - M02s - A02s','• Samsung M13 - A04e','• Samsung A05 4G - M05 4G - F05 4G','• Samsung F06 5G - M06 5G','• Samsung F14 5G - M14','• Samsung A10 - M10','• Samsung A10s - M01s','• Samsung A11 - M11','• Samsung A12 4G/5G (open type) - M12 - F12','• Samsung A13 4G/5G (open type) - A32 5G - M32 5G (open type)','• Samsung M23 - F23','• Samsung A13 5G - A04s','• Samsung A14 4G/5G','• Samsung M16 5G - F16 5G','• Samsung A20 - A30 - M10s','• Samsung A22 4G - M32 4G','• Samsung A22 5G - A22s 5G - F42 5G','• Samsung A24 4G - A25 5G (check)','• Samsung A32 4G - M32','• Samsung A52 4G - A52 5G - A52s 5G'
+const models = [
+  "Redmi M3 / M2 (check)",
+  "Redmi 7 - Redmi Y3",
+  "Redmi 12 5G - Poco M6 Pro",
+  "Redmi Note 7 - Redmi Note 7 Pro",
+  "Redmi 8 - Redmi 8A - Redmi 8A Dual",
+  "Redmi 9A - Redmi 9i",
+  "Redmi 9C - Redmi 10A - Poco C3 - Poco C31",
+  "Redmi 9 - Redmi 9 Prime",
+  "Redmi Note 10 Pro - Redmi Note 10 Pro Max",
+  "Redmi 13C 4G - Redmi 13C 5G (open type) - Poco C65",
+  "Poco X6 Pro - Redmi K70e 5G",
+  "Samsung A12 4G/5G (open type) - M12 - F12",
+  "Samsung A13 4G/5G (open type) - A32 5G - M32 5G",
+  "Samsung A24 4G - A25 5G (check)",
+  "Samsung A52 4G - A52 5G - A52s 5G"
 ];
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');if(id==='search')renderModels();}
-function renderModels(){const q=(document.getElementById('searchBox').value||'').toLowerCase();const box=document.getElementById('modelList');box.innerHTML='';models.filter(m=>m.toLowerCase().includes(q)).forEach(raw=>{const isCheck=/check/i.test(raw);const isOpen=/open type/i.test(raw);const clean=raw.replace(/\s*(check|open type)/gi,'').replace('• ','').trim();const parts=clean.split(' - ');const title=parts[0];const sub=parts.length>1?`Also fits ${parts.slice(1).join(' / ')}`:'';let badges='';if(isOpen)badges+='<span class="badge-open">OPEN TYPE</span>';if(isCheck)badges+='<span class="badge-check">CHECK BEFORE BUY</span>';box.innerHTML+=`<div class="card"><div class="model-title">${title}</div>${sub?`<div class="model-sub">${sub}</div>`:''}${badges?`<div class="badges">${badges}</div><div class="warn-note">Verify camera cutout, fingerprint slot, and speaker holes before final use.</div>`:''}</div>`})}
-showPage('home');
+
+function renderModel(mainName, subName, isOpen, isCheck) {
+  return `
+    <div class="card">
+      <h3>${mainName}</h3>
+      ${subName ? `<p>Also fits ${subName}</p>` : ""}
+      ${(isOpen || isCheck) ? `
+        <div class="badges">
+          ${isOpen ? `<span class="badge open">OPEN TYPE</span>` : ""}
+          ${isCheck ? `<span class="badge check">CHECK BEFORE BUY</span>` : ""}
+        </div>
+        <small>Verify camera cutout, fingerprint slot, and speaker holes before final use.</small>
+      ` : ""}
+    </div>
+  `;
+}
+
+const list = document.getElementById("list");
+
+models.forEach(item => {
+  let txt = item;
+  const lower = txt.toLowerCase();
+
+  const isOpen = lower.includes("(open type)");
+  const isCheck = lower.includes("(check)");
+
+  txt = txt
+    .replace(/\(open type\)/ig, "")
+    .replace(/\(check\)/ig, "")
+    .trim();
+
+  const parts = txt.split(" - ");
+  const main = parts.shift();
+  const sub = parts.join(" / ");
+
+  list.innerHTML += renderModel(main, sub, isOpen, isCheck);
+});
 </script>
+
 </body>
 </html>

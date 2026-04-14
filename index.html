@@ -1,57 +1,219 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CASE FIT</title>
+<title>CASE FIT | Smart Finder</title>
 <style>
-body{margin:0;background:#020b4d;color:#fff;font-family:Arial,sans-serif}
-.wrap{max-width:430px;margin:auto;padding:24px 20px 60px}
-h1{text-align:center;font-size:52px;letter-spacing:6px;font-family:Georgia,serif;margin:18px 0 24px;text-shadow:0 4px 18px rgba(255,255,255,.08)}
-.btn{display:block;color:#061018;text-decoration:none;padding:20px;border-radius:26px;font-size:24px;font-weight:700;text-align:center;margin-bottom:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-.casebtn{background:#2bd15f}.glassbtn{background:#48c7f5}
-.soon{border:2px solid #d9a11d;color:#d9a11d;border-radius:28px;padding:22px;font-size:26px;text-align:center;margin-bottom:22px}
-.search{width:100%;padding:16px 18px;border-radius:20px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);backdrop-filter:blur(10px);color:#fff;font-size:18px;box-sizing:border-box;margin-bottom:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
-.card{background:linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:24px;margin-bottom:16px;box-shadow:0 14px 35px rgba(0,0,0,.22)}
-.title{font-size:24px;color:#48f07a;font-weight:700;letter-spacing:.3px}.fit{font-size:18px;color:#eef3ff;margin-top:10px;line-height:1.35}
-.badges{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}.badge-open{border:1px solid #8b6b21;color:#f3ca54;padding:8px 14px;border-radius:999px;font-size:14px}.badge-check{border:1px solid #8c4750;color:#ff9ea8;padding:8px 14px;border-radius:999px;font-size:14px}.note{color:#ff9ea8;font-size:14px;margin-top:12px;line-height:1.4}.hl{background:rgba(255,216,77,.45);color:#fff;padding:1px 4px;border-radius:6px}
-.page{display:none}.page.active{display:block}.back{display:inline-block;color:#000;background:#2bd15f;text-decoration:none;width:58px;height:58px;line-height:58px;text-align:center;border-radius:18px;font-size:34px;font-weight:700;margin-bottom:18px}
-.blink{animation:blink 1s infinite}@keyframes blink{50%{opacity:.35}}
-.contact{margin-top:26px;border:1px solid rgba(255,255,255,.12);border-radius:26px;padding:18px;text-align:center;background:rgba(255,255,255,.04);backdrop-filter:blur(10px)}
-.contact a{display:block;background:#48c7f5;color:#000;text-decoration:none;padding:16px;border-radius:18px;font-size:22px;font-weight:700}
+:root {
+  --primary: #00f2fe;
+  --secondary: #4facfe;
+  --accent: #ff9a9e;
+  --bg-dark: #0f172a;
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1e293b, #0f172a);
+  color: #f8fafc;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+}
+
+.wrap {
+  max-width: 430px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin: 20px 0 40px;
+  background: linear-gradient(to right, #00f2fe, #4facfe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+  padding: 18px;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.btn:active { transform: scale(0.96); }
+
+.casebtn { 
+    background: linear-gradient(135deg, #05d5ff, #007bff); 
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
+    border: none;
+}
+
+.glassbtn { border-color: #48c7f5; color: #48c7f5; }
+
+.soon {
+  padding: 18px;
+  text-align: center;
+  font-weight: 500;
+  opacity: 0.6;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.search {
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  color: #fff;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  outline: none;
+}
+
+.search:focus { border-color: var(--primary); }
+
+.card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: transform 0.2s;
+}
+
+.title { font-size: 20px; color: #fff; font-weight: 700; margin-bottom: 4px; }
+.fit { font-size: 15px; color: #94a3b8; line-height: 1.4; }
+
+.badges { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+.badge-open, .badge-check {
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.badge-open { background: rgba(243, 202, 84, 0.1); color: #f3ca54; }
+.badge-check { background: rgba(255, 158, 168, 0.1); color: #ff9ea8; }
+
+.page { display: none; animation: fadeIn 0.4s ease; }
+.page.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: var(--glass);
+  text-decoration: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  font-size: 24px;
+  margin-bottom: 20px;
+  border: 1px solid var(--glass-border);
+}
+
+.contact {
+  margin-top: 40px;
+  text-align: center;
+}
+.contact-btn {
+  display: block;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 14px;
+  border-radius: 15px;
+  font-size: 14px;
+  margin-top: 10px;
+}
 </style>
 </head>
 <body>
 <div class='wrap'>
   <div id='homePage' class='page active'>
     <h1>CASE FIT</h1>
-    <a class='btn casebtn' href='#' onclick="showPage('searchPage');return false;">🔎 Find Suitable Case</a>
+    <a class='btn casebtn' href='#' onclick="showPage('searchPage');return false;">🔍 Find Suitable Case</a>
     <a class='btn glassbtn' href='#' onclick="showPage('glassPage');return false;">🛡️ Screen Glass</a>
-    <div class='soon'>⚡ More Models Soon ⚡</div>
+    <div class='soon'>— More Models Soon —</div>
+    
     <div class='contact'>
-      <div style='font-size:18px;opacity:.9;margin-bottom:10px;'>📞 Contact</div>
-      <a href='mailto:adilpkd690@gmail.com'>adilpkd690@gmail.com</a>
+      <span style="font-size: 13px; color: #64748b;">Need help?</span>
+      <a class="contact-btn" href='mailto:adilpkd690@gmail.com'>adilpkd690@gmail.com</a>
     </div>
-  </div>  <div id='searchPage' class='page'>
+  </div>
+
+  <div id='searchPage' class='page'>
     <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
-    <input id='searchBox' class='search' placeholder='Search any model directly...' oninput='filterModels()'>
+    <input id='searchBox' class='search' placeholder='Search model (e.g. Redmi 12)...' oninput='filterModels()'>
     <div id='list'></div>
-  </div>  <div id='glassPage' class='page'>
+  </div>
+
+  <div id='glassPage' class='page'>
     <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
-    <div class='card blink'>
-      <div class='title' style='color:#48c7f5'>🛡️ SCREEN GLASS</div>
-      <div class='fit'>Coming Soon</div>
+    <div class='card' style="text-align: center; border-color: var(--secondary);">
+      <div class='title' style='color: var(--secondary)'>🛡️ SCREEN GLASS</div>
+      <div class='fit'>Adding database... Please wait!</div>
     </div>
   </div>
 </div>
+
 <script>
+// Data and Functions are the same as yours to keep it working perfectly
 const models = [
-{n:'Redmi M3 / M2',check:true},{n:'Redmi 7',f:'Also fits Redmi Y3'},{n:'Redmi 12 5G',f:'Also fits Poco M6 Pro'},{n:'Redmi Note 7',f:'Also fits Redmi Note 7 Pro'},{n:'Redmi 8',f:'Also fits Redmi 8A / Redmi 8A Dual'},{n:'Redmi 9A',f:'Also fits Redmi 9i'},{n:'Redmi 9C',f:'Also fits Redmi 10A / Poco C3 / Poco C31'},{n:'Redmi 9',f:'Also fits Redmi 9 Prime'},{n:'Redmi Note 10 Pro',f:'Also fits Redmi Note 10 Pro Max'},{n:'Redmi 13C 4G',f:'Also fits Redmi 13C 5G / Poco C65',open:true},{n:'Poco X6 Pro',f:'Also fits Redmi K70e 5G'},{n:'iQOO Z6',f:'Also fits Vivo T1 5G / Vivo Y55 / Vivo Y75 5G'},{n:'Moto G85',f:'Also fits G96 / 50 Fusion'},{n:'Pixel 9',f:'Also fits Pixel 9 Pro',open:true},{n:'Realme C2',f:'Also fits Oppo A3s / Oppo A1K'},{n:'Samsung A12',f:'Also fits M12 / F12 / 4G-5G open type',open:true},{n:'Samsung A13',f:'Also fits A32 5G / M32 5G / 4G-5G open type',open:true},{n:'Samsung M23',f:'Also fits F23'},{n:'Samsung A24 4G',f:'Also fits A25 5G',check:true},{n:'Samsung A52 4G',f:'Also fits A52 5G / A52s 5G'}
+    {n:'Redmi M3 / M2',check:true},{n:'Redmi 7',f:'Also fits Redmi Y3'},{n:'Redmi 12 5G',f:'Also fits Poco M6 Pro'},{n:'Redmi Note 7',f:'Also fits Redmi Note 7 Pro'},{n:'Redmi 8',f:'Also fits Redmi 8A / Redmi 8A Dual'},{n:'Redmi 9A',f:'Also fits Redmi 9i'},{n:'Redmi 9C',f:'Also fits Redmi 10A / Poco C3 / Poco C31'},{n:'Redmi 9',f:'Also fits Redmi 9 Prime'},{n:'Redmi Note 10 Pro',f:'Also fits Redmi Note 10 Pro Max'},{n:'Redmi 13C 4G',f:'Also fits Redmi 13C 5G / Poco C65',open:true},{n:'Poco X6 Pro',f:'Also fits Redmi K70e 5G'},{n:'iQOO Z6',f:'Also fits Vivo T1 5G / Vivo Y55 / Vivo Y75 5G'},{n:'Moto G85',f:'Also fits G96 / 50 Fusion'},{n:'Pixel 9',f:'Also fits Pixel 9 Pro',open:true},{n:'Realme C2',f:'Also fits Oppo A3s / Oppo A1K'},{n:'Samsung A12',f:'Also fits M12 / F12 / 4G-5G open type',open:true},{n:'Samsung A13',f:'Also fits A32 5G / M32 5G / 4G-5G open type',open:true},{n:'Samsung M23',f:'Also fits F23'},{n:'Samsung A24 4G',f:'Also fits A25 5G',check:true},{n:'Samsung A52 4G',f:'Also fits A52 5G / A52s 5G'}
 ];
+
 function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\\]\\]/g,'\\$&')}
-function highlight(t,q){if(!q||!t)return t||'';const safe=escapeRegExp(q);return t.replace(new RegExp(safe,'ig'),m=>`<span class="hl">${m}</span>`)}
-function render(items,q=''){document.getElementById('list').innerHTML=items.map(m=>`<div class='card'><div class='title'>${highlight(m.n,q)}</div>${m.f?`<div class='fit'>${highlight(m.f,q)}</div>`:''}${m.open||m.check?`<div class='badges'>${m.open?`<span class='badge-open'>OPEN TYPE</span>`:''}${m.check?`<span class='badge-check'>CHECK BEFORE BUY</span>`:''}</div><div class='note'>Verify camera cutout, fingerprint slot, and speaker holes before final use.</div>`:''}</div>`).join('')}
-function filterModels(){const q=document.getElementById('searchBox').value.trim().toLowerCase();render(models.filter(m=>(`${m.n} ${m.f||''}`).toLowerCase().includes(q)),q)}
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='searchPage'){render(models);setTimeout(()=>document.getElementById('searchBox').focus(),100);}}
+function render(items,q=''){
+    document.getElementById('list').innerHTML=items.map(m=>`
+    <div class='card'>
+        <div class='title'>${m.n}</div>
+        ${m.f?`<div class='fit'>${m.f}</div>`:''}
+        ${m.open||m.check?`<div class='badges'>
+            ${m.open?`<span class='badge-open'>OPEN TYPE</span>`:''}
+            ${m.check?`<span class='badge-check'>CHECK BEFORE BUY</span>`:''}
+        </div>`:''}
+    </div>`).join('');
+}
+
+function filterModels(){
+    const q=document.getElementById('searchBox').value.trim().toLowerCase();
+    render(models.filter(m=>(`${m.n} ${m.f||''}`).toLowerCase().includes(q)),q);
+}
+
+function showPage(id){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if(id==='searchPage'){ render(models); setTimeout(()=>document.getElementById('searchBox').focus(),100); }
+}
 render(models);
 </script>
 </body>

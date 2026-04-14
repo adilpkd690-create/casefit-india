@@ -5,10 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="theme-color" content="#0f172a" />
 <title>CoverMatch | Smart Finder</title>
+<meta name="description" content="CoverMatch India - Find the perfect smartphone case compatibility in seconds. Smart finder for shop staff." />
 
 <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><text x='50%' y='60%' font-size='45' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%2300f2fe'>CM</text></svg>">
-<meta name="description" content="CoverMatch India - Find the perfect smartphone case compatibility. Smart finder for shop staff." />
-
 <link rel="manifest" id="manifest-link" />
 
 <style>
@@ -22,7 +21,7 @@
 body {
   margin: 0; background: radial-gradient(circle at top, #1e293b, #0f172a);
   background-attachment: fixed; color: #f8fafc;
-  font-family: 'Inter', -apple-system, sans-serif; min-height: 100vh; overflow-x: hidden;
+  font-family: 'Inter', -apple-system, sans-serif; min-height: 100vh;
 }
 
 .wrap { max-width: 430px; margin: 0 auto; padding: 30px 20px 40px; }
@@ -36,24 +35,14 @@ body {
   background: var(--glass); border: 1px solid var(--glass-border);
   backdrop-filter: blur(15px); transition: 0.3s; cursor: pointer;
 }
-
 .btn:active { transform: scale(0.97); }
 .casebtn { background: linear-gradient(135deg, #05d5ff, #007bff); border: none; box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3); }
 .glassbtn { border-color: rgba(72, 199, 245, 0.5); color: #48c7f5; }
 
-/* Smart Install Button */
-#installBtn {
-  display: flex; background: rgba(46, 204, 113, 0.15); border-color: rgba(46, 204, 113, 0.4);
-  color: #2ecc71; font-size: 16px; padding: 16px; margin-top: 5px;
-}
+#installBtn { display: none; background: rgba(46, 204, 113, 0.15); border-color: rgba(46, 204, 113, 0.4); color: #2ecc71; }
 
-@keyframes softPulse {
-  0%, 100% { opacity: 0.5; } 50% { opacity: 1; }
-}
-.pulse-text {
-  margin-top: 25px; text-align: center; font-size: 11px; letter-spacing: 2px;
-  font-weight: 700; color: var(--secondary); animation: softPulse 3s infinite ease-in-out;
-}
+@keyframes softPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+.pulse-text { margin-top: 25px; text-align: center; font-size: 11px; letter-spacing: 2px; font-weight: 700; color: var(--secondary); animation: softPulse 3s infinite; }
 
 .sticky-header { position: sticky; top: 10px; z-index: 100; margin-bottom: 15px; }
 .search-wrapper { position: relative; width: 100%; }
@@ -61,39 +50,44 @@ body {
   width: 100%; padding: 18px 50px 18px 24px; border-radius: 20px;
   border: 1px solid var(--glass-border); background: rgba(15, 23, 42, 0.95);
   color: #fff; font-size: 16px; box-sizing: border-box; outline: none;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4); transition: border-color 0.3s;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4); transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.search:focus { border-color: var(--primary); }
-.mic-btn {
-  position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
-  background: none; border: none; font-size: 20px; color: var(--primary); cursor: pointer;
-}
+.search:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 242, 254, 0.2); }
 
-.result-count { font-size: 12px; color: var(--secondary); margin: 10px 0 5px 5px; font-weight: 600; }
+.mic-btn { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 20px; color: var(--primary); cursor: pointer; transition: 0.2s; }
+
+.result-count { font-size: 12px; color: var(--secondary); margin: 10px 0 5px 5px; font-weight: 600; min-height: 15px; }
+.quick-shortcuts { margin-bottom: 20px; transition: 0.3s; }
+
 .filter-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 5px 0 10px; scrollbar-width: none; }
 .filter-scroll::-webkit-scrollbar { display: none; }
-.chip {
-  padding: 8px 16px; background: var(--glass); border: 1px solid var(--glass-border);
-  border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--text-dim);
-  white-space: nowrap; cursor: pointer; transition: 0.2s; backdrop-filter: blur(10px);
-}
+.chip { padding: 8px 16px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--text-dim); white-space: nowrap; cursor: pointer; transition: 0.2s; }
 .chip.active { background: var(--glass-active); color: var(--primary); border-color: var(--primary); }
 
-.card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px; padding: 22px; margin-bottom: 16px; position: relative; }
+.card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px; padding: 22px; margin-bottom: 16px; position: relative; transition: 0.3s; }
 .title { font-size: 20px; color: var(--model-green); font-weight: 800; margin-bottom: 6px; }
 .fit { font-size: 15px; color: #fff; line-height: 1.5; opacity: 0.95; }
 mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4px; padding: 0 2px; }
 
-.share-action { margin-top: 15px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #2ecc71; background: var(--share-btn); padding: 8px 14px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+.badge-new { background: linear-gradient(135deg, #ff9a9e, #fecfef); color: #000; padding: 4px 8px; border-radius: 8px; font-size: 9px; font-weight: 900; position: absolute; top: 22px; right: 22px; }
+.badges { margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap; }
+.badge { padding: 6px 12px; border-radius: 12px; font-size: 10px; font-weight: 800; }
+.badge-open { background: rgba(243, 202, 84, 0.12); color: #f3ca54; border: 1px solid rgba(243, 202, 84, 0.3); }
+.badge-check { background: rgba(255, 118, 117, 0.12); color: #ff7675; border: 1px solid rgba(255, 118, 117, 0.3); }
 
-.page { display: none; }
-.page.active { display: block; animation: fadeIn 0.3s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.warning-text { font-size: 12px; color: var(--warning); margin-top: 12px; line-height: 1.4; font-weight: 500; border-top: 1px solid rgba(255,118,117,0.1); padding-top: 10px; }
 
-.back { display: flex; align-items: center; justify-content: center; color: #fff; background: var(--glass); text-decoration: none; width: 48px; height: 48px; border-radius: 18px; margin-bottom: 15px; border: 1px solid var(--glass-border); }
+.share-action { margin-top: 15px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #2ecc71; background: var(--share-btn); padding: 8px 14px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; border: 1px solid rgba(46, 204, 113, 0.2); }
+.share-action:active { transform: scale(0.95); background: rgba(37, 211, 102, 0.3); }
 
 .no-result { text-align: center; padding: 30px 15px; background: var(--glass); border-radius: 24px; border: 1px dashed var(--glass-border); }
-.req-btn { background: rgba(0, 242, 254, 0.1); color: var(--primary); text-decoration: none; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 700; display: inline-block; border: 1px solid rgba(0,242,254,0.3); margin-top: 10px;}
+.req-btn { background: rgba(0, 242, 254, 0.1); color: var(--primary); text-decoration: none; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 700; display: inline-block; border: 1px solid rgba(0,242,254,0.3); margin-top: 15px; }
+
+.page { display: none; transition: 0.3s; }
+.page.active { display: block; animation: fadeIn 0.4s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.back { display: flex; align-items: center; justify-content: center; color: #fff; background: var(--glass); text-decoration: none; width: 48px; height: 48px; border-radius: 18px; margin-bottom: 15px; border: 1px solid var(--glass-border); cursor: pointer; }
 
 .footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--glass-border); }
 </style>
@@ -103,15 +97,10 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 <div class='wrap'>
   <div id='homePage' class='page active'>
     <div class="logo-container">
-      <svg width="250" height="60" viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00f2fe" /><stop offset="100%" stop-color="#4facfe" /></linearGradient>
-        </defs>
-        <g transform="translate(10, 8)">
-          <rect x="0" y="0" width="26" height="42" rx="7" fill="none" stroke="url(#logoGrad)" stroke-width="3"/>
-          <path d="M 8 20 L 14 26 L 30 10" fill="none" stroke="#2ecc71" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
-        </g>
-        <text x="45" y="42" font-family="sans-serif" font-weight="900" font-size="30" fill="url(#logoGrad)" letter-spacing="-1">CoverMatch</text>
+      <svg width="250" height="60" viewBox="0 0 250 60">
+        <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#4facfe"/></linearGradient></defs>
+        <g transform="translate(10, 8)"><rect width="26" height="42" rx="7" fill="none" stroke="url(#g)" stroke-width="3"/><path d="M 8 20 L 14 26 L 30 10" fill="none" stroke="#2ecc71" stroke-width="3.5" stroke-linecap="round"/></g>
+        <text x="45" y="42" font-family="sans-serif" font-weight="900" font-size="30" fill="url(#g)" letter-spacing="-1">CoverMatch</text>
       </svg>
     </div>
 
@@ -119,45 +108,47 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
     <div class='btn glassbtn' onclick="showPage('glassPage')">🛡️ Screen Glass</div>
     <div id='installBtn' class='btn' onclick="handleInstall()">⬇️ Install App</div>
     
-    <div class="pulse-text">— DATABASE UPDATED TODAY —</div>
+    <div id="updatePulse" class="pulse-text">— DATABASE UPDATED —</div>
     
     <div class="footer">
-      <div style="font-size: 13px; color: var(--text-dim);">
-        Need Help / Request Models?<br>
-        <a href="mailto:adilpkd690@gmail.com" style="color: var(--primary); text-decoration:none; font-weight:700;">adilpkd690@gmail.com</a>
-      </div>
-      <p style="font-size: 10px; color: #475569; margin-top: 20px;">© 2026 CoverMatch India</p>
+        <div style="font-size: 13px; color: var(--text-dim);">Need Help? <a href="mailto:adilpkd690@gmail.com" style="color:var(--primary);text-decoration:none;font-weight:700;">Email Us</a></div>
+        <p style="font-size: 10px; color: #475569; margin-top: 20px;">© 2026 CoverMatch India</p>
     </div>
   </div>
 
   <div id='searchPage' class='page'>
     <div class='back' onclick="showPage('homePage')">←</div>
-    
     <div class="sticky-header">
         <div class="search-wrapper">
             <input id='searchBox' class='search' placeholder='Search model...' oninput='filterModels()'>
-            <button class="mic-btn" onclick="startVoiceSearch()">🎤</button>
+            <button id="micIcon" class="mic-btn" onclick="startVoiceSearch()">🎤</button>
         </div>
-        
-        <div class="filter-scroll" id="searchChips">
+        <div class="filter-scroll" id="brandChips">
             <div class="chip active" onclick="setBrand('All', this)">All</div>
             <div class="chip" onclick="setBrand('Samsung', this)">Samsung</div>
             <div class="chip" onclick="setBrand('Redmi', this)">Redmi/Poco</div>
             <div class="chip" onclick="setBrand('iPhone', this)">Apple</div>
             <div class="chip" onclick="setBrand('Vivo', this)">Vivo/iQOO</div>
             <div class="chip" onclick="setBrand('Oppo', this)">Oppo/Realme</div>
-            <div class="chip" onclick="setBrand('Moto', this)">Moto</div>
         </div>
-        
-        <div id="resultCount" class="result-count">Loading models...</div>
+        <div id="resultCount" class="result-count"></div>
     </div>
     
+    <div id="quickShortcuts" class="quick-shortcuts">
+        <div style="font-size:11px; color:var(--text-dim); margin-bottom:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase;">🔥 Popular Shortcuts</div>
+        <div class="filter-scroll">
+            <div class="chip" onclick="quickSearch('A24')">Samsung A24</div>
+            <div class="chip" onclick="quickSearch('iPhone 13')">iPhone 13</div>
+            <div class="chip" onclick="quickSearch('Redmi 13C')">Redmi 13C</div>
+        </div>
+    </div>
     <div id='list'></div>
   </div>
 
   <div id='glassPage' class='page'>
     <div class='back' onclick="showPage('homePage')">←</div>
-    <div class='card' style="text-align:center;">
+    <div class="sticky-header"><input class='search' placeholder='Search Glass (Coming Soon)...' disabled style="opacity:0.5"></div>
+    <div class='card' style="text-align:center; border-color:var(--secondary);">
       <h3 style="color:var(--secondary)">🛡️ SCREEN GLASS</h3>
       <p style="font-size:14px; color:var(--text-dim)">Smart compatibility engine launching soon.</p>
     </div>
@@ -167,21 +158,28 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 <script>
 let databaseModels = [];
 let currentBrand = 'All';
+let deferredPrompt;
 
-// 1. Fetching Data with Root Path Safety
+// Date Logic for Pulse
+const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+document.getElementById('updatePulse').innerText = `— DATABASE UPDATED: ${today.toUpperCase()} —`;
+
+// Fetch Data
 fetch('models.json')
     .then(r => r.json())
     .then(data => {
         databaseModels = data;
-        if(document.getElementById('searchPage').classList.contains('active')) filterModels();
-        else updateCount(`Total ${data.length} models ready`);
+        updateCount(`Total ${data.length} models ready`);
     })
-    .catch(e => updateCount("⚠️ Error loading database"));
+    .catch(() => {
+        document.getElementById('list').innerHTML = `<div class="no-result"><h3>⚠️ Load Error</h3><button onclick="location.reload()" class="req-btn">🔄 Retry</button></div>`;
+    });
 
 function updateCount(txt) { document.getElementById('resultCount').innerText = txt; }
 
 function quickSearch(q) {
-    document.getElementById('searchBox').value = q;
+    const box = document.getElementById('searchBox');
+    box.value = q;
     filterModels();
 }
 
@@ -189,53 +187,84 @@ function startVoiceSearch() {
     const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (Speech) {
         const rec = new Speech();
-        rec.lang = 'en-IN'; // Indian English/Accent support
-        rec.onresult = (e) => quickSearch(e.results[0][0].transcript);
+        rec.lang = 'en-IN';
+        const mic = document.getElementById('micIcon');
+        rec.onstart = () => { mic.innerText = '⭕'; document.getElementById('searchBox').placeholder = 'Listening...'; };
+        rec.onresult = (e) => { quickSearch(e.results[0][0].transcript); resetMic(); };
+        rec.onerror = () => { resetMic(); alert("Voice not recognized. Try again."); };
+        rec.onend = () => resetMic();
         rec.start();
-    }
+    } else { alert("Voice search not supported in this browser."); }
+}
+
+function resetMic() { 
+    document.getElementById('micIcon').innerText = '🎤'; 
+    document.getElementById('searchBox').placeholder = 'Search model...'; 
 }
 
 function shareResult(n, f) {
     const site = window.location.href;
-    const txt = `📱 Model: *${n}*\n✅ Also fits: ${f || 'Exact fit'}\n🛡️ Verified on CoverMatch\n\nCheck: ${site}`;
-    if (navigator.share) navigator.share({ text: txt });
+    const txt = `📱 *Model:* ${n}\n✅ *Also fits:* ${f || 'Exact fit only'}\n🛡️ *Verified on CoverMatch*\n\nCheck compatibility here:`;
+    if (navigator.share) {
+        navigator.share({ title: 'CoverMatch India', text: txt, url: site });
+    } else {
+        const dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = txt + " " + site;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        alert("Link copied! Paste it in WhatsApp.");
+    }
 }
 
 function filterModels() {
-    if (databaseModels.length === 0) return; // Point 3 logic
-    
     const box = document.getElementById('searchBox');
-    const q = box.value.toLowerCase().replace(/\s+/g, ' ').trim(); // Point 2 logic
-    
+    const q = box.value.toLowerCase().replace(/\s+/g, ' ').trim();
+    const shortcuts = document.getElementById('quickShortcuts');
+
+    // Auto Hide Shortcuts Logic
+    shortcuts.style.display = (q === '' && currentBrand === 'All') ? 'block' : 'none';
+
     let filtered = databaseModels.filter(m => {
         const nL = m.n.toLowerCase();
         if (currentBrand !== 'All') {
-            if (currentBrand === 'Redmi' && !(nL.includes('redmi') || nL.includes('poco'))) return false;
             if (currentBrand === 'Samsung' && !nL.includes('samsung')) return false;
+            if (currentBrand === 'Redmi' && !(nL.includes('redmi') || nL.includes('poco'))) return false;
             if (currentBrand === 'iPhone' && !nL.includes('iphone')) return false;
             if (currentBrand === 'Vivo' && !(nL.includes('vivo') || nL.includes('iqoo'))) return false;
             if (currentBrand === 'Oppo' && !(nL.includes('oppo') || nL.includes('realme'))) return false;
-            if (currentBrand === 'Moto' && !nL.includes('moto')) return false;
         }
         return !q || nL.includes(q) || (m.f && m.f.toLowerCase().includes(q));
     });
+
+    // Exact Match Ranking
+    if (q) {
+        filtered.sort((a, b) => {
+            const aN = a.n.toLowerCase();
+            const bN = b.n.toLowerCase();
+            if (aN === q) return -1;
+            if (bN === q) return 1;
+            return aN.startsWith(q) ? -1 : 1;
+        });
+    }
 
     render(filtered, q);
 }
 
 function render(items, q) {
     const list = document.getElementById('list');
-    updateCount(`Showing ${items.length} models`);
+    updateCount(`Found ${items.length} compatible model(s)`);
 
     if (items.length === 0) {
+        let suggest = currentBrand === 'Samsung' ? 'A24' : (currentBrand === 'iPhone' ? 'iPhone 13' : 'Redmi 13C');
         list.innerHTML = `
         <div class="no-result">
-            <h3>📦 No Match</h3>
-            <p>Try searching: </p>
-            <div class="filter-scroll" style="justify-content:center">
-                <div class="chip" onclick="quickSearch('A24')">A24</div>
-                <div class="chip" onclick="quickSearch('Redmi 13C')">13C</div>
-                <div class="chip" onclick="quickSearch('iPhone 13')">iPh 13</div>
+            <h3>📦 No Results</h3>
+            <p>Did you mean: <span style="color:var(--primary);cursor:pointer" onclick="quickSearch('${suggest}')">${suggest}</span>?</p>
+            <div class="filter-scroll" style="justify-content:center;margin-top:10px;">
+                <div class="chip" onclick="quickSearch('A24')">Try A24</div>
+                <div class="chip" onclick="quickSearch('13C')">Try 13C</div>
             </div>
             <a href="mailto:adilpkd690@gmail.com?subject=Model Request: ${q}" class="req-btn">📧 Request Model</a>
         </div>`;
@@ -244,8 +273,14 @@ function render(items, q) {
 
     list.innerHTML = items.map(m => `
     <div class='card'>
+        ${m.new ? `<div class='badge-new'>NEW</div>` : ''}
         <div class='title'>${m.n}</div>
-        <div class='fit'>${m.f ? 'Fits ' + m.f : 'Exact fit only'}</div>
+        <div class='fit'>${m.f ? 'Also fits ' + m.f : 'Exact fit only'}</div>
+        ${m.open || m.check ? `<div class='badges'>
+            ${m.open ? `<span class='badge badge-open'>OPEN TYPE</span>` : ''}
+            ${m.check ? `<span class='badge badge-check'>CHECK BEFORE BUY</span>` : ''}
+        </div>` : ''}
+        ${m.open || m.check ? `<div class='warning-text'>Verify camera cutout, fingerprint slot, and speaker holes before final use.</div>` : ''}
         <div class="share-action" onclick="shareResult('${m.n}', '${m.f || ''}')"><span>🔗 Share Result</span></div>
     </div>`).join('');
 }
@@ -255,36 +290,42 @@ function showPage(id) {
     document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
     if(id === 'searchPage') {
-        document.getElementById('searchBox').value = '';
-        currentBrand = 'All';
-        document.querySelectorAll('#searchChips .chip').forEach(c => c.classList.remove('active'));
-        document.querySelector('#searchChips .chip').classList.add('active');
+        const box = document.getElementById('searchBox');
+        box.value = ''; currentBrand = 'All';
+        document.querySelectorAll('#brandChips .chip').forEach(c => c.classList.remove('active'));
+        document.querySelector('#brandChips .chip').classList.add('active');
         filterModels();
-        setTimeout(() => document.getElementById('searchBox').focus(), 350);
+        setTimeout(() => box.focus(), 350);
     }
 }
 
 function setBrand(b, el) {
     currentBrand = b;
-    document.querySelectorAll('#searchChips .chip').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('#brandChips .chip').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
     filterModels();
 }
 
-// Smart Install Logic (Point 8)
-let defP;
-window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); defP = e; });
-if (window.matchMedia('(display-mode: standalone)').matches) {
-    document.getElementById('installBtn').style.display = 'none';
-}
+// PWA & Smart Install
+window.addEventListener('beforeinstallprompt', (e) => { 
+    e.preventDefault(); deferredPrompt = e; 
+    if (!window.matchMedia('(display-mode: standalone)').matches) {
+        document.getElementById('installBtn').style.display = 'flex';
+    }
+});
 
 function handleInstall() {
-    if (defP) {
-        defP.prompt();
-    } else {
-        alert("To install: Tap 'Share' and 'Add to Home Screen'");
-    }
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((c) => { if (c.outcome === 'accepted') document.getElementById('installBtn').style.display = 'none'; });
+    } else { alert("Tap Share ⬆️ then 'Add to Home Screen'"); }
 }
+
+const manifest = {
+    "name": "CoverMatch", "short_name": "CoverMatch", "start_url": ".", "display": "standalone", "background_color": "#0f172a", "theme_color": "#00f2fe",
+    "icons": [{"src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%2300f2fe'><rect width='192' height='192' fill='%230f172a'/><text x='50%' y='55%' font-size='80' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%2300f2fe'>CM</text></svg>", "sizes": "192x192", "type": "image/svg+xml"}]
+};
+document.getElementById('manifest-link').href = URL.createObjectURL(new Blob([JSON.stringify(manifest)], {type: 'application/json'}));
 </script>
 </body>
 </html>

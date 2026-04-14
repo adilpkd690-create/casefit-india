@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="theme-color" content="#0f172a" />
 <title>CoverMatch | Smart Finder</title>
-<meta name="description" content="CoverMatch India - Find the perfect smartphone cover, case, and screen glass compatibility in seconds. Smart finder for shop staff and customers." />
 
 <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><text x='50%' y='60%' font-size='45' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%2300f2fe'>CM</text></svg>">
+<meta name="description" content="CoverMatch India - Find the perfect smartphone case compatibility. Smart finder for shop staff." />
 
 <link rel="manifest" id="manifest-link" />
 
@@ -22,12 +22,11 @@
 body {
   margin: 0; background: radial-gradient(circle at top, #1e293b, #0f172a);
   background-attachment: fixed; color: #f8fafc;
-  font-family: 'Inter', -apple-system, sans-serif; min-height: 100vh;
+  font-family: 'Inter', -apple-system, sans-serif; min-height: 100vh; overflow-x: hidden;
 }
 
 .wrap { max-width: 430px; margin: 0 auto; padding: 30px 20px 40px; }
 
-/* SVG Logo */
 .logo-container { text-align: center; margin: 20px 0 35px; }
 
 .btn {
@@ -35,32 +34,27 @@ body {
   color: #fff; text-decoration: none; padding: 20px; border-radius: 22px;
   font-size: 18px; font-weight: 700; margin-bottom: 15px;
   background: var(--glass); border: 1px solid var(--glass-border);
-  backdrop-filter: blur(15px); transition: 0.3s;
+  backdrop-filter: blur(15px); transition: 0.3s; cursor: pointer;
 }
 
 .btn:active { transform: scale(0.97); }
-
 .casebtn { background: linear-gradient(135deg, #05d5ff, #007bff); border: none; box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3); }
 .glassbtn { border-color: rgba(72, 199, 245, 0.5); color: #48c7f5; }
 
-/* Fixed Install Button - Always Visible */
+/* Smart Install Button */
 #installBtn {
-  display: flex; 
-  background: rgba(46, 204, 113, 0.15); border-color: rgba(46, 204, 113, 0.4);
+  display: flex; background: rgba(46, 204, 113, 0.15); border-color: rgba(46, 204, 113, 0.4);
   color: #2ecc71; font-size: 16px; padding: 16px; margin-top: 5px;
 }
 
 @keyframes softPulse {
-  0% { opacity: 0.5; text-shadow: 0 0 0px transparent; }
-  50% { opacity: 1; text-shadow: 0 0 12px rgba(79, 172, 254, 0.6); }
-  100% { opacity: 0.5; text-shadow: 0 0 0px transparent; }
+  0%, 100% { opacity: 0.5; } 50% { opacity: 1; }
 }
 .pulse-text {
   margin-top: 25px; text-align: center; font-size: 11px; letter-spacing: 2px;
   font-weight: 700; color: var(--secondary); animation: softPulse 3s infinite ease-in-out;
 }
 
-/* Sticky Header, Voice Search & Chips */
 .sticky-header { position: sticky; top: 10px; z-index: 100; margin-bottom: 15px; }
 .search-wrapper { position: relative; width: 100%; }
 .search {
@@ -72,16 +66,10 @@ body {
 .search:focus { border-color: var(--primary); }
 .mic-btn {
   position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
-  background: none; border: none; font-size: 20px; color: var(--primary);
-  cursor: pointer; padding: 5px; opacity: 0.8;
+  background: none; border: none; font-size: 20px; color: var(--primary); cursor: pointer;
 }
-.mic-btn:active { opacity: 1; transform: translateY(-50%) scale(1.1); }
 
-/* Result Count & Shortcuts */
 .result-count { font-size: 12px; color: var(--secondary); margin: 10px 0 5px 5px; font-weight: 600; }
-.quick-shortcuts { margin-top: 10px; margin-bottom: 20px; }
-.section-title { font-size: 11px; color: var(--text-dim); margin-bottom: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-
 .filter-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 5px 0 10px; scrollbar-width: none; }
 .filter-scroll::-webkit-scrollbar { display: none; }
 .chip {
@@ -91,30 +79,12 @@ body {
 }
 .chip.active { background: var(--glass-active); color: var(--primary); border-color: var(--primary); }
 
-/* Card Styles */
 .card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px; padding: 22px; margin-bottom: 16px; position: relative; }
-.title { font-size: 20px; color: var(--model-green); font-weight: 800; margin-bottom: 6px; padding-right: 35px; }
+.title { font-size: 20px; color: var(--model-green); font-weight: 800; margin-bottom: 6px; }
 .fit { font-size: 15px; color: #fff; line-height: 1.5; opacity: 0.95; }
 mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4px; padding: 0 2px; }
 
-.badge-new { background: linear-gradient(135deg, #ff9a9e, #fecfef); color: #000; padding: 4px 8px; border-radius: 8px; font-size: 9px; font-weight: 900; position: absolute; top: 22px; right: 22px; text-transform: uppercase;}
-
-.badges { margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap; }
-.badge { padding: 6px 12px; border-radius: 12px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; }
-.badge-open { background: rgba(243, 202, 84, 0.12); color: #f3ca54; border: 1px solid rgba(243, 202, 84, 0.3); }
-.badge-check { background: rgba(255, 118, 117, 0.12); color: #ff7675; border: 1px solid rgba(255, 118, 117, 0.3); }
-
-.warning-text { font-size: 12px; color: var(--warning); margin-top: 12px; line-height: 1.4; font-weight: 500; border-top: 1px solid rgba(255,118,117,0.1); padding-top: 10px; }
-
-/* Share Button */
-.share-action { margin-top: 15px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #2ecc71; background: var(--share-btn); padding: 8px 14px; border-radius: 12px; font-weight: 700; cursor: pointer; border: 1px solid rgba(46, 204, 113, 0.2); transition: 0.2s; }
-.share-action:active { transform: scale(0.95); }
-
-/* Empty State & Error */
-.no-result { text-align: center; padding: 30px 15px; background: var(--glass); border-radius: 24px; border: 1px dashed var(--glass-border); }
-.no-result h3 { color: #fff; margin: 10px 0; }
-.no-result p { color: var(--text-dim); font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
-.req-btn { background: rgba(0, 242, 254, 0.1); color: var(--primary); text-decoration: none; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 700; display: inline-block; border: 1px solid rgba(0,242,254,0.3); cursor: pointer;}
+.share-action { margin-top: 15px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #2ecc71; background: var(--share-btn); padding: 8px 14px; border-radius: 12px; font-weight: 700; cursor: pointer; }
 
 .page { display: none; }
 .page.active { display: block; animation: fadeIn 0.3s ease-out; }
@@ -122,14 +92,10 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 
 .back { display: flex; align-items: center; justify-content: center; color: #fff; background: var(--glass); text-decoration: none; width: 48px; height: 48px; border-radius: 18px; margin-bottom: 15px; border: 1px solid var(--glass-border); }
 
-.footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--glass-border); }
-.contact-box { background: var(--glass); padding: 18px 25px; border-radius: 20px; display: inline-block; border: 1px solid var(--glass-border); }
-.contact-box span { display: block; font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-weight: 500;}
-.contact-box a { color: var(--primary); text-decoration: none; font-weight: 700; font-size: 15px; letter-spacing: 0.5px; }
-.copyright { font-size: 10px; color: #475569; margin-top: 25px; letter-spacing: 1px; }
+.no-result { text-align: center; padding: 30px 15px; background: var(--glass); border-radius: 24px; border: 1px dashed var(--glass-border); }
+.req-btn { background: rgba(0, 242, 254, 0.1); color: var(--primary); text-decoration: none; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 700; display: inline-block; border: 1px solid rgba(0,242,254,0.3); margin-top: 10px;}
 
-.glass-list { list-style: none; padding: 0; margin: 20px 0 0 0; text-align: left; font-size: 14px; color: var(--text-dim); line-height: 1.8; }
-.glass-list li::before { content: "✓"; color: var(--primary); margin-right: 8px; font-weight: bold; }
+.footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--glass-border); }
 </style>
 </head>
 <body>
@@ -139,47 +105,41 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
     <div class="logo-container">
       <svg width="250" height="60" viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#00f2fe" /><stop offset="100%" stop-color="#4facfe" />
-          </linearGradient>
-          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="2" result="blur" /><feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
+          <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00f2fe" /><stop offset="100%" stop-color="#4facfe" /></linearGradient>
         </defs>
         <g transform="translate(10, 8)">
-          <rect x="0" y="0" width="26" height="42" rx="7" fill="none" stroke="url(#logoGrad)" stroke-width="3" filter="url(#glow)"/>
-          <rect x="5" y="5" width="16" height="32" rx="3" fill="url(#logoGrad)" opacity="0.8"/>
+          <rect x="0" y="0" width="26" height="42" rx="7" fill="none" stroke="url(#logoGrad)" stroke-width="3"/>
           <path d="M 8 20 L 14 26 L 30 10" fill="none" stroke="#2ecc71" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
         </g>
-        <text x="45" y="42" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="30" fill="url(#logoGrad)" letter-spacing="-1">CoverMatch</text>
+        <text x="45" y="42" font-family="sans-serif" font-weight="900" font-size="30" fill="url(#logoGrad)" letter-spacing="-1">CoverMatch</text>
       </svg>
     </div>
 
-    <a class='btn casebtn' href='#' onclick="showPage('searchPage');return false;">🔍 Find Suitable Case</a>
-    <a class='btn glassbtn' href='#' onclick="showPage('glassPage');return false;">🛡️ Screen Glass</a>
-    <a id='installBtn' class='btn' href='#'>⬇️ Install App</a>
+    <div class='btn casebtn' onclick="showPage('searchPage')">🔍 Find Suitable Case</div>
+    <div class='btn glassbtn' onclick="showPage('glassPage')">🛡️ Screen Glass</div>
+    <div id='installBtn' class='btn' onclick="handleInstall()">⬇️ Install App</div>
     
     <div class="pulse-text">— DATABASE UPDATED TODAY —</div>
     
     <div class="footer">
-      <div class="contact-box">
-        <span>Need Help / Request Models?</span>
-        <a href="mailto:adilpkd690@gmail.com?subject=Model Request - CoverMatch">adilpkd690@gmail.com</a>
+      <div style="font-size: 13px; color: var(--text-dim);">
+        Need Help / Request Models?<br>
+        <a href="mailto:adilpkd690@gmail.com" style="color: var(--primary); text-decoration:none; font-weight:700;">adilpkd690@gmail.com</a>
       </div>
-      <div class="copyright">© 2026 CoverMatch India</div>
+      <p style="font-size: 10px; color: #475569; margin-top: 20px;">© 2026 CoverMatch India</p>
     </div>
   </div>
 
   <div id='searchPage' class='page'>
-    <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
+    <div class='back' onclick="showPage('homePage')">←</div>
     
     <div class="sticky-header">
         <div class="search-wrapper">
-            <input id='searchBox' class='search' placeholder='Search model (e.g. A24, iPhone)...' oninput='filterModels()'>
-            <button class="mic-btn" onclick="startVoiceSearch()" title="Voice Search">🎤</button>
+            <input id='searchBox' class='search' placeholder='Search model...' oninput='filterModels()'>
+            <button class="mic-btn" onclick="startVoiceSearch()">🎤</button>
         </div>
         
-        <div class="filter-scroll" id="chipContainer" style="margin-top: 15px;">
+        <div class="filter-scroll" id="searchChips">
             <div class="chip active" onclick="setBrand('All', this)">All</div>
             <div class="chip" onclick="setBrand('Samsung', this)">Samsung</div>
             <div class="chip" onclick="setBrand('Redmi', this)">Redmi/Poco</div>
@@ -189,39 +149,17 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
             <div class="chip" onclick="setBrand('Moto', this)">Moto</div>
         </div>
         
-        <div id="resultCount" class="result-count"></div>
-    </div>
-
-    <div id="quickShortcuts" class="quick-shortcuts">
-        <div class="section-title">🔥 Popular Shortcuts</div>
-        <div class="filter-scroll">
-            <div class="chip" onclick="quickSearch('A24')">Samsung A24</div>
-            <div class="chip" onclick="quickSearch('A14')">Samsung A14</div>
-            <div class="chip" onclick="quickSearch('iPhone 13')">iPhone 13</div>
-            <div class="chip" onclick="quickSearch('Redmi 13C')">Redmi 13C</div>
-            <div class="chip" onclick="quickSearch('Pixel 9')">Pixel 9</div>
-        </div>
+        <div id="resultCount" class="result-count">Loading models...</div>
     </div>
     
     <div id='list'></div>
   </div>
 
   <div id='glassPage' class='page'>
-    <a class='back' href='#' onclick="showPage('homePage');return false;">←</a>
-    
-    <div class="sticky-header">
-        <input class='search' placeholder='Search Screen Glass (Coming Soon)...' disabled style="opacity: 0.5;">
-    </div>
-
-    <div class='card' style="border-color: var(--secondary);">
-      <div class='title' style="color: var(--secondary)">🛡️ SCREEN GLASS DATABASE</div>
-      <p class='fit' style="color: #fff; margin-top: 10px;">We are building the smartest screen glass compatibility engine.</p>
-      <ul class="glass-list">
-        <li>Tempered / Privacy / UV Glass</li>
-        <li>Curved screen compatibility</li>
-        <li>Major brands mapping ongoing</li>
-      </ul>
-      <div class="pulse-text" style="margin-top: 20px;">— LAUNCHING SOON —</div>
+    <div class='back' onclick="showPage('homePage')">←</div>
+    <div class='card' style="text-align:center;">
+      <h3 style="color:var(--secondary)">🛡️ SCREEN GLASS</h3>
+      <p style="font-size:14px; color:var(--text-dim)">Smart compatibility engine launching soon.</p>
     </div>
   </div>
 </div>
@@ -230,168 +168,123 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 let databaseModels = [];
 let currentBrand = 'All';
 
+// 1. Fetching Data with Root Path Safety
 fetch('models.json')
-    .then(response => {
-        if (!response.ok) throw new Error("Network response was not ok");
-        return response.json();
-    })
+    .then(r => r.json())
     .then(data => {
         databaseModels = data;
-        if(document.getElementById('searchPage').classList.contains('active')) { filterModels(); }
+        if(document.getElementById('searchPage').classList.contains('active')) filterModels();
+        else updateCount(`Total ${data.length} models ready`);
     })
-    .catch(error => { 
-        console.error("Error fetching JSON:", error); 
-        document.getElementById('list').innerHTML = `
-        <div class="no-result">
-            <div style="font-size:35px; margin-bottom:10px;">⚠️</div>
-            <h3 style="color: var(--warning);">Database Load Failed</h3>
-            <p>Please check your internet connection or refresh the app.</p>
-            <button onclick="window.location.reload()" class="req-btn">🔄 Refresh App</button>
-        </div>`;
-    });
+    .catch(e => updateCount("⚠️ Error loading database"));
 
-function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
-function highlight(text, q) {
-    if (!q) return text;
-    return text.replace(new RegExp(`(${escapeRegExp(q)})`, 'gi'), '<mark>$1</mark>');
-}
+function updateCount(txt) { document.getElementById('resultCount').innerText = txt; }
 
-function setBrand(brand, element) {
-    currentBrand = brand;
-    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    element.classList.add('active');
-    document.getElementById('searchBox').value = ''; 
-    filterModels();
-}
-
-function quickSearch(query) {
-    document.getElementById('searchBox').value = query;
+function quickSearch(q) {
+    document.getElementById('searchBox').value = q;
     filterModels();
 }
 
 function startVoiceSearch() {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        const recognition = new SpeechRecognition();
-        recognition.lang = 'en-US';
-        recognition.interimResults = false;
-        recognition.maxAlternatives = 1;
-        document.getElementById('searchBox').placeholder = "Listening...";
-        recognition.onresult = function(event) {
-            const speechResult = event.results[0][0].transcript;
-            document.getElementById('searchBox').value = speechResult;
-            document.getElementById('searchBox').placeholder = "Search model (e.g. A24, iPhone)...";
-            filterModels();
-        };
-        recognition.onerror = function(event) {
-            document.getElementById('searchBox').placeholder = "Search model (e.g. A24, iPhone)...";
-        };
-        recognition.start();
-    } else {
-        document.getElementById('resultCount').innerHTML = `<span style="color: var(--warning);">⚠️ Voice search not supported.</span>`;
+    const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (Speech) {
+        const rec = new Speech();
+        rec.lang = 'en-IN'; // Indian English/Accent support
+        rec.onresult = (e) => quickSearch(e.results[0][0].transcript);
+        rec.start();
     }
 }
 
-function shareResult(modelName, fitsText) {
-    const siteUrl = window.location.href; 
-    const shareText = `📱 Model: *${modelName}*\n✅ Also fits: ${fitsText || 'Exact fit only'}\n🛡️ Verified on CoverMatch\n\n👇 Check compatibility here:\n`;
-    if (navigator.share) {
-        navigator.share({ title: 'CoverMatch Update', text: shareText, url: siteUrl })
-        .catch(console.error);
-    } else { alert("Sharing not supported."); }
+function shareResult(n, f) {
+    const site = window.location.href;
+    const txt = `📱 Model: *${n}*\n✅ Also fits: ${f || 'Exact fit'}\n🛡️ Verified on CoverMatch\n\nCheck: ${site}`;
+    if (navigator.share) navigator.share({ text: txt });
 }
 
-function render(items, q = '') {
-    const list = document.getElementById('list');
-    const resultCount = document.getElementById('resultCount');
+function filterModels() {
+    if (databaseModels.length === 0) return; // Point 3 logic
+    
+    const box = document.getElementById('searchBox');
+    const q = box.value.toLowerCase().replace(/\s+/g, ' ').trim(); // Point 2 logic
+    
+    let filtered = databaseModels.filter(m => {
+        const nL = m.n.toLowerCase();
+        if (currentBrand !== 'All') {
+            if (currentBrand === 'Redmi' && !(nL.includes('redmi') || nL.includes('poco'))) return false;
+            if (currentBrand === 'Samsung' && !nL.includes('samsung')) return false;
+            if (currentBrand === 'iPhone' && !nL.includes('iphone')) return false;
+            if (currentBrand === 'Vivo' && !(nL.includes('vivo') || nL.includes('iqoo'))) return false;
+            if (currentBrand === 'Oppo' && !(nL.includes('oppo') || nL.includes('realme'))) return false;
+            if (currentBrand === 'Moto' && !nL.includes('moto')) return false;
+        }
+        return !q || nL.includes(q) || (m.f && m.f.toLowerCase().includes(q));
+    });
 
-    resultCount.innerHTML = `Showing ${items.length} models`;
+    render(filtered, q);
+}
+
+function render(items, q) {
+    const list = document.getElementById('list');
+    updateCount(`Showing ${items.length} models`);
 
     if (items.length === 0) {
-        let suggestionHTML = currentBrand === 'Samsung' ? `<div class="chip" onclick="quickSearch('A24')">Try A24</div>` : `<div class="chip" onclick="quickSearch('Redmi 13C')">Try Redmi 13C</div>`;
         list.innerHTML = `
         <div class="no-result">
-            <div style="font-size:35px; margin-bottom:10px;">📦</div>
-            <h3>Model Not Found</h3>
-            <p>We couldn't find <b>"${q}"</b>.</p>
-            <div class="filter-scroll" style="justify-content: center; margin-bottom:15px;">${suggestionHTML}</div>
-            <a href="mailto:adilpkd690@gmail.com?subject=Model Request - CoverMatch: ${q}" class="req-btn">📧 Request Model</a>
+            <h3>📦 No Match</h3>
+            <p>Try searching: </p>
+            <div class="filter-scroll" style="justify-content:center">
+                <div class="chip" onclick="quickSearch('A24')">A24</div>
+                <div class="chip" onclick="quickSearch('Redmi 13C')">13C</div>
+                <div class="chip" onclick="quickSearch('iPhone 13')">iPh 13</div>
+            </div>
+            <a href="mailto:adilpkd690@gmail.com?subject=Model Request: ${q}" class="req-btn">📧 Request Model</a>
         </div>`;
         return;
     }
 
     list.innerHTML = items.map(m => `
     <div class='card'>
-        ${m.new ? `<div class='badge-new'>NEW</div>` : ''}
-        <div class='title'>${highlight(m.n, q)}</div>
-        ${m.f ? `<div class='fit'>Also fits ${highlight(m.f, q)}</div>` : ''}
-        ${m.open || m.check ? `<div class='badges'>
-            ${m.open ? `<span class='badge badge-open'>OPEN TYPE</span>` : ''}
-            ${m.check ? `<span class='badge badge-check'>CHECK BEFORE BUY</span>` : ''}
-        </div>` : ''}
-        ${m.open || m.check ? `<div class='warning-text'>Verify camera cutout, fingerprint slot, and speaker holes before final use.</div>` : ''}
+        <div class='title'>${m.n}</div>
+        <div class='fit'>${m.f ? 'Fits ' + m.f : 'Exact fit only'}</div>
         <div class="share-action" onclick="shareResult('${m.n}', '${m.f || ''}')"><span>🔗 Share Result</span></div>
     </div>`).join('');
 }
 
-function filterModels() {
-    const searchBox = document.getElementById('searchBox');
-    const q = searchBox ? searchBox.value.toLowerCase().replace(/\s+/g, ' ').trim() : '';
-    
-    let filtered = databaseModels.filter(m => {
-        if (currentBrand !== 'All') {
-            const nL = m.n.toLowerCase();
-            if (currentBrand === 'Redmi' && !(nL.includes('redmi') || nL.includes('poco'))) return false;
-            if (currentBrand === 'Samsung' && !nL.includes('samsung')) return false;
-            if (currentBrand === 'Vivo' && !(nL.includes('vivo') || nL.includes('iqoo'))) return false;
-            if (currentBrand === 'Oppo' && !(nL.includes('oppo') || nL.includes('realme'))) return false;
-            if (currentBrand === 'iPhone' && !nL.includes('iphone')) return false;
-            if (currentBrand === 'Moto' && !nL.includes('moto')) return false;
-        }
-        return !q || m.n.toLowerCase().includes(q) || (m.f && m.f.toLowerCase().includes(q));
-    });
-
-    if (q) {
-        filtered.sort((a, b) => {
-            const aN = a.n.toLowerCase(), bN = b.n.toLowerCase();
-            return (bN === q ? 3 : (bN.startsWith(q) ? 2 : 1)) - (aN === q ? 3 : (aN.startsWith(q) ? 2 : 1));
-        });
-    }
-    render(filtered, q);
-}
-
 function showPage(id) {
-    const targetPage = document.getElementById(id);
-    if (!targetPage) return; 
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    targetPage.classList.add('active');
+    document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
-    
-    if(id === 'searchPage') { 
-        const searchBox = document.getElementById('searchBox');
-        if (searchBox) searchBox.value = '';
+    if(id === 'searchPage') {
+        document.getElementById('searchBox').value = '';
         currentBrand = 'All';
-        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-        const firstChip = document.querySelector('.chip');
-        if (firstChip) firstChip.classList.add('active');
-        
-        filterModels(); 
-        setTimeout(() => { if (searchBox) searchBox.focus(); }, 150); 
+        document.querySelectorAll('#searchChips .chip').forEach(c => c.classList.remove('active'));
+        document.querySelector('#searchChips .chip').classList.add('active');
+        filterModels();
+        setTimeout(() => document.getElementById('searchBox').focus(), 350);
     }
 }
 
-// Fixed Smart Install Logic
-const manifestData = {
-    "name": "CoverMatch", "short_name": "CoverMatch", "start_url": ".",
-    "display": "standalone", "background_color": "#0f172a", "theme_color": "#00f2fe",
-    "icons": [{"src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%2300f2fe'><rect width='192' height='192' fill='%230f172a'/><text x='50%' y='55%' font-size='80' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%2300f2fe'>CM</text></svg>", "sizes": "192x192", "type": "image/svg+xml"}]
-};
-document.getElementById('manifest-link').href = URL.createObjectURL(new Blob([JSON.stringify(manifestData)], {type: 'application/json'}));
+function setBrand(b, el) {
+    currentBrand = b;
+    document.querySelectorAll('#searchChips .chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    filterModels();
+}
 
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => { 
-    e.preventDefault(); 
-    deferredPrompt = e; 
-});
+// Smart Install Logic (Point 8)
+let defP;
+window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); defP = e; });
+if (window.matchMedia('(display-mode: standalone)').matches) {
+    document.getElementById('installBtn').style.display = 'none';
+}
 
-document.getElementById('inst
+function handleInstall() {
+    if (defP) {
+        defP.prompt();
+    } else {
+        alert("To install: Tap 'Share' and 'Add to Home Screen'");
+    }
+}
+</script>
+</body>
+</html>

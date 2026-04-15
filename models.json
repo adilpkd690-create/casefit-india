@@ -80,5 +80,9 @@
     {"n":"iPhone 12 / 12 Pro", "f":"Same frame"},
     {"n":"iPhone 13 / 14", "f":"14 has thicker camera, open type fits both", "check":true},
     {"n":"iPhone 15", "f":"New type-C cutout", "check":true},
-    {"n":"iPhone 16 / 16 Plus", "f":"Vertical camera bump", "check":true}
+    {"n":"iPhone 16 / 16 Plus", "f":"Vertical camera bump", "check":true},
+    {"n":"iPhone 12 Pro Max", "f":"iPhone 13 Pro Max", "check":true},
+    {"n":"iPhone 15 Plus", "f":"iPhone 14 Plus"},
+    {"n":"Vivo Y300 Pro 5G", "f":"Vivo T4 5G"},
+    {"n":"iQOO Z10 5G", "f":"Vivo Y300 Pro Plus"}
 ]

@@ -83,7 +83,6 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 .no-result { text-align: center; padding: 30px 15px; background: var(--glass); border-radius: 24px; border: 1px dashed var(--glass-border); }
 .req-btn { background: #ea4335; color: white; text-decoration: none; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 700; display: inline-block; border: none; margin-top: 15px;}
 .seo-section { margin-top: 20px; padding: 15px; font-size: 12px; color: var(--text-dim); line-height: 1.6; text-align: center; }
-.warning-badge { background: rgba(255, 118, 117, 0.1); color: #ff7675; padding: 10px 20px; border-radius: 12px; font-size: 11px; font-weight: 800; border: 1px solid rgba(255, 118, 117, 0.3); display: inline-block; margin-top: 20px; text-transform: uppercase; }
 
 /* MEIBO app style Glass Box */
 .glass-box-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
@@ -162,13 +161,11 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
         <div class="search-wrapper">
             <input id='glassSearchBox' class='search' placeholder='Search glass model...' oninput='handleGlassSearch()'>
         </div>
-        <div id="glassResultCount" class="result-count"></div>
+        <div id="glassResultCount" class="result-count">Showing...</div>
     </div>
+    
     <div id='glassList'></div>
-    <div style="text-align: center;">
-        <div class="warning-badge">⚠️ MORE MODELS ADDING SOON</div>
     </div>
-  </div>
 </div>
 <script>
 let databaseModels = [];
@@ -190,7 +187,7 @@ Promise.all([
         let count = 0;
         db.forEach(m => {
             count += m.n.split(/[/,-]/).filter(x => x.trim()).length;
-            if(m.f) count += m.f.split(',').filter(x => x.trim()).length; 
+            if(m.f) count += m.f.split(/[/,-]/).filter(x => x.trim()).length; 
         });
         return count;
     };
@@ -306,6 +303,7 @@ function filterModels(updateUrl = true, pushHistory = false) {
         }
         return !q || nL.includes(q) || (m.f && m.f.toLowerCase().includes(q));
     });
+
     if (q) {
         filtered.sort((a, b) => {
             if (a.n.toLowerCase() === q) return -1;
@@ -318,7 +316,14 @@ function filterModels(updateUrl = true, pushHistory = false) {
 
 function renderCases(items, q = '') {
     const list = document.getElementById('list');
-    document.getElementById('resultCount').innerHTML = `Found ${items.length} compatible cover(s)`;
+    
+    // NEW FIX: Real count calculation for search result
+    let realCount = 0;
+    items.forEach(m => {
+        realCount += m.n.split(/[/,-]/).filter(x => x.trim()).length;
+        if(m.f) realCount += m.f.split(/[/,-]/).filter(x => x.trim()).length;
+    });
+    document.getElementById('resultCount').innerHTML = `Found ${realCount} compatible cover model(s)`;
 
     if (items.length === 0) {
         let suggestion = currentBrand === 'Samsung' ? 'A24' : (currentBrand === 'iPhone' ? 'iPhone 13' : 'Redmi 13C');
@@ -354,7 +359,13 @@ function renderGlass(items, q = '') {
         return;
     }
 
-    document.getElementById('glassResultCount').innerHTML = `Found ${items.length} compatible glass(es)`;
+    // NEW FIX: Real count calculation for glass search result
+    let realCount = 0;
+    items.forEach(m => {
+        realCount += m.n.split(/[/,-]/).filter(x => x.trim()).length;
+        if(m.f) realCount += m.f.split(/[,/]/).filter(x => x.trim()).length;
+    });
+    document.getElementById('glassResultCount').innerHTML = `Found ${realCount} compatible glass model(s)`;
 
     if (items.length === 0) {
         list.innerHTML = `
@@ -381,7 +392,7 @@ function renderGlass(items, q = '') {
         return `
         <div class='card'>
             <div class='title' style="color:var(--secondary);">${highlight(m.n, q)}</div>
-            ${boxHtml}
+            ${boxHtml !== 'Exact fit only' ? boxHtml : `<div class='fit' style="margin-top:10px;">Exact fit only</div>`}
         </div>`;
     }).join('');
 }

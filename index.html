@@ -85,9 +85,10 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 .seo-section { margin-top: 20px; padding: 15px; font-size: 12px; color: var(--text-dim); line-height: 1.6; text-align: center; }
 .warning-badge { background: rgba(255, 118, 117, 0.1); color: #ff7675; padding: 10px 20px; border-radius: 12px; font-size: 11px; font-weight: 800; border: 1px solid rgba(255, 118, 117, 0.3); display: inline-block; margin-top: 20px; text-transform: uppercase; }
 
-/* NEW: Glass Chip Box Styling */
-.glass-chip-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.glass-chip { background: rgba(72, 199, 245, 0.12); color: #48c7f5; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; border: 1px solid rgba(72, 199, 245, 0.3); letter-spacing: 0.3px; }
+/* MEIBO app style Glass Box */
+.glass-box-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.glass-box { background: rgba(255, 255, 255, 0.1); color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.2); text-transform: uppercase; }
+.glass-box.highlight { background: #007bff; color: #fff; border-color: #007bff; }
 </style>
 </head>
 <body>
@@ -161,7 +162,7 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
         <div class="search-wrapper">
             <input id='glassSearchBox' class='search' placeholder='Search glass model...' oninput='handleGlassSearch()'>
         </div>
-        <div id="glassResultCount" class="result-count">Showing...</div>
+        <div id="glassResultCount" class="result-count"></div>
     </div>
     <div id='glassList'></div>
     <div style="text-align: center;">
@@ -177,7 +178,7 @@ let deferredPrompt;
 let searchTimeout;
 let glassSearchTimeout;
 
-// 1. Fetch BOTH JSON files
+// FETCH JSON FILES & CALCULATE REAL COUNT
 Promise.all([
     fetch('models.json').then(r => r.json()).catch(() => []),
     fetch('glass.json').then(r => r.json()).catch(() => [])
@@ -185,12 +186,11 @@ Promise.all([
     databaseModels = cases;
     glassModels = glass;
 
-    // REAL COUNT LOGIC
     const getRealCount = (db) => {
         let count = 0;
         db.forEach(m => {
             count += m.n.split(/[/,-]/).filter(x => x.trim()).length;
-            if(m.f) count += m.f.split(/[/,-]/).filter(x => x.trim()).length;
+            if(m.f) count += m.f.split(',').filter(x => x.trim()).length; 
         });
         return count;
     };
@@ -306,7 +306,6 @@ function filterModels(updateUrl = true, pushHistory = false) {
         }
         return !q || nL.includes(q) || (m.f && m.f.toLowerCase().includes(q));
     });
-
     if (q) {
         filtered.sort((a, b) => {
             if (a.n.toLowerCase() === q) return -1;
@@ -348,9 +347,16 @@ function renderCases(items, q = '') {
 // BOX LAYOUT FOR GLASS
 function renderGlass(items, q = '') {
     const list = document.getElementById('glassList');
+    
+    if (q === '') {
+        list.innerHTML = '';
+        document.getElementById('glassResultCount').innerHTML = '';
+        return;
+    }
+
     document.getElementById('glassResultCount').innerHTML = `Found ${items.length} compatible glass(es)`;
 
-    if (items.length === 0 && q !== '') {
+    if (items.length === 0) {
         list.innerHTML = `
         <div class="no-result">
             <h3>🛡️ No Glass Found</h3>
@@ -358,22 +364,24 @@ function renderGlass(items, q = '') {
             <a href="mailto:adilpkd690@gmail.com?subject=Glass Request: ${q}" class="req-btn">📧 Request ${q} via Gmail</a>
         </div>`;
         return;
-    } else if (q === '') {
-        list.innerHTML = '';
-        return;
     }
 
     list.innerHTML = items.map(m => {
-        let chipsHtml = 'Exact fit only';
+        let boxHtml = '';
         if(m.f) {
-            let splitItems = m.f.split(/[,/]/).map(s => s.trim()).filter(s => s);
-            chipsHtml = `<div class="glass-chip-container">` + splitItems.map(chip => `<span class="glass-chip">${highlight(chip, q)}</span>`).join('') + `</div>`;
+            let modelsArray = m.f.split(',').map(s => s.trim()).filter(s => s);
+            boxHtml = `<div class="glass-box-container">` + 
+                      modelsArray.map(model => {
+                          let isSearched = model.toLowerCase().includes(q) ? 'highlight' : '';
+                          return `<span class="glass-box ${isSearched}">${highlight(model, q)}</span>`;
+                      }).join('') + 
+                      `</div>`;
         }
 
         return `
         <div class='card'>
             <div class='title' style="color:var(--secondary);">${highlight(m.n, q)}</div>
-            ${chipsHtml !== 'Exact fit only' ? chipsHtml : `<div class='fit' style="margin-top:10px;">Exact fit only</div>`}
+            ${boxHtml}
         </div>`;
     }).join('');
 }

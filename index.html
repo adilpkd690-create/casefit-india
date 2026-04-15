@@ -84,6 +84,10 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 .req-btn { background: #ea4335; color: white; text-decoration: none; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 700; display: inline-block; border: none; margin-top: 15px;}
 .seo-section { margin-top: 20px; padding: 15px; font-size: 12px; color: var(--text-dim); line-height: 1.6; text-align: center; }
 .warning-badge { background: rgba(255, 118, 117, 0.1); color: #ff7675; padding: 10px 20px; border-radius: 12px; font-size: 11px; font-weight: 800; border: 1px solid rgba(255, 118, 117, 0.3); display: inline-block; margin-top: 20px; text-transform: uppercase; }
+
+/* NEW: Glass Chip Box Styling */
+.glass-chip-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.glass-chip { background: rgba(72, 199, 245, 0.12); color: #48c7f5; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; border: 1px solid rgba(72, 199, 245, 0.3); letter-spacing: 0.3px; }
 </style>
 </head>
 <body>
@@ -116,7 +120,8 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
       <p class="copyright">© 2026 CaseFit India</p>
     </div>
   </div>
-    <div id='searchPage' class='page'>
+
+  <div id='searchPage' class='page'>
     <a href="#" class='back' onclick="showPage('homePage'); return false;">←</a>
 
     <div class="sticky-header">
@@ -149,7 +154,8 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 
     <div id='list'></div>
   </div>
-<div id='glassPage' class='page'>
+
+  <div id='glassPage' class='page'>
     <a href="#" class='back' onclick="showPage('homePage'); return false;">←</a>
     <div class="sticky-header">
         <div class="search-wrapper">
@@ -163,7 +169,6 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
     </div>
   </div>
 </div>
-
 <script>
 let databaseModels = [];
 let glassModels = [];
@@ -180,6 +185,16 @@ Promise.all([
     databaseModels = cases;
     glassModels = glass;
 
+    // REAL COUNT LOGIC
+    const getRealCount = (db) => {
+        let count = 0;
+        db.forEach(m => {
+            count += m.n.split(/[/,-]/).filter(x => x.trim()).length;
+            if(m.f) count += m.f.split(/[/,-]/).filter(x => x.trim()).length;
+        });
+        return count;
+    };
+
     const params = new URLSearchParams(window.location.search);
     const urlQuery = params.get('search');
 
@@ -188,8 +203,8 @@ Promise.all([
         document.getElementById('searchBox').value = urlQuery;
         filterModels(false);
     } else { 
-        document.getElementById('resultCount').innerText = `Total ${cases.length} models ready`; 
-        document.getElementById('glassResultCount').innerText = `Total ${glass.length} glasses ready`;
+        document.getElementById('resultCount').innerText = `Total ${getRealCount(cases)}+ models ready`; 
+        document.getElementById('glassResultCount').innerText = `Total ${getRealCount(glass)}+ glasses ready`;
     }
 });
 
@@ -291,7 +306,8 @@ function filterModels(updateUrl = true, pushHistory = false) {
         }
         return !q || nL.includes(q) || (m.f && m.f.toLowerCase().includes(q));
     });
-if (q) {
+
+    if (q) {
         filtered.sort((a, b) => {
             if (a.n.toLowerCase() === q) return -1;
             if (b.n.toLowerCase() === q) return 1;
@@ -329,6 +345,7 @@ function renderCases(items, q = '') {
     </div>`).join('');
 }
 
+// BOX LAYOUT FOR GLASS
 function renderGlass(items, q = '') {
     const list = document.getElementById('glassList');
     document.getElementById('glassResultCount').innerHTML = `Found ${items.length} compatible glass(es)`;
@@ -337,7 +354,7 @@ function renderGlass(items, q = '') {
         list.innerHTML = `
         <div class="no-result">
             <h3>🛡️ No Glass Found</h3>
-            <p>We are updating our database.</p>
+            <p>Database updating.</p>
             <a href="mailto:adilpkd690@gmail.com?subject=Glass Request: ${q}" class="req-btn">📧 Request ${q} via Gmail</a>
         </div>`;
         return;
@@ -346,11 +363,19 @@ function renderGlass(items, q = '') {
         return;
     }
 
-    list.innerHTML = items.map(m => `
-    <div class='card'>
-        <div class='title' style="color:var(--secondary);">${highlight(m.n, q)}</div>
-        <div class='fit' style="margin-top:10px;">${m.f ? highlight(m.f, q) : 'Exact fit only'}</div>
-    </div>`).join('');
+    list.innerHTML = items.map(m => {
+        let chipsHtml = 'Exact fit only';
+        if(m.f) {
+            let splitItems = m.f.split(/[,/]/).map(s => s.trim()).filter(s => s);
+            chipsHtml = `<div class="glass-chip-container">` + splitItems.map(chip => `<span class="glass-chip">${highlight(chip, q)}</span>`).join('') + `</div>`;
+        }
+
+        return `
+        <div class='card'>
+            <div class='title' style="color:var(--secondary);">${highlight(m.n, q)}</div>
+            ${chipsHtml !== 'Exact fit only' ? chipsHtml : `<div class='fit' style="margin-top:10px;">Exact fit only</div>`}
+        </div>`;
+    }).join('');
 }
 
 function showPage(id, isUserClick = true) {
@@ -371,7 +396,7 @@ function showPage(id, isUserClick = true) {
         } 
         else if(id === 'glassPage') {
             const gBox = document.getElementById('glassSearchBox');
-            if(isUserClick) { gBox.value = ''; filterGlass(); }
+            if(isUserClick) { gBox.value = ''; handleGlassSearch(); }
             setTimeout(() => gBox.focus(), 350);
         }
         else if (id === 'homePage' && isUserClick) { updateDynamicSEO('', true); }

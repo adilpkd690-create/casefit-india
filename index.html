@@ -16,35 +16,6 @@
     }
     </script>
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How to find compatible mobile covers?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Use CaseFit India to search your phone model and instantly check compatible back covers, camera cutouts, and exact fit matching." }
-        },
-        {
-          "@type": "Question",
-          "name": "Does A24 fit A34 case?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No, they have different dimensions and camera placements. Always check CaseFit for exact matching." }
-        },
-        {
-          "@type": "Question",
-          "name": "Which iPhone models share same cover?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Models like iPhone 7, 8, and SE (2nd/3rd Gen) often share covers. iPhone 13 and 14 share some cases, but camera cutouts may vary. Search your model on CaseFit to be sure." }
-        },
-        {
-          "@type": "Question",
-          "name": "How to check camera cutout compatibility?",
-          "acceptedAnswer": { "@type": "Answer", "text": "CaseFit India indicates if a case has an 'OPEN TYPE' or requires you to 'CHECK BEFORE BUY' for specific camera and sensor cutouts." }
-        }
-      ]
-    }
-    </script>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#0f172a" />
@@ -63,10 +34,6 @@
     <meta property="og:url" content="https://casefit-india.vercel.app/" />
     <meta property="og:image" content="https://casefit-india.vercel.app/og-image.png" />
     
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CaseFit India" />
-    <meta name="twitter:description" content="Find perfect mobile cover compatibility instantly." />
-
     <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><text x='50%' y='60%' font-size='45' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%2300f2fe'>CF</text></svg>">
     <link rel="manifest" id="manifest-link" />
 
@@ -80,7 +47,7 @@ body { margin: 0; background: radial-gradient(circle at top, #1e293b, #0f172a); 
 .casebtn { background: linear-gradient(135deg, #05d5ff, #007bff); border: none; box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3); }
 .glassbtn { border-color: rgba(72, 199, 245, 0.5); color: #48c7f5; }
 #installBtn { display: none; background: rgba(46, 204, 113, 0.15); border-color: rgba(46, 204, 113, 0.4); color: #2ecc71; font-size: 16px; padding: 16px; margin-top: 5px; }
-@keyframes softPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+@keyframes softPulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 .pulse-text { margin-top: 25px; text-align: center; font-size: 11px; letter-spacing: 2px; font-weight: 700; color: var(--secondary); animation: softPulse 3s infinite ease-in-out; }
 .sticky-header { position: sticky; top: 10px; z-index: 100; margin-bottom: 15px; }
 .search-wrapper { position: relative; width: 100%; }
@@ -110,13 +77,13 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .back { display: flex; align-items: center; justify-content: center; color: #fff; background: var(--glass); text-decoration: none; width: 48px; height: 48px; border-radius: 18px; margin-bottom: 15px; border: 1px solid var(--glass-border); cursor: pointer; }
 .contact-box { background: var(--glass); padding: 18px 25px; border-radius: 20px; display: inline-block; border: 1px solid var(--glass-border); margin-top: 10px; }
-.contact-box span { display: block; font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-weight: 500;}
 .contact-box a { color: var(--primary); text-decoration: none; font-weight: 700; font-size: 15px; letter-spacing: 0.5px; }
 .footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--glass-border); }
 .copyright { font-size: 10px; color: #475569; margin-top: 25px; letter-spacing: 1px; }
 .no-result { text-align: center; padding: 30px 15px; background: var(--glass); border-radius: 24px; border: 1px dashed var(--glass-border); }
-.req-btn { background: rgba(0, 242, 254, 0.1); color: var(--primary); text-decoration: none; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 700; display: inline-block; border: 1px solid rgba(0,242,254,0.3); margin-top: 10px;}
+.req-btn { background: #ea4335; color: white; text-decoration: none; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 700; display: inline-block; border: none; margin-top: 15px;}
 .seo-section { margin-top: 20px; padding: 15px; font-size: 12px; color: var(--text-dim); line-height: 1.6; text-align: center; }
+.warning-badge { background: rgba(255, 118, 117, 0.1); color: #ff7675; padding: 10px 20px; border-radius: 12px; font-size: 11px; font-weight: 800; border: 1px solid rgba(255, 118, 117, 0.3); display: inline-block; margin-top: 20px; text-transform: uppercase; }
 </style>
 </head>
 <body>
@@ -139,24 +106,22 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 
     <div class="seo-section">
       <p><strong>CaseFit India</strong> helps mobile shops and users instantly find compatible back covers and screen glass for Samsung, iPhone, Redmi, Poco, Vivo, Oppo, Realme and Moto devices.</p>
-      <p style="font-size: 10px; opacity: 0.7;">✓ Samsung case finder &nbsp; ✓ iPhone cover exact fit &nbsp; ✓ Redmi / Poco compatible covers &nbsp; ✓ Screen glass support</p>
     </div>
     
     <div class="footer">
       <div class="contact-box">
-        <span>Need Help / Request Models?</span>
+        <span style="font-size:12px; color:var(--text-dim); display:block; margin-bottom:5px;">Need Help / Request Models?</span>
         <a href="mailto:adilpkd690@gmail.com?subject=Model Request - CaseFit">adilpkd690@gmail.com</a>
       </div>
       <p class="copyright">© 2026 CaseFit India</p>
     </div>
   </div>
-
-  <div id='searchPage' class='page'>
+    <div id='searchPage' class='page'>
     <a href="#" class='back' onclick="showPage('homePage'); return false;">←</a>
     
     <div class="sticky-header">
         <div class="search-wrapper">
-            <input id='searchBox' class='search' placeholder='Search model...' oninput='handleSearchInput()'>
+            <input id='searchBox' class='search' placeholder='Search cover model...' oninput='handleSearchInput()'>
             <button id="micIcon" class="mic-btn" onclick="startVoiceSearch()">🎤</button>
         </div>
         
@@ -188,72 +153,61 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
   <div id='glassPage' class='page'>
     <a href="#" class='back' onclick="showPage('homePage'); return false;">←</a>
     <div class="sticky-header">
-        <input class='search' placeholder='Search Screen Glass (Coming Soon)...' disabled style="opacity: 0.5;">
+        <div class="search-wrapper">
+            <input id='glassSearchBox' class='search' placeholder='Search glass model...' oninput='handleGlassSearch()'>
+        </div>
+        <div id="glassResultCount" class="result-count">Showing...</div>
     </div>
-    <div class='card' style="border-color: var(--secondary); text-align:center;">
-      <div class='title' style="color: var(--secondary)">🛡️ SCREEN GLASS DATABASE</div>
-      <p class='fit' style="color: #fff; margin-top: 10px;">We are building the smartest screen glass compatibility engine.</p>
-      <div class="pulse-text" style="margin-top: 20px;">— LAUNCHING SOON —</div>
+    <div id='glassList'></div>
+    <div style="text-align: center;">
+        <div class="warning-badge">⚠️ MORE MODELS ADDING SOON</div>
     </div>
   </div>
 </div>
 
 <script>
 let databaseModels = [];
+let glassModels = [];
 let currentBrand = 'All';
 let deferredPrompt;
 let searchTimeout;
+let glassSearchTimeout;
 
-// FETCH DATA & INITIALIZE
-fetch('models.json')
-    .then(response => response.json())
-    .then(data => {
-        databaseModels = data;
-        
-        // FIX 3, 4, 5: URL Parsing & Auto Load
-        const params = new URLSearchParams(window.location.search);
-        const urlQuery = params.get('search');
-        
-        if(urlQuery) {
-            showPage('searchPage', false); // false = don't push state
-            document.getElementById('searchBox').value = urlQuery;
-            filterModels(false);
-        } else { 
-            document.getElementById('resultCount').innerText = `Total ${data.length} models ready`; 
-        }
-    })
-    .catch(() => { 
-        document.getElementById('list').innerHTML = `<div class="no-result"><h3>⚠️ Load Error</h3><button onclick="window.location.reload()" class="req-btn">🔄 Refresh App</button></div>`;
-    });
+// 1. Fetch BOTH JSON files
+Promise.all([
+    fetch('models.json').then(r => r.json()).catch(() => []),
+    fetch('glass.json').then(r => r.json()).catch(() => [])
+]).then(([cases, glass]) => {
+    databaseModels = cases;
+    glassModels = glass;
+    
+    const params = new URLSearchParams(window.location.search);
+    const urlQuery = params.get('search');
+    
+    if(urlQuery) {
+        showPage('searchPage', false);
+        document.getElementById('searchBox').value = urlQuery;
+        filterModels(false);
+    } else { 
+        document.getElementById('resultCount').innerText = `Total ${cases.length} models ready`; 
+        document.getElementById('glassResultCount').innerText = `Total ${glass.length} glasses ready`;
+    }
+});
 
-// FIX 7, 10, 11, 12: Dynamic URL & SEO Meta Tags Update
 function updateDynamicSEO(query, pushToHistory = false) {
     const url = new URL(window.location);
-    const titleTag = document.getElementById('meta-title');
-    const descTag = document.getElementById('meta-desc');
-    const canTag = document.getElementById('meta-canonical');
-
     if (query) {
         url.searchParams.set('search', query);
-        const safeQ = query.charAt(0).toUpperCase() + query.slice(1);
-        titleTag.innerText = `${safeQ} Case Compatibility | CaseFit India`;
-        descTag.content = `Find compatible back covers and exact fit screen glass for ${safeQ}. Check camera cutouts instantly on CaseFit.`;
-        canTag.href = url.href;
+        document.getElementById('meta-title').innerText = `${query} Case Compatibility | CaseFit India`;
     } else {
         url.searchParams.delete('search');
-        titleTag.innerText = `CaseFit India | Mobile Cover Compatibility Finder`;
-        descTag.content = `Find perfect mobile cover, back case and screen glass compatibility instantly for Samsung, iPhone, Redmi, Poco, Vivo, Oppo, Realme and Moto.`;
-        canTag.href = url.href.split('?')[0];
+        document.getElementById('meta-title').innerText = `CaseFit India | Mobile Cover Compatibility Finder`;
     }
     
-    if(pushToHistory) {
-        window.history.pushState({ search: query }, '', url);
-    } else {
-        window.history.replaceState({ search: query }, '', url); // Live typing replacement
-    }
+    if(pushToHistory) window.history.pushState({ search: query }, '', url);
+    else window.history.replaceState({ search: query }, '', url);
 }
 
-// FIX 9: Browser Back Button Handling
 window.addEventListener('popstate', (e) => {
     const query = new URLSearchParams(window.location.search).get('search');
     if (query) {
@@ -265,12 +219,18 @@ window.addEventListener('popstate', (e) => {
     }
 });
 
-// FIX 19: Debounced Search Input
 function handleSearchInput() {
     clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => {
-        filterModels(true, false); // true=updateURL, false=replaceState (not push)
-    }, 250); 
+    searchTimeout = setTimeout(() => filterModels(true, false), 250); 
+}
+
+function handleGlassSearch() {
+    clearTimeout(glassSearchTimeout);
+    glassSearchTimeout = setTimeout(() => {
+        const q = document.getElementById('glassSearchBox').value.toLowerCase().replace(/\s+/g, ' ').trim();
+        let filtered = glassModels.filter(m => m.n.toLowerCase().includes(q) || (m.f && m.f.toLowerCase().includes(q)));
+        renderGlass(filtered, q);
+    }, 250);
 }
 
 function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
@@ -289,7 +249,7 @@ function setBrand(brand, element) {
 
 function quickSearch(query) {
     document.getElementById('searchBox').value = query;
-    filterModels(true, true); // true=updateURL, true=pushState
+    filterModels(true, true);
 }
 
 function startVoiceSearch() {
@@ -297,39 +257,19 @@ function startVoiceSearch() {
     if (Speech) {
         const rec = new Speech();
         rec.lang = 'en-IN';
-        const mic = document.getElementById('micIcon');
-        rec.onstart = () => { mic.innerText = '⭕'; document.getElementById('searchBox').placeholder = 'Listening...'; };
-        rec.onresult = (e) => { 
-            const speechResult = e.results[0][0].transcript;
-            quickSearch(speechResult);
-            resetMic();
-        };
-        rec.onerror = () => resetMic();
+        rec.onstart = () => { document.getElementById('micIcon').innerText = '⭕'; };
+        rec.onresult = (e) => { quickSearch(e.results[0][0].transcript); resetMic(); };
         rec.onend = () => resetMic();
         rec.start();
-    } else { alert("Voice search not supported."); }
+    }
 }
+function resetMic() { document.getElementById('micIcon').innerText = '🎤'; }
 
-function resetMic() { 
-    document.getElementById('micIcon').innerText = '🎤'; 
-    document.getElementById('searchBox').placeholder = 'Search model...'; 
-}
-
-// FIX 13 & 18: Share exact link
 function shareResult(modelName, fitsText) {
     const siteUrl = window.location.origin + "/?search=" + encodeURIComponent(modelName); 
     const shareText = `📱 *Model:* ${modelName}\n✅ *Fits With:* ${fitsText || 'Exact fit only'}\n🛡️ *Verified on CaseFit India*\n\nCheck here:`;
-    if (navigator.share) {
-        navigator.share({ title: 'CaseFit India', text: shareText, url: siteUrl });
-    } else {
-        const tempInput = document.createElement("textarea");
-        tempInput.value = shareText + " \n" + siteUrl;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempInput);
-        alert("Link copied to clipboard!");
-    }
+    if (navigator.share) { navigator.share({ title: 'CaseFit India', text: shareText, url: siteUrl }); } 
+    else { alert("Share feature available on mobile browsers."); }
 }
 
 function filterModels(updateUrl = true, pushHistory = false) {
@@ -338,7 +278,6 @@ function filterModels(updateUrl = true, pushHistory = false) {
     const shortcuts = document.getElementById('quickShortcuts');
 
     shortcuts.style.display = (q === '' && currentBrand === 'All') ? 'block' : 'none';
-
     if(updateUrl) updateDynamicSEO(q, pushHistory);
 
     let filtered = databaseModels.filter(m => {
@@ -356,30 +295,25 @@ function filterModels(updateUrl = true, pushHistory = false) {
 
     if (q) {
         filtered.sort((a, b) => {
-            const aN = a.n.toLowerCase(), bN = b.n.toLowerCase();
-            if (aN === q) return -1;
-            if (bN === q) return 1;
-            return aN.startsWith(q) ? -1 : 1;
+            if (a.n.toLowerCase() === q) return -1;
+            if (b.n.toLowerCase() === q) return 1;
+            return a.n.toLowerCase().startsWith(q) ? -1 : 1;
         });
     }
-    render(filtered, q);
+    renderCases(filtered, q);
 }
 
-function render(items, q = '') {
+function renderCases(items, q = '') {
     const list = document.getElementById('list');
-    const resultCount = document.getElementById('resultCount');
-    resultCount.innerHTML = `Found ${items.length} compatible model(s)`;
+    document.getElementById('resultCount').innerHTML = `Found ${items.length} compatible cover(s)`;
 
     if (items.length === 0) {
         let suggestion = currentBrand === 'Samsung' ? 'A24' : (currentBrand === 'iPhone' ? 'iPhone 13' : 'Redmi 13C');
         list.innerHTML = `
         <div class="no-result">
             <h3>📦 No Results</h3>
-            <p>Did you mean: <span style="color:var(--primary);cursor:pointer;font-weight:700;" onclick="quickSearch('${suggestion}')">${suggestion}</span>?</p>
-            <div class="filter-scroll" style="justify-content: center; margin-top:10px;">
-                <div class="chip" onclick="quickSearch('A24')">Try A24</div>
-                <div class="chip" onclick="quickSearch('Redmi 13C')">Try 13C</div>
-            </div>
+            <p>Did you mean <span style="color:var(--primary);cursor:pointer;" onclick="quickSearch('${suggestion}')">${suggestion}</span>?</p>
+            <a href="mailto:adilpkd690@gmail.com?subject=Cover Request: ${q}" class="req-btn">📧 Request ${q} via Gmail</a>
         </div>`;
         return;
     }
@@ -393,66 +327,69 @@ function render(items, q = '') {
             ${m.open ? `<span class='badge badge-open'>OPEN TYPE</span>` : ''}
             ${m.check ? `<span class='badge badge-check'>CHECK BEFORE BUY</span>` : ''}
         </div>` : ''}
-        ${m.open || m.check ? `<div class='warning-text'>Verify camera cutout before final use.</div>` : ''}
         <div class="share-action" onclick="shareResult('${m.n}', '${m.f || ''}')"><span>🔗 Share Result</span></div>
     </div>`).join('');
 }
 
-// FIX 1, 2, 6: Robust Navigation Logic
+function renderGlass(items, q = '') {
+    const list = document.getElementById('glassList');
+    document.getElementById('glassResultCount').innerHTML = `Found ${items.length} compatible glass(es)`;
+
+    if (items.length === 0 && q !== '') {
+        list.innerHTML = `
+        <div class="no-result">
+            <h3>🛡️ No Glass Found</h3>
+            <p>We are updating our database.</p>
+            <a href="mailto:adilpkd690@gmail.com?subject=Glass Request: ${q}" class="req-btn">📧 Request ${q} via Gmail</a>
+        </div>`;
+        return;
+    } else if (q === '') {
+        list.innerHTML = '';
+        return;
+    }
+
+    list.innerHTML = items.map(m => `
+    <div class='card'>
+        <div class='title' style="color:var(--secondary);">${highlight(m.n, q)}</div>
+        <div class='fit' style="margin-top:10px;">${m.f ? highlight(m.f, q) : 'Exact fit only'}</div>
+    </div>`).join('');
+}
+
 function showPage(id, isUserClick = true) {
     try {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        const targetPage = document.getElementById(id);
-        if(targetPage) {
-            targetPage.classList.add('active');
-        }
+        document.getElementById(id).classList.add('active');
         window.scrollTo(0, 0);
         
         if(id === 'searchPage') { 
             const box = document.getElementById('searchBox');
-            if (box) {
-                // FIX 6: Blank search on normal home click
-                const currentQuery = new URLSearchParams(window.location.search).get('search');
-                if(isUserClick && !currentQuery) {
-                    box.value = ''; 
-                    currentBrand = 'All';
-                    const chips = document.querySelectorAll('#brandChips .chip');
-                    chips.forEach(c => c.classList.remove('active'));
-                    if(chips.length > 0) chips[0].classList.add('active');
-                    filterModels(false, false); 
-                }
-                // FIX 2: Auto Focus
-                setTimeout(() => box.focus(), 350); 
+            if(isUserClick && !new URLSearchParams(window.location.search).get('search')) {
+                box.value = ''; currentBrand = 'All';
+                document.querySelectorAll('#brandChips .chip').forEach(c => c.classList.remove('active'));
+                document.querySelector('#brandChips .chip').classList.add('active');
+                filterModels(false, false); 
             }
-        } else if (id === 'homePage' && isUserClick) {
-            // FIX 8 & 9: Reset URL when manually returning to home
-            updateDynamicSEO('', true);
+            setTimeout(() => box.focus(), 350); 
+        } 
+        else if(id === 'glassPage') {
+            const gBox = document.getElementById('glassSearchBox');
+            if(isUserClick) { gBox.value = ''; filterGlass(); }
+            setTimeout(() => gBox.focus(), 350);
         }
-    } catch (error) {
-        console.error("Navigation error:", error);
-    }
+        else if (id === 'homePage' && isUserClick) { updateDynamicSEO('', true); }
+    } catch (e) { console.error("Navigation error:", e); }
 }
 
-// PWA Install Code
 window.addEventListener('beforeinstallprompt', (e) => { 
-    e.preventDefault(); 
-    deferredPrompt = e; 
-    if (!window.matchMedia('(display-mode: standalone)').matches) {
-        document.getElementById('installBtn').style.display = 'flex';
-    }
+    e.preventDefault(); deferredPrompt = e; 
+    if (!window.matchMedia('(display-mode: standalone)').matches) document.getElementById('installBtn').style.display = 'flex';
 });
 
 function handleInstall() {
     if (deferredPrompt) {
         deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choice) => { 
-            if (choice.outcome === 'accepted') {
-                document.getElementById('installBtn').style.display = 'none'; 
-            }
-        });
-    } else { 
-        alert("To install: Tap 'Share' ⬆️ then 'Add to Home Screen'"); 
-    }
+        deferredPrompt.userChoice.then((c) => { if (c.outcome === 'accepted') document.getElementById('installBtn').style.display = 'none'; });
+    } else { alert("To install: Tap 'Share' ⬆️ then 'Add to Home Screen'"); }
 }
 
 const manifestData = {
@@ -460,7 +397,6 @@ const manifestData = {
     "icons": [{"src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%2300f2fe'><rect width='192' height='192' fill='%230f172a'/><text x='50%' y='55%' font-size='80' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%2300f2fe'>CF</text></svg>", "sizes": "192x192", "type": "image/svg+xml"}]
 };
 document.getElementById('manifest-link').href = URL.createObjectURL(new Blob([JSON.stringify(manifestData)], {type: 'application/json'}));
-
 </script>
 </body>
 </html>

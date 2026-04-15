@@ -49,13 +49,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#0f172a" />
     
-    <title>CaseFit India | Mobile Cover Compatibility Finder</title>
+    <title id="meta-title">CaseFit India | Mobile Cover Compatibility Finder</title>
+    <meta id="meta-desc" name="description" content="Find perfect mobile cover, back case and screen glass compatibility instantly for Samsung, iPhone, Redmi, Poco, Vivo, Oppo, Realme and Moto." />
+    <link id="meta-canonical" rel="canonical" href="https://casefit-india.vercel.app/" />
     
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="keywords" content="mobile cover finder, phone case compatibility, samsung case fit, iphone case finder, redmi cover fit, casefit india" />
-    <link rel="canonical" href="https://casefit-india.vercel.app/" />
-    
-    <meta name="description" content="Find perfect mobile cover, back case and screen glass compatibility instantly for Samsung, iPhone, Redmi, Poco, Vivo, Oppo, Realme and Moto." />
     <meta name="google-site-verification" content="0Yegi8It1AfRKBnGlaUFiWRm9j7wvVjKZXNQa_fvDLo" />
 
     <meta property="og:title" content="CaseFit India | Mobile Cover Compatibility Finder" />
@@ -72,12 +71,7 @@
     <link rel="manifest" id="manifest-link" />
 
 <style>
-:root {
-  --primary: #00f2fe; --secondary: #4facfe; --bg-dark: #0f172a;
-  --glass: rgba(255, 255, 255, 0.05); --glass-active: rgba(0, 242, 254, 0.15);
-  --glass-border: rgba(255, 255, 255, 0.1); --warning: #ff7675;
-  --model-green: #2ecc71; --text-dim: #94a3b8; --share-btn: rgba(37, 211, 102, 0.15);
-}
+:root { --primary: #00f2fe; --secondary: #4facfe; --bg-dark: #0f172a; --glass: rgba(255, 255, 255, 0.05); --glass-active: rgba(0, 242, 254, 0.15); --glass-border: rgba(255, 255, 255, 0.1); --warning: #ff7675; --model-green: #2ecc71; --text-dim: #94a3b8; --share-btn: rgba(37, 211, 102, 0.15); }
 body { margin: 0; background: radial-gradient(circle at top, #1e293b, #0f172a); background-attachment: fixed; color: #f8fafc; font-family: 'Inter', -apple-system, sans-serif; min-height: 100vh; }
 .wrap { max-width: 430px; margin: 0 auto; padding: 30px 20px 40px; }
 .logo-container { text-align: center; margin: 20px 0 35px; }
@@ -86,7 +80,7 @@ body { margin: 0; background: radial-gradient(circle at top, #1e293b, #0f172a); 
 .casebtn { background: linear-gradient(135deg, #05d5ff, #007bff); border: none; box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3); }
 .glassbtn { border-color: rgba(72, 199, 245, 0.5); color: #48c7f5; }
 #installBtn { display: none; background: rgba(46, 204, 113, 0.15); border-color: rgba(46, 204, 113, 0.4); color: #2ecc71; font-size: 16px; padding: 16px; margin-top: 5px; }
-@keyframes softPulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+@keyframes softPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 .pulse-text { margin-top: 25px; text-align: center; font-size: 11px; letter-spacing: 2px; font-weight: 700; color: var(--secondary); animation: softPulse 3s infinite ease-in-out; }
 .sticky-header { position: sticky; top: 10px; z-index: 100; margin-bottom: 15px; }
 .search-wrapper { position: relative; width: 100%; }
@@ -162,7 +156,7 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
     
     <div class="sticky-header">
         <div class="search-wrapper">
-            <input id='searchBox' class='search' placeholder='Search model...' oninput='filterModels()'>
+            <input id='searchBox' class='search' placeholder='Search model...' oninput='handleSearchInput()'>
             <button id="micIcon" class="mic-btn" onclick="startVoiceSearch()">🎤</button>
         </div>
         
@@ -183,10 +177,8 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
         <div class="section-title">🔥 Popular Shortcuts</div>
         <div class="filter-scroll">
             <div class="chip" onclick="quickSearch('A24')">Samsung A24</div>
-            <div class="chip" onclick="quickSearch('A14')">Samsung A14</div>
             <div class="chip" onclick="quickSearch('iPhone 13')">iPhone 13</div>
             <div class="chip" onclick="quickSearch('Redmi 13C')">Redmi 13C</div>
-            <div class="chip" onclick="quickSearch('Pixel 9')">Pixel 9</div>
         </div>
     </div>
     
@@ -210,21 +202,22 @@ mark { background-color: rgba(0, 242, 254, 0.25); color: #fff; border-radius: 4p
 let databaseModels = [];
 let currentBrand = 'All';
 let deferredPrompt;
+let searchTimeout;
 
+// FETCH DATA & INITIALIZE
 fetch('models.json')
     .then(response => response.json())
     .then(data => {
         databaseModels = data;
         
+        // FIX 3, 4, 5: URL Parsing & Auto Load
         const params = new URLSearchParams(window.location.search);
         const urlQuery = params.get('search');
         
         if(urlQuery) {
-            showPage('searchPage');
+            showPage('searchPage', false); // false = don't push state
             document.getElementById('searchBox').value = urlQuery;
-            filterModels();
-        } else if(document.getElementById('searchPage').classList.contains('active')) { 
-            filterModels(); 
+            filterModels(false);
         } else { 
             document.getElementById('resultCount').innerText = `Total ${data.length} models ready`; 
         }
@@ -232,6 +225,53 @@ fetch('models.json')
     .catch(() => { 
         document.getElementById('list').innerHTML = `<div class="no-result"><h3>⚠️ Load Error</h3><button onclick="window.location.reload()" class="req-btn">🔄 Refresh App</button></div>`;
     });
+
+// FIX 7, 10, 11, 12: Dynamic URL & SEO Meta Tags Update
+function updateDynamicSEO(query, pushToHistory = false) {
+    const url = new URL(window.location);
+    const titleTag = document.getElementById('meta-title');
+    const descTag = document.getElementById('meta-desc');
+    const canTag = document.getElementById('meta-canonical');
+
+    if (query) {
+        url.searchParams.set('search', query);
+        const safeQ = query.charAt(0).toUpperCase() + query.slice(1);
+        titleTag.innerText = `${safeQ} Case Compatibility | CaseFit India`;
+        descTag.content = `Find compatible back covers and exact fit screen glass for ${safeQ}. Check camera cutouts instantly on CaseFit.`;
+        canTag.href = url.href;
+    } else {
+        url.searchParams.delete('search');
+        titleTag.innerText = `CaseFit India | Mobile Cover Compatibility Finder`;
+        descTag.content = `Find perfect mobile cover, back case and screen glass compatibility instantly for Samsung, iPhone, Redmi, Poco, Vivo, Oppo, Realme and Moto.`;
+        canTag.href = url.href.split('?')[0];
+    }
+    
+    if(pushToHistory) {
+        window.history.pushState({ search: query }, '', url);
+    } else {
+        window.history.replaceState({ search: query }, '', url); // Live typing replacement
+    }
+}
+
+// FIX 9: Browser Back Button Handling
+window.addEventListener('popstate', (e) => {
+    const query = new URLSearchParams(window.location.search).get('search');
+    if (query) {
+        showPage('searchPage', false);
+        document.getElementById('searchBox').value = query;
+        filterModels(false, false); 
+    } else {
+        showPage('homePage', false);
+    }
+});
+
+// FIX 19: Debounced Search Input
+function handleSearchInput() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        filterModels(true, false); // true=updateURL, false=replaceState (not push)
+    }, 250); 
+}
 
 function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 function highlight(text, q) {
@@ -244,12 +284,12 @@ function setBrand(brand, element) {
     document.querySelectorAll('#brandChips .chip').forEach(c => c.classList.remove('active'));
     element.classList.add('active');
     document.getElementById('searchBox').value = ''; 
-    filterModels();
+    filterModels(true, false);
 }
 
 function quickSearch(query) {
     document.getElementById('searchBox').value = query;
-    filterModels();
+    filterModels(true, true); // true=updateURL, true=pushState
 }
 
 function startVoiceSearch() {
@@ -275,6 +315,7 @@ function resetMic() {
     document.getElementById('searchBox').placeholder = 'Search model...'; 
 }
 
+// FIX 13 & 18: Share exact link
 function shareResult(modelName, fitsText) {
     const siteUrl = window.location.origin + "/?search=" + encodeURIComponent(modelName); 
     const shareText = `📱 *Model:* ${modelName}\n✅ *Fits With:* ${fitsText || 'Exact fit only'}\n🛡️ *Verified on CaseFit India*\n\nCheck here:`;
@@ -282,7 +323,7 @@ function shareResult(modelName, fitsText) {
         navigator.share({ title: 'CaseFit India', text: shareText, url: siteUrl });
     } else {
         const tempInput = document.createElement("textarea");
-        tempInput.value = shareText + " " + siteUrl;
+        tempInput.value = shareText + " \n" + siteUrl;
         document.body.appendChild(tempInput);
         tempInput.select();
         document.execCommand("copy");
@@ -291,46 +332,14 @@ function shareResult(modelName, fitsText) {
     }
 }
 
-function render(items, q = '') {
-    const list = document.getElementById('list');
-    const resultCount = document.getElementById('resultCount');
-    resultCount.innerHTML = `Found ${items.length} compatible model(s)`;
-
-    if (items.length === 0) {
-        let suggestion = currentBrand === 'Samsung' ? 'A24' : (currentBrand === 'iPhone' ? 'iPhone 13' : 'Redmi 13C');
-        list.innerHTML = `
-        <div class="no-result">
-            <h3>📦 No Results</h3>
-            <p>Did you mean: <span style="color:var(--primary);cursor:pointer;font-weight:700;" onclick="quickSearch('${suggestion}')">${suggestion}</span>?</p>
-            <div class="filter-scroll" style="justify-content: center; margin-top:10px;">
-                <div class="chip" onclick="quickSearch('A24')">Try A24</div>
-                <div class="chip" onclick="quickSearch('Redmi 13C')">Try 13C</div>
-            </div>
-            <a href="mailto:adilpkd690@gmail.com?subject=Model Request - CaseFit: ${q}" class="req-btn">📧 Request Model</a>
-        </div>`;
-        return;
-    }
-
-    list.innerHTML = items.map(m => `
-    <div class='card'>
-        ${m.new ? `<div class='badge-new'>NEW</div>` : ''}
-        <div class='title'>${highlight(m.n, q)}</div>
-        <div class='fit'>${m.f ? 'Also fits ' + highlight(m.f, q) : 'Exact fit only'}</div>
-        ${m.open || m.check ? `<div class='badges'>
-            ${m.open ? `<span class='badge badge-open'>OPEN TYPE</span>` : ''}
-            ${m.check ? `<span class='badge badge-check'>CHECK BEFORE BUY</span>` : ''}
-        </div>` : ''}
-        ${m.open || m.check ? `<div class='warning-text'>Verify camera cutout before final use.</div>` : ''}
-        <div class="share-action" onclick="shareResult('${m.n}', '${m.f || ''}')"><span>🔗 Share Result</span></div>
-    </div>`).join('');
-}
-
-function filterModels() {
+function filterModels(updateUrl = true, pushHistory = false) {
     const box = document.getElementById('searchBox');
     const q = box.value.toLowerCase().replace(/\s+/g, ' ').trim();
     const shortcuts = document.getElementById('quickShortcuts');
 
     shortcuts.style.display = (q === '' && currentBrand === 'All') ? 'block' : 'none';
+
+    if(updateUrl) updateDynamicSEO(q, pushHistory);
 
     let filtered = databaseModels.filter(m => {
         const nL = m.n.toLowerCase();
@@ -356,7 +365,41 @@ function filterModels() {
     render(filtered, q);
 }
 
-function showPage(id) {
+function render(items, q = '') {
+    const list = document.getElementById('list');
+    const resultCount = document.getElementById('resultCount');
+    resultCount.innerHTML = `Found ${items.length} compatible model(s)`;
+
+    if (items.length === 0) {
+        let suggestion = currentBrand === 'Samsung' ? 'A24' : (currentBrand === 'iPhone' ? 'iPhone 13' : 'Redmi 13C');
+        list.innerHTML = `
+        <div class="no-result">
+            <h3>📦 No Results</h3>
+            <p>Did you mean: <span style="color:var(--primary);cursor:pointer;font-weight:700;" onclick="quickSearch('${suggestion}')">${suggestion}</span>?</p>
+            <div class="filter-scroll" style="justify-content: center; margin-top:10px;">
+                <div class="chip" onclick="quickSearch('A24')">Try A24</div>
+                <div class="chip" onclick="quickSearch('Redmi 13C')">Try 13C</div>
+            </div>
+        </div>`;
+        return;
+    }
+
+    list.innerHTML = items.map(m => `
+    <div class='card'>
+        ${m.new ? `<div class='badge-new'>NEW</div>` : ''}
+        <div class='title'>${highlight(m.n, q)}</div>
+        <div class='fit'>${m.f ? 'Also fits ' + highlight(m.f, q) : 'Exact fit only'}</div>
+        ${m.open || m.check ? `<div class='badges'>
+            ${m.open ? `<span class='badge badge-open'>OPEN TYPE</span>` : ''}
+            ${m.check ? `<span class='badge badge-check'>CHECK BEFORE BUY</span>` : ''}
+        </div>` : ''}
+        ${m.open || m.check ? `<div class='warning-text'>Verify camera cutout before final use.</div>` : ''}
+        <div class="share-action" onclick="shareResult('${m.n}', '${m.f || ''}')"><span>🔗 Share Result</span></div>
+    </div>`).join('');
+}
+
+// FIX 1, 2, 6: Robust Navigation Logic
+function showPage(id, isUserClick = true) {
     try {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         const targetPage = document.getElementById(id);
@@ -368,21 +411,29 @@ function showPage(id) {
         if(id === 'searchPage') { 
             const box = document.getElementById('searchBox');
             if (box) {
-                box.value = ''; 
-                currentBrand = 'All';
-                const chips = document.querySelectorAll('#brandChips .chip');
-                chips.forEach(c => c.classList.remove('active'));
-                if(chips.length > 0) chips[0].classList.add('active');
-                
-                filterModels(); 
+                // FIX 6: Blank search on normal home click
+                const currentQuery = new URLSearchParams(window.location.search).get('search');
+                if(isUserClick && !currentQuery) {
+                    box.value = ''; 
+                    currentBrand = 'All';
+                    const chips = document.querySelectorAll('#brandChips .chip');
+                    chips.forEach(c => c.classList.remove('active'));
+                    if(chips.length > 0) chips[0].classList.add('active');
+                    filterModels(false, false); 
+                }
+                // FIX 2: Auto Focus
                 setTimeout(() => box.focus(), 350); 
             }
+        } else if (id === 'homePage' && isUserClick) {
+            // FIX 8 & 9: Reset URL when manually returning to home
+            updateDynamicSEO('', true);
         }
     } catch (error) {
         console.error("Navigation error:", error);
     }
 }
 
+// PWA Install Code
 window.addEventListener('beforeinstallprompt', (e) => { 
     e.preventDefault(); 
     deferredPrompt = e; 
